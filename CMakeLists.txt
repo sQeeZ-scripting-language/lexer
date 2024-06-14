@@ -12,4 +12,4 @@ set(SOURCES
     include/interpreter.hpp
 )
 
-add_executable(interpreter ${SOURCES})
+add_executable(sQeeZ ${SOURCES})
