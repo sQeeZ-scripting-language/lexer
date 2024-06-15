@@ -6,10 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
-set(SOURCES
-    src/main.cpp
-    src/interpreter.cpp
-    include/interpreter.hpp
-)
+add_subdirectory(src)
 
-add_executable(sQeeZ ${SOURCES})
+add_executable(sQeeZ src/main.cpp)
+
+target_link_libraries(sQeeZ src)
