@@ -2,23 +2,25 @@
 #define LEXER_HPP
 
 #include <string>
-#include <vector>
+#include <cctype>
+#include <unordered_map>
 #include "token.hpp"
 
 class Lexer {
 public:
     Lexer(const std::string& code);
-
     Token getNextToken();
+    
+    const std::string code;
+    size_t currentPosition;
+    std::unordered_map<std::string, Token(*)(Lexer&)> tokenRecognizers;
 
 private:
-    std::string code;
-    size_t currentPosition;
-
+    void registerTokenRecognizers();
+    void skipWhitespace();
     bool isEOF();
     char peek();
     char advance();
-    void skipWhitespace();
 };
 
 #endif

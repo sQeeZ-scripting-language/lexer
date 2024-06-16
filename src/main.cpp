@@ -1,5 +1,3 @@
-#include <iostream>
-#include <fstream>
 #include "interpreter.hpp"
 
 int main(int argc, char *argv[]) {

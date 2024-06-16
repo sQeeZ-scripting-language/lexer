@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <fstream>
+#include "lexer/lexer.hpp"
 
 class Interpreter {
     

@@ -1,18 +1,28 @@
 #include "lexer/lexer.hpp"
-#include <cctype>
+#include "lexer/token_recognizers/keyword_recognizers.hpp"
 
-Lexer::Lexer(const std::string& code) : code(code), currentPosition(0) { }
+Lexer::Lexer(const std::string& code) : code(code), currentPosition(0) {
+    registerTokenRecognizers();
+}
+
+void Lexer::registerTokenRecognizers() {
+    registerKeywordRecognizers(tokenRecognizers);
+}
 
 Token Lexer::getNextToken() {
     skipWhitespace();
     if (isEOF()) {
-        return {TokenType::TOKEN_EOF, ""};
+        return {TokenType::TOKEN_EOF, "EOF"};
+    }
+
+    for (const auto& recognizer : tokenRecognizers) {
+        size_t originalPosition = currentPosition;
+        Token token = recognizer.second(*this);
+        if (token.type != TokenType::TOKEN_UNKNOWN) return token;
+        currentPosition = originalPosition;
     }
 
     char currentChar = peek();
-    if (currentChar == 'l' && code.substr(currentPosition, 3) == "log") {
-        return {TokenType::TOKEN_LOG, "log"};
-    }
     advance();
     return {TokenType::TOKEN_UNKNOWN, std::string(1, currentChar)};
 }

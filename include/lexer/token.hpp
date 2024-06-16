@@ -4,6 +4,8 @@
 enum class TokenType {
     TOKEN_EOF,
     TOKEN_LOG,
+    TOKEN_IF,
+    TOKEN_ELSE,
     TOKEN_UNKNOWN
 };
 
