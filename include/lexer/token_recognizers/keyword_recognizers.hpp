@@ -9,6 +9,9 @@ using TokenRecognizer = Token (*)(Lexer&);
 
 Token recognizeIfKeyword(Lexer& lexer);
 Token recognizeElseKeyword(Lexer& lexer);
+
+bool checkIfKeyword(const std::string& keyword, Lexer& lexer);
+
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
 #endif
