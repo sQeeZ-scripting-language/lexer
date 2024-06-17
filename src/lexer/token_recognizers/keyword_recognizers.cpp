@@ -58,7 +58,7 @@ Token recognizeConstKeyword(Lexer& lexer) {
 bool checkIfKeyword(const std::string& keyword, Lexer& lexer) {
     bool isKeyword = lexer.code.substr(lexer.currentPosition, keyword.size()) == keyword
         && lexer.currentPosition + keyword.size() < lexer.code.size()
-        && !isalpha(lexer.code[lexer.currentPosition + keyword.size()]);
+        && isspace(lexer.code[lexer.currentPosition + keyword.size()]);
     if (isKeyword) lexer.currentPosition += keyword.size();
     return isKeyword;
 }

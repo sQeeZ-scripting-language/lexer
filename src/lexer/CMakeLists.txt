@@ -1,6 +1,7 @@
 set(LEXER_SOURCES
     lexer.cpp
     token_recognizers/keyword_recognizers.cpp
+    token_recognizers/operator_recognizers.cpp
     token_recognizers/log_recognizers.cpp
 )
 

@@ -18,7 +18,7 @@ Token recognizeErrorLog(Lexer& lexer) {
 bool checkIfLogKeyword(const std::string& keyword, Lexer& lexer) {
     bool isLogger = lexer.code.substr(lexer.currentPosition, keyword.size()) == keyword
         && lexer.currentPosition + keyword.size() < lexer.code.size()
-        && !isalpha(lexer.code[lexer.currentPosition + keyword.size()]);
+        && lexer.code[lexer.currentPosition + keyword.size()] == '(';
     if (isLogger) lexer.currentPosition += keyword.size();
     return isLogger;
 }
