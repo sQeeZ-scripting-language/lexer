@@ -7,19 +7,17 @@
 
 using TokenRecognizer = Token (*)(Lexer&);
 
-Token recognizeIfKeyword(Lexer& lexer);
-Token recognizeElseKeyword(Lexer& lexer);
-Token recognizeElseIfKeyword(Lexer& lexer);
-Token recognizeForKeyword(Lexer& lexer);
-Token recognizeInKeyword(Lexer& lexer);
-Token recognizeBreakKeyword(Lexer& lexer);
-Token recognizeContinueKeyword(Lexer& lexer);
-Token recognizeReturnKeyword(Lexer& lexer);
-Token recognizeFunctionKeyword(Lexer& lexer);
-Token recognizeLetKeyword(Lexer& lexer);
-Token recognizeConstKeyword(Lexer& lexer);
-
-bool checkIfKeyword(const std::string& keyword, Lexer& lexer);
+Token recognizeLet(Lexer& lexer);
+Token recognizeConst(Lexer& lexer);
+Token recognizeIf(Lexer& lexer);
+Token recognizeElse(Lexer& lexer);
+Token recognizeElseIf(Lexer& lexer);
+Token recognizeFor(Lexer& lexer);
+Token recognizeIn(Lexer& lexer);
+Token recognizeBreak(Lexer& lexer);
+Token recognizeContinue(Lexer& lexer);
+Token recognizeFunction(Lexer& lexer);
+Token recognizeReturn(Lexer& lexer);
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

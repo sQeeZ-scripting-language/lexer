@@ -1,78 +1,103 @@
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 
-Token recognizeIfKeyword(Lexer& lexer) {
-    if (checkIfKeyword("if", lexer)) return {TokenType::TOKEN_IF, "if"};
+Token recognizeLet(Lexer& lexer) {
+    if (lexer.checkKeyword("let")) {
+        lexer.skip(3);
+        return {TokenType::TOKEN_LET, "let", "Variable declaration"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeElseKeyword(Lexer& lexer) {
-    if (checkIfKeyword("else", lexer)) return {TokenType::TOKEN_ELSE, "else"};
+Token recognizeConst(Lexer& lexer) {
+    if (lexer.checkKeyword("const")) {
+        lexer.skip(5);
+        return {TokenType::TOKEN_CONST, "const", "Constant declaration"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeElseIfKeyword(Lexer& lexer) {
-    if (checkIfKeyword("elif", lexer)) return {TokenType::TOKEN_ELSE_IF, "elif"};
+Token recognizeIf(Lexer& lexer) {
+    if (lexer.checkKeyword("if")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_IF, "if", "Conditional statement"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeForKeyword(Lexer& lexer) {
-    if (checkIfKeyword("for", lexer)) return {TokenType::TOKEN_FOR, "for"};
+Token recognizeElse(Lexer& lexer) {
+    if (lexer.checkKeyword("else")) {
+        lexer.skip(4);
+        return {TokenType::TOKEN_ELSE, "else", "Else statement"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeInKeyword(Lexer& lexer) {
-    if (checkIfKeyword("in", lexer)) return {TokenType::TOKEN_IN, "in"};
+Token recognizeElseIf(Lexer& lexer) {
+    if (lexer.checkKeyword("elif")) {
+        lexer.skip(4);
+        return {TokenType::TOKEN_ELSE_IF, "elif", "Else if statement"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeBreakKeyword(Lexer& lexer) {
-    if (checkIfKeyword("break", lexer)) return {TokenType::TOKEN_BREAK, "break"};
+Token recognizeFor(Lexer& lexer) {
+    if (lexer.checkKeyword("for")) {
+        lexer.skip(3);
+        return {TokenType::TOKEN_FOR, "for", "For loop"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeContinueKeyword(Lexer& lexer) {
-    if (checkIfKeyword("continue", lexer)) return {TokenType::TOKEN_CONTINUE, "continue"};
+Token recognizeIn(Lexer& lexer) {
+    if (lexer.checkKeyword("in")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_IN, "in", "In keyword"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeReturnKeyword(Lexer& lexer) {
-    if (checkIfKeyword("return", lexer)) return {TokenType::TOKEN_RETURN, "return"};
+Token recognizeBreak(Lexer& lexer) {
+    if (lexer.checkKeyword("break")) {
+        lexer.skip(5);
+        return {TokenType::TOKEN_BREAK, "break", "Break keyword"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeFunctionKeyword(Lexer& lexer) {
-    if (checkIfKeyword("fn", lexer)) return {TokenType::TOKEN_FUNCTION, "fn"};
+Token recognizeContinue(Lexer& lexer) {
+    if (lexer.checkKeyword("continue")) {
+        lexer.skip(8);
+        return {TokenType::TOKEN_CONTINUE, "continue", "Continue keyword"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeLetKeyword(Lexer& lexer) {
-    if (checkIfKeyword("let", lexer)) return {TokenType::TOKEN_LET, "let"};
+Token recognizeFunction(Lexer& lexer) {
+    if (lexer.checkKeyword("fn")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_FUNCTION, "fn", "Function declaration"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeConstKeyword(Lexer& lexer) {
-    if (checkIfKeyword("const", lexer)) return {TokenType::TOKEN_CONST, "const"};
+Token recognizeReturn(Lexer& lexer) {
+    if (lexer.checkKeyword("return")) {
+        lexer.skip(6);
+        return {TokenType::TOKEN_RETURN, "return", "Return keyword"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
-}
-
-bool checkIfKeyword(const std::string& keyword, Lexer& lexer) {
-    bool isKeyword = lexer.code.substr(lexer.currentPosition, keyword.size()) == keyword
-        && lexer.currentPosition + keyword.size() < lexer.code.size()
-        && isspace(lexer.code[lexer.currentPosition + keyword.size()]);
-    if (isKeyword) lexer.currentPosition += keyword.size();
-    return isKeyword;
 }
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
-    tokenRecognizers["if"] = recognizeIfKeyword;
-    tokenRecognizers["else"] = recognizeElseKeyword;
-    tokenRecognizers["elif"] = recognizeElseIfKeyword;
-    tokenRecognizers["for"] = recognizeForKeyword;
-    tokenRecognizers["in"] = recognizeInKeyword;
-    tokenRecognizers["break"] = recognizeBreakKeyword;
-    tokenRecognizers["continue"] = recognizeContinueKeyword;
-    tokenRecognizers["return"] = recognizeReturnKeyword;
-    tokenRecognizers["fn"] = recognizeFunctionKeyword;
-    tokenRecognizers["let"] = recognizeLetKeyword;
-    tokenRecognizers["const"] = recognizeConstKeyword;
+    tokenRecognizers["let"] = recognizeLet;
+    tokenRecognizers["const"] = recognizeConst;
+    tokenRecognizers["if"] = recognizeIf;
+    tokenRecognizers["else"] = recognizeElse;
+    tokenRecognizers["elif"] = recognizeElseIf;
+    tokenRecognizers["for"] = recognizeFor;
+    tokenRecognizers["in"] = recognizeIn;
+    tokenRecognizers["break"] = recognizeBreak;
+    tokenRecognizers["continue"] = recognizeContinue;
+    tokenRecognizers["fn"] = recognizeFunction;
+    tokenRecognizers["return"] = recognizeReturn;
 }
