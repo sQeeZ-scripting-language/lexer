@@ -1,5 +1,8 @@
 #include "lexer/lexer.hpp"
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
+#include "lexer/token_recognizers/syntax_recognizers.hpp"
+#include "lexer/token_recognizers/logical_recognizers.hpp"
+#include "lexer/token_recognizers/operator_recognizers.hpp"
 #include "lexer/token_recognizers/log_recognizers.hpp"
 
 Lexer::Lexer(const std::string& code) : code(code), currentPosition(0) {
@@ -8,6 +11,9 @@ Lexer::Lexer(const std::string& code) : code(code), currentPosition(0) {
 
 void Lexer::registerTokenRecognizers() {
     registerKeywordRecognizers(tokenRecognizers);
+    registerSyntaxRecognizers(tokenRecognizers);
+    registerLogicalRecognizers(tokenRecognizers);
+    registerOperatorRecognizers(tokenRecognizers);
     registerLogRecognizers(tokenRecognizers);
 }
 

@@ -52,7 +52,7 @@ bool checkIfLogicalOperator(const std::string& keyword, Lexer& lexer) {
     return isLogicalOperator;
 }
 
-void registerLogicalOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
+void registerLogicalRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
     tokenRecognizers["=="] = recognizeEqual;
     tokenRecognizers["!="] = recognizeNotEqual;
     tokenRecognizers[">"] = recognizeGreater;

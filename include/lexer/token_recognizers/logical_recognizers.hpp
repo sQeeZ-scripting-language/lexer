@@ -19,6 +19,6 @@ Token recognizeNot(Lexer& lexer);
 
 bool checkIfLogicalOperator(const std::string& keyword, Lexer& lexer);
 
-void registerLogicalOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
+void registerLogicalRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
 #endif
