@@ -20,7 +20,7 @@ void Lexer::registerTokenRecognizers() {
 Token Lexer::getNextToken() {
     skipWhitespace();
     if (isEOF()) {
-        return {TokenType::TOKEN_EOF, "EOF"};
+        return {TokenType::TOKEN_EOF, "EOF", "The end of the file"};
     }
 
     for (const auto& recognizer : tokenRecognizers) {
@@ -33,6 +33,14 @@ Token Lexer::getNextToken() {
     char currentChar = peek();
     advance();
     return {TokenType::TOKEN_UNKNOWN, std::string(1, currentChar)};
+}
+
+bool Lexer::checkKeyword(const std::string& keyword) {
+    return code.substr(currentPosition, keyword.size()) == keyword;
+}
+
+void Lexer::skip(size_t size) {
+    currentPosition += size;
 }
 
 bool Lexer::isEOF() {
