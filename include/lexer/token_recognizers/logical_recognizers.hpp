@@ -17,8 +17,6 @@ Token recognizeAnd(Lexer& lexer);
 Token recognizeOr(Lexer& lexer);
 Token recognizeNot(Lexer& lexer);
 
-bool checkIfLogicalOperator(const std::string& keyword, Lexer& lexer);
-
 void registerLogicalRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
 #endif

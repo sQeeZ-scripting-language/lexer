@@ -1,55 +1,75 @@
 #include "lexer/token_recognizers/logical_recognizers.hpp"
 
 Token recognizeEqual(Lexer& lexer) {
-    if (checkIfLogicalOperator("==", lexer)) return {TokenType::TOKEN_EQUAL, "=="};
+    if (lexer.checkKeyword("==")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_EQUAL, "==", "Equal"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 Token recognizeNotEqual(Lexer& lexer) {
-    if (checkIfLogicalOperator("!=", lexer)) return {TokenType::TOKEN_NOT_EQUAL, "!="};
+    if (lexer.checkKeyword("!=")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_NOT_EQUAL, "!=", "Not Equal"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 Token recognizeGreater(Lexer& lexer) {
-    if (checkIfLogicalOperator(">", lexer)) return {TokenType::TOKEN_GREATER, ">"};
+    if (lexer.checkKeyword(">") && !lexer.checkKeyword(">=")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_GREATER, ">", "Greater"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 Token recognizeLess(Lexer& lexer) {
-    if (checkIfLogicalOperator("<", lexer)) return {TokenType::TOKEN_LESS, "<"};
+    if (lexer.checkKeyword("<")  && !lexer.checkKeyword("<=")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_LESS, "<", "Less"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 Token recognizeGreaterEqual(Lexer& lexer) {
-    if (checkIfLogicalOperator(">=", lexer)) return {TokenType::TOKEN_GREATER_EQUAL, ">="};
+    if (lexer.checkKeyword(">=")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_GREATER_EQUAL, ">=", "Greater Equal"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 Token recognizeLessEqual(Lexer& lexer) {
-    if (checkIfLogicalOperator("<=", lexer)) return {TokenType::TOKEN_LESS_EQUAL, "<="};
+    if (lexer.checkKeyword("<=")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_LESS_EQUAL, "<=", "Less Equal"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 Token recognizeAnd(Lexer& lexer) {
-    if (checkIfLogicalOperator("&&", lexer)) return {TokenType::TOKEN_AND, "&&"};
+    if (lexer.checkKeyword("&&")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_AND, "&&", "And"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 Token recognizeOr(Lexer& lexer) {
-    if (checkIfLogicalOperator("||", lexer)) return {TokenType::TOKEN_OR, "||"};
+    if (lexer.checkKeyword("||")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_OR, "||", "Or"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 Token recognizeNot(Lexer& lexer) {
-    if (checkIfLogicalOperator("!", lexer)) return {TokenType::TOKEN_NOT, "!"};
+    if (lexer.checkKeyword("!") && !lexer.checkKeyword("!=")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_NOT, "!", "Not"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
-}
-
-bool checkIfLogicalOperator(const std::string& keyword, Lexer& lexer) {
-    bool isLogicalOperator = lexer.code.substr(lexer.currentPosition, keyword.size()) == keyword
-        && lexer.currentPosition + keyword.size() < lexer.code.size();
-    if (isLogicalOperator) lexer.currentPosition += keyword.size();
-    return isLogicalOperator;
 }
 
 void registerLogicalRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
