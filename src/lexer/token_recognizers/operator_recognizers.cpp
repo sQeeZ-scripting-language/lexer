@@ -1,96 +1,139 @@
 #include "lexer/token_recognizers/operator_recognizers.hpp"
 
-Token recognizeAdditionOperator(Lexer& lexer) {
-    if (checkIfOperator("+", lexer)) return {TokenType::TOKEN_ADDITION, "+"};
+Token recognizeAssign(Lexer& lexer) {
+    if (lexer.checkKeyword("=") && !lexer.checkKeyword("==")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_ASSIGN, "=", "Assign"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeSubtractionOperator(Lexer& lexer) {
-    if (checkIfOperator("-", lexer)) return {TokenType::TOKEN_SUBTRACTION, "-"};
+Token recognizeAddition(Lexer& lexer) {
+    if (lexer.checkKeyword("+") && !lexer.checkKeyword("++") && !lexer.checkKeyword("+=")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_ADDITION, "+", "Addition"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeMultiplicationOperator(Lexer& lexer) {
-    if (checkIfOperator("*", lexer)) return {TokenType::TOKEN_MULTIPLICATION, "*"};
+Token recognizeSubtraction(Lexer& lexer) {
+    if (lexer.checkKeyword("-") && !lexer.checkKeyword("--") && !lexer.checkKeyword("-=")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_SUBTRACTION, "-", "Subtraction"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeDivisionOperator(Lexer& lexer) {
-    if (checkIfOperator("/", lexer)) return {TokenType::TOKEN_DIVISION, "/"};
+Token recognizeMultiplication(Lexer& lexer) {
+    if (lexer.checkKeyword("*") && !lexer.checkKeyword("**") && !lexer.checkKeyword("*=")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_MULTIPLICATION, "*", "Multiplication"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeModulusOperator(Lexer& lexer) {
-    if (checkIfOperator("%", lexer)) return {TokenType::TOKEN_MODULUS, "%"};
+Token recognizeDivision(Lexer& lexer) {
+    if (lexer.checkKeyword("/") && !lexer.checkKeyword("//") && !lexer.checkKeyword("/=")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_DIVISION, "/", "Division"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeAdditionAssignmentOperator(Lexer& lexer) {
-    if (checkIfOperator("+=", lexer)) return {TokenType::TOKEN_ADDITION_ASSIGNMENT, "+="};
+Token recognizeModulus(Lexer& lexer) {
+    if (lexer.checkKeyword("%") && !lexer.checkKeyword("%=")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_MODULUS, "%", "Modulus"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeSubtractionAssignmentOperator(Lexer& lexer) {
-    if (checkIfOperator("-=", lexer)) return {TokenType::TOKEN_SUBTRACTION_ASSIGNMENT, "-="};
+Token recognizeAdditionAssignment(Lexer& lexer) {
+    if (lexer.checkKeyword("+=")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_ADDITION_ASSIGNMENT, "+=", "Addition Assignment"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeMultiplicationAssignmentOperator(Lexer& lexer) {
-    if (checkIfOperator("*=", lexer)) return {TokenType::TOKEN_MULTIPLICATION_ASSIGNMENT, "*="};
+Token recognizeSubtractionAssignment(Lexer& lexer) {
+    if (lexer.checkKeyword("-=")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_SUBTRACTION_ASSIGNMENT, "-=", "Subtraction Assignment"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeDivisionAssignmentOperator(Lexer& lexer) {
-    if (checkIfOperator("/=", lexer)) return {TokenType::TOKEN_DIVISION_ASSIGNMENT, "/="};
+Token recognizeMultiplicationAssignment(Lexer& lexer) {
+    if (lexer.checkKeyword("*=")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_MULTIPLICATION_ASSIGNMENT, "*=", "Multiplication Assignment"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeModulusAssignmentOperator(Lexer& lexer) {
-    if (checkIfOperator("%=", lexer)) return {TokenType::TOKEN_MODULUS_ASSIGNMENT, "%="};
+Token recognizeDivisionAssignment(Lexer& lexer) {
+    if (lexer.checkKeyword("/=")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_DIVISION_ASSIGNMENT, "/=", "Division Assignment"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeIncrementOperator(Lexer& lexer) {
-    if (checkIfOperator("++", lexer)) return {TokenType::TOKEN_INCREMENT, "++"};
+Token recognizeModulusAssignment(Lexer& lexer) {
+    if (lexer.checkKeyword("%=")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_MODULUS_ASSIGNMENT, "%=", "Modulus Assignment"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeDecrementOperator(Lexer& lexer) {
-    if (checkIfOperator("--", lexer)) return {TokenType::TOKEN_DECREMENT, "--"};
+Token recognizeIncrement(Lexer& lexer) {
+    if (lexer.checkKeyword("++")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_INCREMENT, "++", "Increment"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizePotentiationOperator(Lexer& lexer) {
-    if (checkIfOperator("**", lexer)) return {TokenType::TOKEN_POTENTIATION, "**"};
+Token recognizeDecrement(Lexer& lexer) {
+    if (lexer.checkKeyword("--")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_DECREMENT, "--", "Decrement"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-Token recognizeFloorDivisionOperator(Lexer& lexer) {
-    if (checkIfOperator("//", lexer)) return {TokenType::TOKEN_FLOOR_DIVISION, "//"};
+Token recognizePotentiation(Lexer& lexer) {
+    if (lexer.checkKeyword("**")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_POTENTIATION, "**", "Potentiation"};
+    }
     return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
-bool checkIfOperator(const std::string& keyword, Lexer& lexer) {
-    bool isOperator = lexer.code.substr(lexer.currentPosition, keyword.size()) == keyword
-        && lexer.currentPosition + keyword.size() < lexer.code.size()
-        && !isalpha(lexer.code[lexer.currentPosition + keyword.size()]);
-    if (isOperator) lexer.currentPosition += keyword.size();
-    return isOperator;
+Token recognizeFloorDivision(Lexer& lexer) {
+    if (lexer.checkKeyword("//")) {
+        lexer.skip(2);
+        return {TokenType::TOKEN_FLOOR_DIVISION, "//", "Floor Division"};
+    }
+    return {TokenType::TOKEN_UNKNOWN, ""};
 }
 
 void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
-    tokenRecognizers["+"] = recognizeAdditionOperator;
-    tokenRecognizers["-"] = recognizeSubtractionOperator;
-    tokenRecognizers["*"] = recognizeMultiplicationOperator;
-    tokenRecognizers["/"] = recognizeDivisionOperator;
-    tokenRecognizers["%"] = recognizeModulusOperator;
-    tokenRecognizers["+="] = recognizeAdditionAssignmentOperator;
-    tokenRecognizers["-="] = recognizeSubtractionAssignmentOperator;
-    tokenRecognizers["*="] = recognizeMultiplicationAssignmentOperator;
-    tokenRecognizers["/="] = recognizeDivisionAssignmentOperator;
-    tokenRecognizers["%="] = recognizeModulusAssignmentOperator;
-    tokenRecognizers["++"] = recognizeIncrementOperator;
-    tokenRecognizers["--"] = recognizeDecrementOperator;
-    tokenRecognizers["**"] = recognizePotentiationOperator;
-    tokenRecognizers["//"] = recognizeFloorDivisionOperator;
+    tokenRecognizers["="] = recognizeAssign;
+    tokenRecognizers["+"] = recognizeAddition;
+    tokenRecognizers["-"] = recognizeSubtraction;
+    tokenRecognizers["*"] = recognizeMultiplication;
+    tokenRecognizers["/"] = recognizeDivision;
+    tokenRecognizers["%"] = recognizeModulus;
+    tokenRecognizers["+="] = recognizeAdditionAssignment;
+    tokenRecognizers["-="] = recognizeSubtractionAssignment;
+    tokenRecognizers["*="] = recognizeMultiplicationAssignment;
+    tokenRecognizers["/="] = recognizeDivisionAssignment;
+    tokenRecognizers["%="] = recognizeModulusAssignment;
+    tokenRecognizers["++"] = recognizeIncrement;
+    tokenRecognizers["--"] = recognizeDecrement;
+    tokenRecognizers["**"] = recognizePotentiation;
+    tokenRecognizers["//"] = recognizeFloorDivision;
 }

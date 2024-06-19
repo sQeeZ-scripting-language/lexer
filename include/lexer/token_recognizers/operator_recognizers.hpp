@@ -7,20 +7,21 @@
 
 using TokenRecognizer = Token (*)(Lexer&);
 
-Token recognizeAdditionOperator(Lexer& lexer);
-Token recognizeSubtractionOperator(Lexer& lexer);
-Token recognizeMultiplicationOperator(Lexer& lexer);
-Token recognizeDivisionOperator(Lexer& lexer);
-Token recognizeModulusOperator(Lexer& lexer);
-Token recognizeAdditionAssignmentOperator(Lexer& lexer);
-Token recognizeSubtractionAssignmentOperator(Lexer& lexer);
-Token recognizeMultiplicationAssignmentOperator(Lexer& lexer);
-Token recognizeDivisionAssignmentOperator(Lexer& lexer);
-Token recognizeModulusAssignmentOperator(Lexer& lexer);
-Token recognizeIncrementOperator(Lexer& lexer);
-Token recognizeDecrementOperator(Lexer& lexer);
-Token recognizePotentiationOperator(Lexer& lexer);
-Token recognizeFloorDivisionOperator(Lexer& lexer);
+Token recognizeAssign(Lexer& lexer);
+Token recognizeAddition(Lexer& lexer);
+Token recognizeSubtraction(Lexer& lexer);
+Token recognizeMultiplication(Lexer& lexer);
+Token recognizeDivision(Lexer& lexer);
+Token recognizeModulus(Lexer& lexer);
+Token recognizeAdditionAssignment(Lexer& lexer);
+Token recognizeSubtractionAssignment(Lexer& lexer);
+Token recognizeMultiplicationAssignment(Lexer& lexer);
+Token recognizeDivisionAssignment(Lexer& lexer);
+Token recognizeModulusAssignment(Lexer& lexer);
+Token recognizeIncrement(Lexer& lexer);
+Token recognizeDecrement(Lexer& lexer);
+Token recognizePotentiation(Lexer& lexer);
+Token recognizeFloorDivision(Lexer& lexer);
 
 bool checkIfOperator(const std::string& keyword, Lexer& lexer);
 
