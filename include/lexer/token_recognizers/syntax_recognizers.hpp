@@ -19,6 +19,7 @@ Token recognizeCloseBracket(Lexer& lexer);
 Token recognizeOpenBrace(Lexer& lexer);
 Token recognizeCloseBrace(Lexer& lexer);
 Token recognizeArrow(Lexer& lexer);
+Token recognizeHashtag(Lexer& lexer);
 
 void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

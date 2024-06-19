@@ -5,7 +5,7 @@ Token recognizeBasicLog(Lexer& lexer) {
         lexer.skip(3);
         return {TokenType::TOKEN_LOG_BASIC, "log", "Basic logging function"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeColoredLog(Lexer& lexer) {
@@ -13,7 +13,7 @@ Token recognizeColoredLog(Lexer& lexer) {
         lexer.skip(4);
         return {TokenType::TOKEN_LOG_COLORED, "logc", "Colored logging function"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeErrorLog(Lexer& lexer) {
@@ -21,7 +21,7 @@ Token recognizeErrorLog(Lexer& lexer) {
         lexer.skip(5);
         return {TokenType::TOKEN_LOG_ERROR, "error", "Error logging function"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 void registerLogRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {

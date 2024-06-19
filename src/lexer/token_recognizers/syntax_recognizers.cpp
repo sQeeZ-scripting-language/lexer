@@ -5,7 +5,7 @@ Token recognizeSemicolon(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_SEMICOLON, ";", "Semicolon"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeComma(Lexer& lexer) {
@@ -13,7 +13,7 @@ Token recognizeComma(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_COMMA, ",", "Comma"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeDot(Lexer& lexer) {
@@ -21,7 +21,7 @@ Token recognizeDot(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_DOT, ".", "Dot"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeSingleQuote(Lexer& lexer) {
@@ -29,7 +29,7 @@ Token recognizeSingleQuote(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_SINGLE_QUOTE, "'", "Single Quote"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeDoubleQuote(Lexer& lexer) {
@@ -37,7 +37,7 @@ Token recognizeDoubleQuote(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_DOUBLE_QUOTE, "\"", "Double Quote"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeOpenParenthesis(Lexer& lexer) {
@@ -45,7 +45,7 @@ Token recognizeOpenParenthesis(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_OPEN_PARENTHESIS, "(", "Open Parenthesis"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeCloseParenthesis(Lexer& lexer) {
@@ -53,7 +53,7 @@ Token recognizeCloseParenthesis(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_CLOSE_PARENTHESIS, ")", "Close Parenthesis"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeOpenBracket(Lexer& lexer) {
@@ -61,7 +61,7 @@ Token recognizeOpenBracket(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_OPEN_BRACKET, "[", "Open Bracket"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeCloseBracket(Lexer& lexer) {
@@ -69,7 +69,7 @@ Token recognizeCloseBracket(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_CLOSE_BRACKET, "]", "Close Bracket"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeOpenBrace(Lexer& lexer) {
@@ -77,7 +77,7 @@ Token recognizeOpenBrace(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_OPEN_BRACE, "{", "Open Brace"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeCloseBrace(Lexer& lexer) {
@@ -85,7 +85,7 @@ Token recognizeCloseBrace(Lexer& lexer) {
         lexer.skip(1);
         return {TokenType::TOKEN_CLOSE_BRACE, "}", "Close Brace"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeArrow(Lexer& lexer) {
@@ -93,7 +93,15 @@ Token recognizeArrow(Lexer& lexer) {
         lexer.skip(2);
         return {TokenType::TOKEN_ARROW, "->", "Arrow"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+}
+
+Token recognizeHashtag(Lexer& lexer) {
+    if (lexer.checkKeyword("#")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_HASHTAG, "#", "Hashtag"};
+    }
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
@@ -109,4 +117,5 @@ void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>&
     tokenRecognizers["{"] = recognizeOpenBrace;
     tokenRecognizers["}"] = recognizeCloseBrace;
     tokenRecognizers["->"] = recognizeArrow;
+    tokenRecognizers["#"] = recognizeHashtag;
 }

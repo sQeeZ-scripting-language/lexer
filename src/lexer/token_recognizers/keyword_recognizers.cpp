@@ -5,7 +5,7 @@ Token recognizeLet(Lexer& lexer) {
         lexer.skip(3);
         return {TokenType::TOKEN_LET, "let", "Variable declaration"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeConst(Lexer& lexer) {
@@ -13,7 +13,7 @@ Token recognizeConst(Lexer& lexer) {
         lexer.skip(5);
         return {TokenType::TOKEN_CONST, "const", "Constant declaration"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeIf(Lexer& lexer) {
@@ -21,7 +21,7 @@ Token recognizeIf(Lexer& lexer) {
         lexer.skip(2);
         return {TokenType::TOKEN_IF, "if", "Conditional statement"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeElse(Lexer& lexer) {
@@ -29,7 +29,7 @@ Token recognizeElse(Lexer& lexer) {
         lexer.skip(4);
         return {TokenType::TOKEN_ELSE, "else", "Else statement"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeElseIf(Lexer& lexer) {
@@ -37,7 +37,7 @@ Token recognizeElseIf(Lexer& lexer) {
         lexer.skip(4);
         return {TokenType::TOKEN_ELSE_IF, "elif", "Else if statement"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeFor(Lexer& lexer) {
@@ -45,7 +45,7 @@ Token recognizeFor(Lexer& lexer) {
         lexer.skip(3);
         return {TokenType::TOKEN_FOR, "for", "For loop"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeIn(Lexer& lexer) {
@@ -53,7 +53,7 @@ Token recognizeIn(Lexer& lexer) {
         lexer.skip(2);
         return {TokenType::TOKEN_IN, "in", "In keyword"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeBreak(Lexer& lexer) {
@@ -61,7 +61,7 @@ Token recognizeBreak(Lexer& lexer) {
         lexer.skip(5);
         return {TokenType::TOKEN_BREAK, "break", "Break keyword"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeContinue(Lexer& lexer) {
@@ -69,7 +69,7 @@ Token recognizeContinue(Lexer& lexer) {
         lexer.skip(8);
         return {TokenType::TOKEN_CONTINUE, "continue", "Continue keyword"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeFunction(Lexer& lexer) {
@@ -77,7 +77,7 @@ Token recognizeFunction(Lexer& lexer) {
         lexer.skip(2);
         return {TokenType::TOKEN_FUNCTION, "fn", "Function declaration"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 Token recognizeReturn(Lexer& lexer) {
@@ -85,7 +85,7 @@ Token recognizeReturn(Lexer& lexer) {
         lexer.skip(6);
         return {TokenType::TOKEN_RETURN, "return", "Return keyword"};
     }
-    return {TokenType::TOKEN_UNKNOWN, ""};
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
