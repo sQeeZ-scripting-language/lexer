@@ -10,6 +10,7 @@ using TokenRecognizer = Token (*)(Lexer&);
 Token recognizeSemicolon(Lexer& lexer);
 Token recognizeComma(Lexer& lexer);
 Token recognizeDot(Lexer& lexer);
+Token recognizeColon(Lexer& lexer);
 Token recognizeSingleQuote(Lexer& lexer);
 Token recognizeDoubleQuote(Lexer& lexer);
 Token recognizeOpenParenthesis(Lexer& lexer);

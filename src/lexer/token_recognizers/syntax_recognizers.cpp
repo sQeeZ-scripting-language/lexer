@@ -24,6 +24,14 @@ Token recognizeDot(Lexer& lexer) {
     return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
 
+Token recognizeColon(Lexer& lexer) {
+    if (lexer.checkKeyword(":")) {
+        lexer.skip(1);
+        return {TokenType::TOKEN_COLON, ":", "Colon"};
+    }
+    return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+}
+
 Token recognizeSingleQuote(Lexer& lexer) {
     if (lexer.checkKeyword("'")) {
         lexer.skip(1);
@@ -109,6 +117,7 @@ void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>&
     tokenRecognizers[","] = recognizeComma;
     tokenRecognizers["."] = recognizeDot;
     tokenRecognizers["'"] = recognizeSingleQuote;
+    tokenRecognizers[":"] = recognizeColon;
     tokenRecognizers["\""] = recognizeDoubleQuote;
     tokenRecognizers["("] = recognizeOpenParenthesis;
     tokenRecognizers[")"] = recognizeCloseParenthesis;

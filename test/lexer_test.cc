@@ -13,6 +13,46 @@ TEST(LexerTest, IdentifySemicolon) {
     EXPECT_EQ(token.desc, "Semicolon");
 }
 
+TEST(LexerTest, IdentifyComma) {
+    Lexer lexer(",");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_COMMA);
+    EXPECT_EQ(token.value, ",");
+    EXPECT_EQ(token.desc, "Comma");
+}
+
+TEST(LexerTest, IdentifyDot) {
+    Lexer lexer(".");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_DOT);
+    EXPECT_EQ(token.value, ".");
+    EXPECT_EQ(token.desc, "Dot");
+}
+
+TEST(LexerTest, IdentifyColon) {
+    Lexer lexer(":");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_COLON);
+    EXPECT_EQ(token.value, ":");
+    EXPECT_EQ(token.desc, "Colon");
+}
+
+TEST(LexerTest, IdentifySingleQuote) {
+    Lexer lexer("'");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_SINGLE_QUOTE);
+    EXPECT_EQ(token.value, "'");
+    EXPECT_EQ(token.desc, "Single Quote");
+}
+
+TEST(LexerTest, IdentifyDoubleQuote) {
+    Lexer lexer("\"");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_DOUBLE_QUOTE);
+    EXPECT_EQ(token.value, "\"");
+    EXPECT_EQ(token.desc, "Double Quote");
+}
+
 TEST(LexerTest, IdentifyOpenParenthesis) {
     Lexer lexer("(");
     Token token = lexer.getNextToken();
@@ -76,3 +116,5 @@ TEST(LexerTest, IdentifyHashtag) {
     EXPECT_EQ(token.value, "#");
     EXPECT_EQ(token.desc, "Hashtag");
 }
+
+
