@@ -117,4 +117,94 @@ TEST(LexerTest, IdentifyHashtag) {
     EXPECT_EQ(token.desc, "Hashtag");
 }
 
+/*
+ * KEYWORDS
+ */
 
+TEST(LexerTest, IdentifyLet) {
+    Lexer lexer("let");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_LET);
+    EXPECT_EQ(token.value, "let");
+    EXPECT_EQ(token.desc, "Variable declaration");
+}
+
+TEST(LexerTest, IdentifyConst) {
+    Lexer lexer("const");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_CONST);
+    EXPECT_EQ(token.value, "const");
+    EXPECT_EQ(token.desc, "Constant declaration");
+}
+
+TEST(LexerTest, IdentifyIf) {
+    Lexer lexer("if");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_IF);
+    EXPECT_EQ(token.value, "if");
+    EXPECT_EQ(token.desc, "Conditional statement");
+}
+
+TEST(LexerTest, IdentifyElse) {
+    Lexer lexer("else");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_ELSE);
+    EXPECT_EQ(token.value, "else");
+    EXPECT_EQ(token.desc, "Else statement");
+}
+
+TEST(LexerTest, IdentifyElseIf) {
+    Lexer lexer("elif");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_ELSE_IF);
+    EXPECT_EQ(token.value, "elif");
+    EXPECT_EQ(token.desc, "Else if statement");
+}
+
+TEST(LexerTest, IdentifyFor) {
+    Lexer lexer("for");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_FOR);
+    EXPECT_EQ(token.value, "for");
+    EXPECT_EQ(token.desc, "For loop");
+}
+
+TEST(LexerTest, IdentifyIn) {
+    Lexer lexer("in");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_IN);
+    EXPECT_EQ(token.value, "in");
+    EXPECT_EQ(token.desc, "In keyword");
+}
+
+TEST(LexerTest, IdentifyBreak) {
+    Lexer lexer("break");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_BREAK);
+    EXPECT_EQ(token.value, "break");
+    EXPECT_EQ(token.desc, "Break keyword");
+}
+
+TEST(LexerTest, IdentifyContinue) {
+    Lexer lexer("continue");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_CONTINUE);
+    EXPECT_EQ(token.value, "continue");
+    EXPECT_EQ(token.desc, "Continue keyword");
+}
+
+TEST(LexerTest, IdentifyFunction) {
+    Lexer lexer("fn");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_FUNCTION);
+    EXPECT_EQ(token.value, "fn");
+    EXPECT_EQ(token.desc, "Function declaration");
+}
+
+TEST(LexerTest, IdentifyReturn) {
+    Lexer lexer("return");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_RETURN);
+    EXPECT_EQ(token.value, "return");
+    EXPECT_EQ(token.desc, "Return keyword");
+}
