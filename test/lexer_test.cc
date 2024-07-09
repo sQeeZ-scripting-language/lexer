@@ -208,3 +208,127 @@ TEST(LexerTest, IdentifyReturn) {
     EXPECT_EQ(token.value, "return");
     EXPECT_EQ(token.desc, "Return keyword");
 }
+
+/*
+ * OPERATORS
+ */
+
+TEST(LexerTest, IdentifyAssign) {
+    Lexer lexer("=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_ASSIGN); 
+    EXPECT_EQ(token.value, "=");
+    EXPECT_EQ(token.desc, "Assign");
+}
+
+TEST(LexerTest, IdentifyAddition) {
+    Lexer lexer("+");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_ADDITION);
+    EXPECT_EQ(token.value, "+");
+    EXPECT_EQ(token.desc, "Addition");
+}
+
+TEST(LexerTest, IdentifySubtraction) {
+    Lexer lexer("-");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_SUBTRACTION);
+    EXPECT_EQ(token.value, "-");
+    EXPECT_EQ(token.desc, "Subtraction");
+}
+
+TEST(LexerTest, IdentifyMultiplication) {
+    Lexer lexer("*");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_MULTIPLICATION);
+    EXPECT_EQ(token.value, "*");
+    EXPECT_EQ(token.desc, "Multiplication");
+}
+
+TEST(LexerTest, IdentifyDivision) {
+    Lexer lexer("/");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_DIVISION);
+    EXPECT_EQ(token.value, "/");
+    EXPECT_EQ(token.desc, "Division");
+}
+
+TEST(LexerTest, IdentifyModulus) {
+    Lexer lexer("%");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_MODULUS);
+    EXPECT_EQ(token.value, "%");
+    EXPECT_EQ(token.desc, "Modulus");
+}
+
+TEST(LexerTest, IdentifyAdditionAssignment) {
+    Lexer lexer("+=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_ADDITION_ASSIGNMENT);
+    EXPECT_EQ(token.value, "+=");
+    EXPECT_EQ(token.desc, "Addition Assignment");
+}
+
+TEST(LexerTest, IdentifySubtractionAssignment) {
+    Lexer lexer("-=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_SUBTRACTION_ASSIGNMENT);
+    EXPECT_EQ(token.value, "-=");
+    EXPECT_EQ(token.desc, "Subtraction Assignment");
+}
+
+TEST(LexerTest, IdentifyMultiplicationAssignment) {
+    Lexer lexer("*=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_MULTIPLICATION_ASSIGNMENT);
+    EXPECT_EQ(token.value, "*=");
+    EXPECT_EQ(token.desc, "Multiplication Assignment");
+}
+
+TEST(LexerTest, IdentifyDivisionAssignment) {
+    Lexer lexer("/=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_DIVISION_ASSIGNMENT);
+    EXPECT_EQ(token.value, "/=");
+    EXPECT_EQ(token.desc, "Division Assignment");
+}
+
+TEST(LexerTest, IdentifyModulusAssignment) {
+    Lexer lexer("%=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_MODULUS_ASSIGNMENT);
+    EXPECT_EQ(token.value, "%=");
+    EXPECT_EQ(token.desc, "Modulus Assignment");
+}
+
+TEST(LexerTest, IdentifyIncrement) {
+    Lexer lexer("++");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_INCREMENT);
+    EXPECT_EQ(token.value, "++");
+    EXPECT_EQ(token.desc, "Increment");
+}
+
+TEST(LexerTest, IdentifyDecrement) {
+    Lexer lexer("--");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_DECREMENT);
+    EXPECT_EQ(token.value, "--");
+    EXPECT_EQ(token.desc, "Decrement");
+}
+
+TEST(LexerTest, IdentifyPotentiation) {
+    Lexer lexer("**");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_POTENTIATION);
+    EXPECT_EQ(token.value, "**");
+    EXPECT_EQ(token.desc, "Potentiation");
+}
+
+TEST(LexerTest, IdentifyFloorDivision) {
+    Lexer lexer("//");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_FLOOR_DIVISION);
+    EXPECT_EQ(token.value, "//");
+    EXPECT_EQ(token.desc, "Floor Division");
+}
