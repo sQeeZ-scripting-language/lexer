@@ -332,3 +332,79 @@ TEST(LexerTest, IdentifyFloorDivision) {
     EXPECT_EQ(token.value, "//");
     EXPECT_EQ(token.desc, "Floor Division");
 }
+
+/*
+ * LOGICAL OPERATORS
+ */
+
+TEST(LexerTest, IdentifyEqual) {
+    Lexer lexer("==");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_EQUAL);
+    EXPECT_EQ(token.value, "==");
+    EXPECT_EQ(token.desc, "Equal");
+}
+
+TEST(LexerTest, IdentifyNotEqual) {
+    Lexer lexer("!=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_NOT_EQUAL);
+    EXPECT_EQ(token.value, "!=");
+    EXPECT_EQ(token.desc, "Not Equal");
+}
+
+TEST(LexerTest, IdentifyGreater) {
+    Lexer lexer(">");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_GREATER);
+    EXPECT_EQ(token.value, ">");
+    EXPECT_EQ(token.desc, "Greater");
+}
+
+TEST(LexerTest, IdentifyLess) {
+    Lexer lexer("<");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_LESS);
+    EXPECT_EQ(token.value, "<");
+    EXPECT_EQ(token.desc, "Less");
+}
+
+TEST(LexerTest, IdentifyGreaterEqual) {
+    Lexer lexer(">=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_GREATER_EQUAL);
+    EXPECT_EQ(token.value, ">=");
+    EXPECT_EQ(token.desc, "Greater Equal");
+}
+
+TEST(LexerTest, IdentifyLessEqual) {
+    Lexer lexer("<=");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_LESS_EQUAL);
+    EXPECT_EQ(token.value, "<=");
+    EXPECT_EQ(token.desc, "Less Equal");
+}
+
+TEST(LexerTest, IdentifyAnd) {
+    Lexer lexer("&&");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_AND);
+    EXPECT_EQ(token.value, "&&");
+    EXPECT_EQ(token.desc, "And");
+}
+
+TEST(LexerTest, IdentifyOr) {
+    Lexer lexer("||");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_OR);
+    EXPECT_EQ(token.value, "||");
+    EXPECT_EQ(token.desc, "Or");
+}
+
+TEST(LexerTest, IdentifyNot) {
+    Lexer lexer("!");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_NOT);
+    EXPECT_EQ(token.value, "!");
+    EXPECT_EQ(token.desc, "Not");
+}
