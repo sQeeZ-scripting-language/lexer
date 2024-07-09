@@ -408,3 +408,31 @@ TEST(LexerTest, IdentifyNot) {
     EXPECT_EQ(token.value, "!");
     EXPECT_EQ(token.desc, "Not");
 }
+
+/*
+ * Loggers
+ */
+
+TEST(LexerTest, IdentifyLogger) {
+    Lexer lexer("log");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_LOG_BASIC);
+    EXPECT_EQ(token.value, "log");
+    EXPECT_EQ(token.desc, "Basic logging function");
+}
+
+TEST(LexerTest, IdentifyColoredLogger) {
+    Lexer lexer("logc");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_LOG_COLORED);
+    EXPECT_EQ(token.value, "logc");
+    EXPECT_EQ(token.desc, "Colored logging function");
+}
+
+TEST(LexerTest, IdentifyErrorLogger) {
+    Lexer lexer("error");
+    Token token = lexer.getNextToken();
+    EXPECT_EQ(token.type, TokenType::TOKEN_LOG_ERROR);
+    EXPECT_EQ(token.value, "error");
+    EXPECT_EQ(token.desc, "Error logging function");
+}
