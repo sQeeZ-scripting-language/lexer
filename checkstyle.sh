@@ -5,7 +5,7 @@ function format_file {
   clang-format -i "$file"
 }
 
-echo "Applying clang-format to all .cpp and .h files..."
+echo "Applying clang-format to all .cpp and .hpp files..."
 for file in $(find . -name '*.cpp' -o -name '*.hpp'); do
   format_file "$file"
 done
