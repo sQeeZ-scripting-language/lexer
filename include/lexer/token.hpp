@@ -59,6 +59,9 @@ enum class TokenType {
     TOKEN_LOG_BASIC,
     TOKEN_LOG_COLORED,
     TOKEN_LOG_ERROR,
+    // Data
+    TOKEN_FUNCTION_NAME,
+    TOKEN_VARIABLE_NAME,
     // Unknown
     TOKEN_UNKNOWN
 };

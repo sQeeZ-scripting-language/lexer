@@ -5,7 +5,7 @@
 #include "lexer/token_recognizers/logical_recognizers.hpp"
 #include "lexer/token_recognizers/log_recognizers.hpp"
 
-Lexer::Lexer(const std::string& code) : code(code), currentPosition(0) {
+Lexer::Lexer(const std::string& code) : code(code), currentPosition(0), functions(), variables() {
     registerTokenRecognizers();
 }
 
@@ -35,8 +35,28 @@ Token Lexer::getNextToken() {
     return {TokenType::TOKEN_UNKNOWN, std::string(1, currentChar), "Unknown"};
 }
 
+Token Lexer::getFunctionName() {
+    skipWhitespace();
+    size_t i = code.find(' ', currentPosition);
+    std::string name = (i == std::string::npos) ? code.substr(currentPosition, i - currentPosition) : code.substr(currentPosition);
+    bool isFunction = checkName(functions, name);
+    return {isFunction ? TokenType::TOKEN_FUNCTION_NAME : TokenType::TOKEN_UNKNOWN, name, isFunction ? "Function name" : "Unknown"};
+}
+
+Token Lexer::getVariableName() {
+    skipWhitespace();
+    size_t i = code.find(' ', currentPosition);
+    std::string name = (i == std::string::npos) ? code.substr(currentPosition, i - currentPosition) : code.substr(currentPosition);
+    bool isVariable = checkName(variables, name);
+    return {isVariable ? TokenType::TOKEN_VARIABLE_NAME : TokenType::TOKEN_UNKNOWN, name, isVariable ? "Variable name" : "Unknown"};
+}
+
 bool Lexer::checkKeyword(const std::string& keyword) {
     return code.substr(currentPosition, keyword.size()) == keyword;
+}
+
+bool Lexer::checkName(const std::unordered_map<std::string, std::string>& map, const std::string& name) {
+    return map.find(name) != map.end();
 }
 
 void Lexer::skip(size_t size) {
