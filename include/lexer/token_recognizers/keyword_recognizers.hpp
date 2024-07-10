@@ -7,10 +7,15 @@
 
 using TokenRecognizer = Token (*)(Lexer&);
 
-Token recognizeIfKeyword(Lexer& lexer);
-Token recognizeElseKeyword(Lexer& lexer);
-
-bool checkIfKeyword(const std::string& keyword, Lexer& lexer);
+Token recognizeVariableDeclaration(Lexer& lexer);
+Token recognizeIf(Lexer& lexer);
+Token recognizeElse(Lexer& lexer);
+Token recognizeElseIf(Lexer& lexer);
+Token recognizeFor(Lexer& lexer);
+Token recognizeBreak(Lexer& lexer);
+Token recognizeContinue(Lexer& lexer);
+Token recognizeFunction(Lexer& lexer);
+Token recognizeReturn(Lexer& lexer);
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

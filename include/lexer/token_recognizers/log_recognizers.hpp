@@ -11,8 +11,6 @@ Token recognizeColoredLog(Lexer& lexer);
 Token recognizeBasicLog(Lexer& lexer);
 Token recognizeErrorLog(Lexer& lexer);
 
-bool checkIfLogKeyword(const std::string& keyword, Lexer& lexer);
-
 void registerLogRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
 #endif
