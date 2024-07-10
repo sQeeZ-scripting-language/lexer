@@ -22,7 +22,7 @@ jobs:
 
     - name: Check code style with clang-format
       run: |
-        for file in $(find . -name '*.cpp' -o -name '*.h'); do
+        for file in $(find . -name '*.cpp' -o -name '*.hpp'); do
           clang-format -style=file -output-replacements-xml $file | grep -c "<replacement " > /dev/null
           if [ $? -ne 1 ]; then
             echo "Code style issues found in file: $file"
