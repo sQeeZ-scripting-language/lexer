@@ -7,13 +7,11 @@
 
 using TokenRecognizer = Token (*)(Lexer&);
 
-Token recognizeLet(Lexer& lexer);
-Token recognizeConst(Lexer& lexer);
+Token recognizeVariableDeclaration(Lexer& lexer);
 Token recognizeIf(Lexer& lexer);
 Token recognizeElse(Lexer& lexer);
 Token recognizeElseIf(Lexer& lexer);
 Token recognizeFor(Lexer& lexer);
-Token recognizeIn(Lexer& lexer);
 Token recognizeBreak(Lexer& lexer);
 Token recognizeContinue(Lexer& lexer);
 Token recognizeFunction(Lexer& lexer);

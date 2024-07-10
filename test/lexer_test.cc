@@ -121,91 +121,75 @@ TEST(LexerTest, IdentifyHashtag) {
  * KEYWORDS
  */
 
-TEST(LexerTest, IdentifyLet) {
-    Lexer lexer("let");
+TEST(LexerTest, IdentifyVariableDeclaration) {
+    Lexer lexer("!!");
     Token token = lexer.getNextToken();
-    EXPECT_EQ(token.type, TokenType::TOKEN_LET);
-    EXPECT_EQ(token.value, "let");
+    EXPECT_EQ(token.type, TokenType::TOKEN_VARIABLE_DECLARATION);
+    EXPECT_EQ(token.value, "!!");
     EXPECT_EQ(token.desc, "Variable declaration");
 }
 
-TEST(LexerTest, IdentifyConst) {
-    Lexer lexer("const");
-    Token token = lexer.getNextToken();
-    EXPECT_EQ(token.type, TokenType::TOKEN_CONST);
-    EXPECT_EQ(token.value, "const");
-    EXPECT_EQ(token.desc, "Constant declaration");
-}
-
 TEST(LexerTest, IdentifyIf) {
-    Lexer lexer("if");
+    Lexer lexer("?");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_IF);
-    EXPECT_EQ(token.value, "if");
+    EXPECT_EQ(token.value, "?");
     EXPECT_EQ(token.desc, "Conditional statement");
 }
 
 TEST(LexerTest, IdentifyElse) {
-    Lexer lexer("else");
+    Lexer lexer("??");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_ELSE);
-    EXPECT_EQ(token.value, "else");
+    EXPECT_EQ(token.value, "??");
     EXPECT_EQ(token.desc, "Else statement");
 }
 
 TEST(LexerTest, IdentifyElseIf) {
-    Lexer lexer("elif");
+    Lexer lexer("???");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_ELSE_IF);
-    EXPECT_EQ(token.value, "elif");
+    EXPECT_EQ(token.value, "???");
     EXPECT_EQ(token.desc, "Else if statement");
 }
 
 TEST(LexerTest, IdentifyFor) {
-    Lexer lexer("for");
+    Lexer lexer("@");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_FOR);
-    EXPECT_EQ(token.value, "for");
+    EXPECT_EQ(token.value, "@");
     EXPECT_EQ(token.desc, "For loop");
 }
 
-TEST(LexerTest, IdentifyIn) {
-    Lexer lexer("in");
-    Token token = lexer.getNextToken();
-    EXPECT_EQ(token.type, TokenType::TOKEN_IN);
-    EXPECT_EQ(token.value, "in");
-    EXPECT_EQ(token.desc, "In keyword");
-}
-
 TEST(LexerTest, IdentifyBreak) {
-    Lexer lexer("break");
+    Lexer lexer("<<");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_BREAK);
-    EXPECT_EQ(token.value, "break");
+    EXPECT_EQ(token.value, "<<");
     EXPECT_EQ(token.desc, "Break keyword");
 }
 
 TEST(LexerTest, IdentifyContinue) {
-    Lexer lexer("continue");
+    Lexer lexer(">>");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_CONTINUE);
-    EXPECT_EQ(token.value, "continue");
+    EXPECT_EQ(token.value, ">>");
     EXPECT_EQ(token.desc, "Continue keyword");
 }
 
 TEST(LexerTest, IdentifyFunction) {
-    Lexer lexer("fn");
+    Lexer lexer("$");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_FUNCTION);
-    EXPECT_EQ(token.value, "fn");
+    EXPECT_EQ(token.value, "$");
     EXPECT_EQ(token.desc, "Function declaration");
 }
 
 TEST(LexerTest, IdentifyReturn) {
-    Lexer lexer("return");
+    Lexer lexer("=>");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_RETURN);
-    EXPECT_EQ(token.value, "return");
+    EXPECT_EQ(token.value, "=>");
     EXPECT_EQ(token.desc, "Return keyword");
 }
 
@@ -430,9 +414,9 @@ TEST(LexerTest, IdentifyColoredLogger) {
 }
 
 TEST(LexerTest, IdentifyErrorLogger) {
-    Lexer lexer("error");
+    Lexer lexer("err");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_LOG_ERROR);
-    EXPECT_EQ(token.value, "error");
+    EXPECT_EQ(token.value, "err");
     EXPECT_EQ(token.desc, "Error logging function");
 }

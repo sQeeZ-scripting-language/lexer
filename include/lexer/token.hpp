@@ -19,8 +19,7 @@ enum class TokenType {
     TOKEN_ARROW,
     TOKEN_HASHTAG,
     // Keywords
-    TOKEN_LET,
-    TOKEN_CONST,
+    TOKEN_VARIABLE_DECLARATION,
     TOKEN_IF,
     TOKEN_ELSE,
     TOKEN_ELSE_IF,

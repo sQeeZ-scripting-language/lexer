@@ -1,7 +1,7 @@
 #include "lexer/token_recognizers/operator_recognizers.hpp"
 
 Token recognizeAssign(Lexer& lexer) {
-    if (lexer.checkKeyword("=") && !lexer.checkKeyword("==")) {
+    if (lexer.checkKeyword("=") && !lexer.checkKeyword("==") && !lexer.checkKeyword("=>")) {
         lexer.skip(1);
         return {TokenType::TOKEN_ASSIGN, "=", "Assign"};
     }
