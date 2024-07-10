@@ -1,8 +1,9 @@
 #ifndef LOG_RECOGNIZERS_HPP
 #define LOG_RECOGNIZERS_HPP
 
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
+
 #include "lexer/lexer.hpp"
 
 using TokenRecognizer = Token (*)(Lexer&);
