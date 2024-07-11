@@ -11,6 +11,7 @@ TEST(LexerTest, IdentifySemicolon) {
     EXPECT_EQ(token.type, TokenType::TOKEN_SEMICOLON);
     EXPECT_EQ(token.value, ";");
     EXPECT_EQ(token.desc, "Semicolon");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyComma) {
@@ -19,6 +20,7 @@ TEST(LexerTest, IdentifyComma) {
     EXPECT_EQ(token.type, TokenType::TOKEN_COMMA);
     EXPECT_EQ(token.value, ",");
     EXPECT_EQ(token.desc, "Comma");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyDot) {
@@ -27,6 +29,7 @@ TEST(LexerTest, IdentifyDot) {
     EXPECT_EQ(token.type, TokenType::TOKEN_DOT);
     EXPECT_EQ(token.value, ".");
     EXPECT_EQ(token.desc, "Dot");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyColon) {
@@ -35,6 +38,7 @@ TEST(LexerTest, IdentifyColon) {
     EXPECT_EQ(token.type, TokenType::TOKEN_COLON);
     EXPECT_EQ(token.value, ":");
     EXPECT_EQ(token.desc, "Colon");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifySingleQuote) {
@@ -43,6 +47,7 @@ TEST(LexerTest, IdentifySingleQuote) {
     EXPECT_EQ(token.type, TokenType::TOKEN_SINGLE_QUOTE);
     EXPECT_EQ(token.value, "'");
     EXPECT_EQ(token.desc, "Single Quote");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyDoubleQuote) {
@@ -51,6 +56,7 @@ TEST(LexerTest, IdentifyDoubleQuote) {
     EXPECT_EQ(token.type, TokenType::TOKEN_DOUBLE_QUOTE);
     EXPECT_EQ(token.value, "\"");
     EXPECT_EQ(token.desc, "Double Quote");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyOpenParenthesis) {
@@ -59,6 +65,7 @@ TEST(LexerTest, IdentifyOpenParenthesis) {
     EXPECT_EQ(token.type, TokenType::TOKEN_OPEN_PARENTHESIS);
     EXPECT_EQ(token.value, "(");
     EXPECT_EQ(token.desc, "Open Parenthesis");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyCloseParenthesis) {
@@ -67,6 +74,7 @@ TEST(LexerTest, IdentifyCloseParenthesis) {
     EXPECT_EQ(token.type, TokenType::TOKEN_CLOSE_PARENTHESIS);
     EXPECT_EQ(token.value, ")");
     EXPECT_EQ(token.desc, "Close Parenthesis");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyOpenBracket) {
@@ -75,6 +83,7 @@ TEST(LexerTest, IdentifyOpenBracket) {
     EXPECT_EQ(token.type, TokenType::TOKEN_OPEN_BRACKET);
     EXPECT_EQ(token.value, "[");
     EXPECT_EQ(token.desc, "Open Bracket");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyCloseBracket) {
@@ -83,6 +92,7 @@ TEST(LexerTest, IdentifyCloseBracket) {
     EXPECT_EQ(token.type, TokenType::TOKEN_CLOSE_BRACKET);
     EXPECT_EQ(token.value, "]");
     EXPECT_EQ(token.desc, "Close Bracket");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyOpenBrace) {
@@ -91,6 +101,7 @@ TEST(LexerTest, IdentifyOpenBrace) {
     EXPECT_EQ(token.type, TokenType::TOKEN_OPEN_BRACE);
     EXPECT_EQ(token.value, "{");
     EXPECT_EQ(token.desc, "Open Brace");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyCloseBrace) {
@@ -99,6 +110,7 @@ TEST(LexerTest, IdentifyCloseBrace) {
     EXPECT_EQ(token.type, TokenType::TOKEN_CLOSE_BRACE);
     EXPECT_EQ(token.value, "}");
     EXPECT_EQ(token.desc, "Close Brace");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyArrow) {
@@ -107,6 +119,7 @@ TEST(LexerTest, IdentifyArrow) {
     EXPECT_EQ(token.type, TokenType::TOKEN_ARROW);
     EXPECT_EQ(token.value, "->");
     EXPECT_EQ(token.desc, "Arrow");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyHashtag) {
@@ -115,6 +128,7 @@ TEST(LexerTest, IdentifyHashtag) {
     EXPECT_EQ(token.type, TokenType::TOKEN_HASHTAG);
     EXPECT_EQ(token.value, "#");
     EXPECT_EQ(token.desc, "Hashtag");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 /*
@@ -127,6 +141,7 @@ TEST(LexerTest, IdentifyVariableDeclaration) {
     EXPECT_EQ(token.type, TokenType::TOKEN_VARIABLE_DECLARATION);
     EXPECT_EQ(token.value, "!!");
     EXPECT_EQ(token.desc, "Variable declaration");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyIf) {
@@ -135,6 +150,7 @@ TEST(LexerTest, IdentifyIf) {
     EXPECT_EQ(token.type, TokenType::TOKEN_IF);
     EXPECT_EQ(token.value, "?");
     EXPECT_EQ(token.desc, "Conditional statement");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyElse) {
@@ -143,6 +159,7 @@ TEST(LexerTest, IdentifyElse) {
     EXPECT_EQ(token.type, TokenType::TOKEN_ELSE);
     EXPECT_EQ(token.value, "??");
     EXPECT_EQ(token.desc, "Else statement");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyElseIf) {
@@ -151,6 +168,7 @@ TEST(LexerTest, IdentifyElseIf) {
     EXPECT_EQ(token.type, TokenType::TOKEN_ELSE_IF);
     EXPECT_EQ(token.value, "???");
     EXPECT_EQ(token.desc, "Else if statement");
+    EXPECT_EQ(lexer.pos, 3);
 }
 
 TEST(LexerTest, IdentifyFor) {
@@ -159,6 +177,7 @@ TEST(LexerTest, IdentifyFor) {
     EXPECT_EQ(token.type, TokenType::TOKEN_FOR);
     EXPECT_EQ(token.value, "@");
     EXPECT_EQ(token.desc, "For loop");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyBreak) {
@@ -167,6 +186,7 @@ TEST(LexerTest, IdentifyBreak) {
     EXPECT_EQ(token.type, TokenType::TOKEN_BREAK);
     EXPECT_EQ(token.value, "<<");
     EXPECT_EQ(token.desc, "Break keyword");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyContinue) {
@@ -175,6 +195,7 @@ TEST(LexerTest, IdentifyContinue) {
     EXPECT_EQ(token.type, TokenType::TOKEN_CONTINUE);
     EXPECT_EQ(token.value, ">>");
     EXPECT_EQ(token.desc, "Continue keyword");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyFunction) {
@@ -183,6 +204,7 @@ TEST(LexerTest, IdentifyFunction) {
     EXPECT_EQ(token.type, TokenType::TOKEN_FUNCTION);
     EXPECT_EQ(token.value, "$");
     EXPECT_EQ(token.desc, "Function declaration");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyReturn) {
@@ -191,6 +213,7 @@ TEST(LexerTest, IdentifyReturn) {
     EXPECT_EQ(token.type, TokenType::TOKEN_RETURN);
     EXPECT_EQ(token.value, "=>");
     EXPECT_EQ(token.desc, "Return keyword");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 /*
@@ -203,6 +226,7 @@ TEST(LexerTest, IdentifyAssign) {
     EXPECT_EQ(token.type, TokenType::TOKEN_ASSIGN); 
     EXPECT_EQ(token.value, "=");
     EXPECT_EQ(token.desc, "Assign");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyAddition) {
@@ -211,6 +235,7 @@ TEST(LexerTest, IdentifyAddition) {
     EXPECT_EQ(token.type, TokenType::TOKEN_ADDITION);
     EXPECT_EQ(token.value, "+");
     EXPECT_EQ(token.desc, "Addition");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifySubtraction) {
@@ -219,6 +244,7 @@ TEST(LexerTest, IdentifySubtraction) {
     EXPECT_EQ(token.type, TokenType::TOKEN_SUBTRACTION);
     EXPECT_EQ(token.value, "-");
     EXPECT_EQ(token.desc, "Subtraction");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyMultiplication) {
@@ -227,6 +253,7 @@ TEST(LexerTest, IdentifyMultiplication) {
     EXPECT_EQ(token.type, TokenType::TOKEN_MULTIPLICATION);
     EXPECT_EQ(token.value, "*");
     EXPECT_EQ(token.desc, "Multiplication");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyDivision) {
@@ -235,6 +262,7 @@ TEST(LexerTest, IdentifyDivision) {
     EXPECT_EQ(token.type, TokenType::TOKEN_DIVISION);
     EXPECT_EQ(token.value, "/");
     EXPECT_EQ(token.desc, "Division");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyModulus) {
@@ -243,6 +271,7 @@ TEST(LexerTest, IdentifyModulus) {
     EXPECT_EQ(token.type, TokenType::TOKEN_MODULUS);
     EXPECT_EQ(token.value, "%");
     EXPECT_EQ(token.desc, "Modulus");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyAdditionAssignment) {
@@ -251,6 +280,7 @@ TEST(LexerTest, IdentifyAdditionAssignment) {
     EXPECT_EQ(token.type, TokenType::TOKEN_ADDITION_ASSIGNMENT);
     EXPECT_EQ(token.value, "+=");
     EXPECT_EQ(token.desc, "Addition Assignment");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifySubtractionAssignment) {
@@ -259,6 +289,7 @@ TEST(LexerTest, IdentifySubtractionAssignment) {
     EXPECT_EQ(token.type, TokenType::TOKEN_SUBTRACTION_ASSIGNMENT);
     EXPECT_EQ(token.value, "-=");
     EXPECT_EQ(token.desc, "Subtraction Assignment");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyMultiplicationAssignment) {
@@ -267,6 +298,7 @@ TEST(LexerTest, IdentifyMultiplicationAssignment) {
     EXPECT_EQ(token.type, TokenType::TOKEN_MULTIPLICATION_ASSIGNMENT);
     EXPECT_EQ(token.value, "*=");
     EXPECT_EQ(token.desc, "Multiplication Assignment");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyDivisionAssignment) {
@@ -275,6 +307,7 @@ TEST(LexerTest, IdentifyDivisionAssignment) {
     EXPECT_EQ(token.type, TokenType::TOKEN_DIVISION_ASSIGNMENT);
     EXPECT_EQ(token.value, "/=");
     EXPECT_EQ(token.desc, "Division Assignment");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyModulusAssignment) {
@@ -283,6 +316,7 @@ TEST(LexerTest, IdentifyModulusAssignment) {
     EXPECT_EQ(token.type, TokenType::TOKEN_MODULUS_ASSIGNMENT);
     EXPECT_EQ(token.value, "%=");
     EXPECT_EQ(token.desc, "Modulus Assignment");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyIncrement) {
@@ -291,6 +325,7 @@ TEST(LexerTest, IdentifyIncrement) {
     EXPECT_EQ(token.type, TokenType::TOKEN_INCREMENT);
     EXPECT_EQ(token.value, "++");
     EXPECT_EQ(token.desc, "Increment");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyDecrement) {
@@ -299,6 +334,7 @@ TEST(LexerTest, IdentifyDecrement) {
     EXPECT_EQ(token.type, TokenType::TOKEN_DECREMENT);
     EXPECT_EQ(token.value, "--");
     EXPECT_EQ(token.desc, "Decrement");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyPotentiation) {
@@ -307,6 +343,7 @@ TEST(LexerTest, IdentifyPotentiation) {
     EXPECT_EQ(token.type, TokenType::TOKEN_POTENTIATION);
     EXPECT_EQ(token.value, "**");
     EXPECT_EQ(token.desc, "Potentiation");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyFloorDivision) {
@@ -315,6 +352,7 @@ TEST(LexerTest, IdentifyFloorDivision) {
     EXPECT_EQ(token.type, TokenType::TOKEN_FLOOR_DIVISION);
     EXPECT_EQ(token.value, "//");
     EXPECT_EQ(token.desc, "Floor Division");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 /*
@@ -327,6 +365,7 @@ TEST(LexerTest, IdentifyEqual) {
     EXPECT_EQ(token.type, TokenType::TOKEN_EQUAL);
     EXPECT_EQ(token.value, "==");
     EXPECT_EQ(token.desc, "Equal");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyNotEqual) {
@@ -335,6 +374,7 @@ TEST(LexerTest, IdentifyNotEqual) {
     EXPECT_EQ(token.type, TokenType::TOKEN_NOT_EQUAL);
     EXPECT_EQ(token.value, "!=");
     EXPECT_EQ(token.desc, "Not Equal");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyGreater) {
@@ -343,6 +383,7 @@ TEST(LexerTest, IdentifyGreater) {
     EXPECT_EQ(token.type, TokenType::TOKEN_GREATER);
     EXPECT_EQ(token.value, ">");
     EXPECT_EQ(token.desc, "Greater");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyLess) {
@@ -351,6 +392,7 @@ TEST(LexerTest, IdentifyLess) {
     EXPECT_EQ(token.type, TokenType::TOKEN_LESS);
     EXPECT_EQ(token.value, "<");
     EXPECT_EQ(token.desc, "Less");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 TEST(LexerTest, IdentifyGreaterEqual) {
@@ -359,6 +401,7 @@ TEST(LexerTest, IdentifyGreaterEqual) {
     EXPECT_EQ(token.type, TokenType::TOKEN_GREATER_EQUAL);
     EXPECT_EQ(token.value, ">=");
     EXPECT_EQ(token.desc, "Greater Equal");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyLessEqual) {
@@ -367,6 +410,7 @@ TEST(LexerTest, IdentifyLessEqual) {
     EXPECT_EQ(token.type, TokenType::TOKEN_LESS_EQUAL);
     EXPECT_EQ(token.value, "<=");
     EXPECT_EQ(token.desc, "Less Equal");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyAnd) {
@@ -375,6 +419,7 @@ TEST(LexerTest, IdentifyAnd) {
     EXPECT_EQ(token.type, TokenType::TOKEN_AND);
     EXPECT_EQ(token.value, "&&");
     EXPECT_EQ(token.desc, "And");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyOr) {
@@ -383,6 +428,7 @@ TEST(LexerTest, IdentifyOr) {
     EXPECT_EQ(token.type, TokenType::TOKEN_OR);
     EXPECT_EQ(token.value, "||");
     EXPECT_EQ(token.desc, "Or");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyNot) {
@@ -391,6 +437,7 @@ TEST(LexerTest, IdentifyNot) {
     EXPECT_EQ(token.type, TokenType::TOKEN_NOT);
     EXPECT_EQ(token.value, "!");
     EXPECT_EQ(token.desc, "Not");
+    EXPECT_EQ(lexer.pos, 1);
 }
 
 /*
@@ -398,25 +445,28 @@ TEST(LexerTest, IdentifyNot) {
  */
 
 TEST(LexerTest, IdentifyLogger) {
-    Lexer lexer("log");
+    Lexer lexer("<>");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_LOG_BASIC);
-    EXPECT_EQ(token.value, "log");
+    EXPECT_EQ(token.value, "<>");
     EXPECT_EQ(token.desc, "Basic logging function");
+    EXPECT_EQ(lexer.pos, 2);
 }
 
 TEST(LexerTest, IdentifyColoredLogger) {
-    Lexer lexer("logc");
+    Lexer lexer("<#>");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_LOG_COLORED);
-    EXPECT_EQ(token.value, "logc");
+    EXPECT_EQ(token.value, "<#>");
     EXPECT_EQ(token.desc, "Colored logging function");
+    EXPECT_EQ(lexer.pos, 3);
 }
 
 TEST(LexerTest, IdentifyErrorLogger) {
-    Lexer lexer("err");
+    Lexer lexer("<!>");
     Token token = lexer.getNextToken();
     EXPECT_EQ(token.type, TokenType::TOKEN_LOG_ERROR);
-    EXPECT_EQ(token.value, "err");
+    EXPECT_EQ(token.value, "<!>");
     EXPECT_EQ(token.desc, "Error logging function");
+    EXPECT_EQ(lexer.pos, 3);
 }
