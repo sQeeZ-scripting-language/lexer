@@ -11,8 +11,7 @@ class Lexer {
 public:
   Lexer(const std::string& code);
   Token getNextToken();
-  Token getFunctionName();
-  Token getVariableName();
+  Token getName(char type);
   bool checkKeyword(const std::string& keyword);
   bool checkName(const std::unordered_map<std::string, std::string>& map, const std::string& name);
   void skip(size_t size);

@@ -135,10 +135,10 @@ TEST(LexerTest, IdentifyHashtag) {
  * KEYWORDS
  */
 
-TEST(LexerTest, IdentifyVariableDeclaration) {
+TEST(LexerTest, IdentifyVariable) {
     Lexer lexer("!!");
     Token token = lexer.getNextToken();
-    EXPECT_EQ(token.type, TokenType::TOKEN_VARIABLE_DECLARATION);
+    EXPECT_EQ(token.type, TokenType::TOKEN_VARIABLE);
     EXPECT_EQ(token.value, "!!");
     EXPECT_EQ(token.desc, "Variable declaration");
     EXPECT_EQ(lexer.pos, 2);

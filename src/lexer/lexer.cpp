@@ -34,20 +34,22 @@ Token Lexer::getNextToken() {
   return {TokenType::TOKEN_UNKNOWN, std::string(1, currentChar), "Unknown"};
 }
 
-Token Lexer::getFunctionName() {
+Token Lexer::getName(char type) {
   skipWhitespace();
   size_t i = code.find(' ', pos);
   std::string name = (i == std::string::npos) ? code.substr(pos, i - pos) : code.substr(pos);
-  bool isFn = checkName(functions, name);
-  return {isFn ? TokenType::TOKEN_FUNCTION_NAME : TokenType::TOKEN_UNKNOWN, name, isFn ? "Function name" : "Unknown"};
-}
+  switch (type) {
+  case 'f':
+    bool isFn = checkName(functions, name);
+    return {isFn ? TokenType::TOKEN_FUNCTION_NAME : TokenType::TOKEN_UNKNOWN, name, isFn ? "Function name" : "Invalid function name"};
 
-Token Lexer::getVariableName() {
-  skipWhitespace();
-  size_t i = code.find(' ', pos);
-  std::string name = (i == std::string::npos) ? code.substr(pos, i - pos) : code.substr(pos);
-  bool isVar = checkName(variables, name);
-  return {isVar ? TokenType::TOKEN_VARIABLE_NAME : TokenType::TOKEN_UNKNOWN, name, isVar ? "Variable name" : "Unknown"};
+  case 'v':
+    bool isVar = checkName(variables, name);
+    return {isVar ? TokenType::TOKEN_VARIABLE_NAME : TokenType::TOKEN_UNKNOWN, name, isVar ? "Variable name" : "Invalid variable name"};
+  
+  default:
+    throw std::runtime_error("Invalid type");
+  }
 }
 
 bool Lexer::checkKeyword(const std::string& keyword) { return code.substr(pos, keyword.size()) == keyword; }

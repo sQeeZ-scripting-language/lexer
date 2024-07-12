@@ -1,9 +1,9 @@
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 
-Token recognizeVariableDeclaration(Lexer& lexer) {
+Token recognizeVariable(Lexer& lexer) {
   if (lexer.checkKeyword("!!")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_VARIABLE_DECLARATION, "!!", "Variable declaration"};
+    return {TokenType::TOKEN_VARIABLE, "!!", "Variable declaration"};
   }
   return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
@@ -73,7 +73,7 @@ Token recognizeReturn(Lexer& lexer) {
 }
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
-  tokenRecognizers["!!"] = recognizeVariableDeclaration;
+  tokenRecognizers["!!"] = recognizeVariable;
   tokenRecognizers["?"] = recognizeIf;
   tokenRecognizers["??"] = recognizeElse;
   tokenRecognizers["???"] = recognizeElseIf;

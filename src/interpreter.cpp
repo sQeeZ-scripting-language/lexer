@@ -1,14 +1,27 @@
 #include "interpreter.hpp"
 
+std::vector<Token> tokens;
+
 void Interpreter::interpret(const std::string& code) {
   Lexer lexer(code);
-  Token token;
   do {
-    token = lexer.getNextToken();
-    std::cout << "###Token###" << std::endl;
-    std::cout << "Value: " << token.value << std::endl;
-    std::cout << "Desc: " << token.desc << std::endl;
-    std::cout << std::endl;
+    switch (getPreviousToken().type) {
+    case TokenType::TOKEN_FUNCTION:
+      // store function name
+      break;
 
-  } while (token.type != TokenType::TOKEN_EOF);
+    case TokenType::TOKEN_VARIABLE:
+      // store variable name
+      break;
+
+    default:
+      tokens.push_back(lexer.getNextToken());
+      break;
+    }
+    
+  } while (getPreviousToken().type != TokenType::TOKEN_EOF);
+}
+
+Token Interpreter::getPreviousToken() {
+  return tokens[tokens.size() - 1];
 }
