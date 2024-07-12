@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "lexer/lexer.hpp"
-#include "token.hpp"
+#include "lexer/token.hpp"
 
 class Interpreter {
 public:

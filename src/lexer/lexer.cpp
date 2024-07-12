@@ -37,46 +37,54 @@ Token Lexer::getNextToken() {
 Token Lexer::storeName(char type) {
   skipWhitespace();
   size_t i = code.find(' ', pos);
-  std::string name = (i == std::string::npos) ? code.substr(pos, i - pos) : code.substr(pos);
+  std::string name = (i == std::string::npos) ? code.substr(pos) : code.substr(pos, i - pos);
+  skip(name.size());
   switch (type) {
-    case 'f':
+    case 'f': {
       if (functions.find(name) != functions.end()) {
         return Token{TokenType::TOKEN_FAILURE, name, "Function name already exists"};
       } else {
         functions[name] = name;
         return Token{TokenType::TOKEN_FUNCTION_NAME, name, "Function name"};
       }
+    }
 
-    case 'v':
+    case 'v': {
       if (variables.find(name) != variables.end()) {
         return Token{TokenType::TOKEN_FAILURE, name, "Variable name already exists"};
       } else {
         variables[name] = name;
         return Token{TokenType::TOKEN_VARIABLE_NAME, name, "Variable name"};
       }
+    }
 
-    default:
+    default: {
       throw std::runtime_error("Invalid type");
+    }
   }
 }
 
 Token Lexer::getName(char type) {
   skipWhitespace();
   size_t i = code.find(' ', pos);
-  std::string name = (i == std::string::npos) ? code.substr(pos, i - pos) : code.substr(pos);
+  std::string name = (i == std::string::npos) ? code.substr(pos) : code.substr(pos, i - pos);
+  skip(name.size());
   switch (type) {
-    case 'f':
+    case 'f': {
       bool isFn = checkName(functions, name);
       return {isFn ? TokenType::TOKEN_FUNCTION_NAME : TokenType::TOKEN_FAILURE, name,
               isFn ? "Function name" : "Invalid function name"};
+    }
 
-    case 'v':
+    case 'v': {
       bool isVar = checkName(variables, name);
       return {isVar ? TokenType::TOKEN_VARIABLE_NAME : TokenType::TOKEN_FAILURE, name,
               isVar ? "Variable name" : "Invalid variable name"};
+    }
 
-    default:
+    default: {
       throw std::runtime_error("Invalid type");
+    }
   }
 }
 
