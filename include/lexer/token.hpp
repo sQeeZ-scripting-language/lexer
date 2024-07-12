@@ -19,7 +19,7 @@ enum class TokenType {
   TOKEN_ARROW,
   TOKEN_HASHTAG,
   // Keywords
-  TOKEN_VARIABLE_DECLARATION,
+  TOKEN_VARIABLE,
   TOKEN_IF,
   TOKEN_ELSE,
   TOKEN_ELSE_IF,
@@ -62,7 +62,8 @@ enum class TokenType {
   // Data
   TOKEN_FUNCTION_NAME,
   TOKEN_VARIABLE_NAME,
-  // Unknown
+  // Default
+  TOKEN_FAILURE,
   TOKEN_UNKNOWN
 };
 

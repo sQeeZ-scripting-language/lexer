@@ -8,7 +8,7 @@
 
 using TokenRecognizer = Token (*)(Lexer&);
 
-Token recognizeVariableDeclaration(Lexer& lexer);
+Token recognizeVariable(Lexer& lexer);
 Token recognizeIf(Lexer& lexer);
 Token recognizeElse(Lexer& lexer);
 Token recognizeElseIf(Lexer& lexer);

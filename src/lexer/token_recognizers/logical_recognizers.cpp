@@ -25,7 +25,8 @@ Token recognizeGreater(Lexer& lexer) {
 }
 
 Token recognizeLess(Lexer& lexer) {
-  if (lexer.checkKeyword("<") && !lexer.checkKeyword("<=") && !lexer.checkKeyword("<<")) {
+  if (lexer.checkKeyword("<") && !lexer.checkKeyword("<=") && !lexer.checkKeyword("<<") && !lexer.checkKeyword("<>") &&
+      !lexer.checkKeyword("<#>") && !lexer.checkKeyword("<!>")) {
     lexer.skip(1);
     return {TokenType::TOKEN_LESS, "<", "Less"};
   }
