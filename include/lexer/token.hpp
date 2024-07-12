@@ -62,7 +62,8 @@ enum class TokenType {
   // Data
   TOKEN_FUNCTION_NAME,
   TOKEN_VARIABLE_NAME,
-  // Unknown
+  // Default
+  TOKEN_FAILURE,
   TOKEN_UNKNOWN
 };
 

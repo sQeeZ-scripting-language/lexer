@@ -6,22 +6,20 @@ void Interpreter::interpret(const std::string& code) {
   Lexer lexer(code);
   do {
     switch (getPreviousToken().type) {
-    case TokenType::TOKEN_FUNCTION:
-      // store function name
-      break;
+      case TokenType::TOKEN_FUNCTION:
+        lexer.storeName('f');
+        break;
 
-    case TokenType::TOKEN_VARIABLE:
-      // store variable name
-      break;
+      case TokenType::TOKEN_VARIABLE:
+        lexer.storeName('v');
+        break;
 
-    default:
-      tokens.push_back(lexer.getNextToken());
-      break;
+      default:
+        tokens.push_back(lexer.getNextToken());
+        break;
     }
-    
+
   } while (getPreviousToken().type != TokenType::TOKEN_EOF);
 }
 
-Token Interpreter::getPreviousToken() {
-  return tokens[tokens.size() - 1];
-}
+Token Interpreter::getPreviousToken() { return tokens[tokens.size() - 1]; }

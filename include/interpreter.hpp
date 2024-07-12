@@ -15,7 +15,6 @@ public:
 
 private:
   Token getPreviousToken();
-
 };
 
 #endif
