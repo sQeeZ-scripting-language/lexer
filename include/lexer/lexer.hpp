@@ -2,6 +2,7 @@
 #define LEXER_HPP
 
 #include <cctype>
+#include <stdexcept>
 #include <string>
 #include <unordered_map>
 
