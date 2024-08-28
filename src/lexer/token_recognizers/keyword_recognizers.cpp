@@ -19,7 +19,7 @@ Token recognizeIf(Lexer& lexer) {
 Token recognizeElse(Lexer& lexer) {
   if (lexer.checkKeyword("else")) {
     lexer.skip(4);
-    return {TokenType::TOKEN_ELSE, "else" "Else statement"};
+    return {TokenType::TOKEN_ELSE, "else", "Else statement"};
   }
   return {TokenType::TOKEN_UNKNOWN, "Unknown"};
 }
