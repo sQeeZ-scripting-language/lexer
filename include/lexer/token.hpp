@@ -24,9 +24,6 @@ enum class TokenType {
   TOKEN_ELSE,
   TOKEN_ELSE_IF,
   TOKEN_FOR,
-  TOKEN_IN,
-  TOKEN_BREAK,
-  TOKEN_CONTINUE,
   TOKEN_FUNCTION,
   TOKEN_RETURN,
   // Operators
