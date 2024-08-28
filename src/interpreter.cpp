@@ -13,22 +13,8 @@ void Interpreter::interpret(const std::string& code) {
     std::cout << "Position: " << lexer.pos << std::endl;
     std::cout << std::endl;
 
-    switch (previousToken.type) {
-      case TokenType::TOKEN_FUNCTION: {
-        tokens.push_back(lexer.storeName('f'));
-        break;
-      }
-
-      case TokenType::TOKEN_VARIABLE: {
-        tokens.push_back(lexer.storeName('v'));
-        break;
-      }
-
-      default: {
-        tokens.push_back(lexer.getNextToken());
-        break;
-      }
-    }
+    tokens.push_back(lexer.getNextToken());
+    
     previousToken = getPreviousToken();
   } while (getPreviousToken().type != TokenType::TOKEN_EOF);
 }
