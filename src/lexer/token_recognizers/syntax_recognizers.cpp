@@ -3,113 +3,113 @@
 Token recognizeSemicolon(Lexer& lexer) {
   if (lexer.checkKeyword(";")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_SEMICOLON, ";", "Semicolon"};
+    return {SyntaxToken::SEMICOLON, ";", "Semicolon"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeComma(Lexer& lexer) {
   if (lexer.checkKeyword(",")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_COMMA, ",", "Comma"};
+    return {SyntaxToken::COMMA, ",", "Comma"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeDot(Lexer& lexer) {
   if (lexer.checkKeyword(".")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_DOT, ".", "Dot"};
+    return {SyntaxToken::DOT, ".", "Dot"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeColon(Lexer& lexer) {
   if (lexer.checkKeyword(":")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_COLON, ":", "Colon"};
+    return {SyntaxToken::COLON, ":", "Colon"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeSingleQuote(Lexer& lexer) {
   if (lexer.checkKeyword("'")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_SINGLE_QUOTE, "'", "Single Quote"};
+    return {SyntaxToken::SINGLE_QUOTE, "'", "Single Quote"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeDoubleQuote(Lexer& lexer) {
   if (lexer.checkKeyword("\"")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_DOUBLE_QUOTE, "\"", "Double Quote"};
+    return {SyntaxToken::DOUBLE_QUOTE, "\"", "Double Quote"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeOpenParenthesis(Lexer& lexer) {
   if (lexer.checkKeyword("(")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_OPEN_PARENTHESIS, "(", "Open Parenthesis"};
+    return {SyntaxToken::OPEN_PARENTHESIS, "(", "Open Parenthesis"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeCloseParenthesis(Lexer& lexer) {
   if (lexer.checkKeyword(")")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_CLOSE_PARENTHESIS, ")", "Close Parenthesis"};
+    return {SyntaxToken::CLOSE_PARENTHESIS, ")", "Close Parenthesis"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeOpenBracket(Lexer& lexer) {
   if (lexer.checkKeyword("[")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_OPEN_BRACKET, "[", "Open Bracket"};
+    return {SyntaxToken::OPEN_BRACKET, "[", "Open Bracket"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeCloseBracket(Lexer& lexer) {
   if (lexer.checkKeyword("]")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_CLOSE_BRACKET, "]", "Close Bracket"};
+    return {SyntaxToken::CLOSE_BRACKET, "]", "Close Bracket"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeOpenBrace(Lexer& lexer) {
   if (lexer.checkKeyword("{")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_OPEN_BRACE, "{", "Open Brace"};
+    return {SyntaxToken::OPEN_BRACE, "{", "Open Brace"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeCloseBrace(Lexer& lexer) {
   if (lexer.checkKeyword("}")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_CLOSE_BRACE, "}", "Close Brace"};
+    return {SyntaxToken::CLOSE_BRACE, "}", "Close Brace"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeArrow(Lexer& lexer) {
   if (lexer.checkKeyword("->")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_ARROW, "->", "Arrow"};
+    return {SyntaxToken::ARROW, "->", "Arrow"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeHashtag(Lexer& lexer) {
   if (lexer.checkKeyword("#")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_HASHTAG, "#", "Hashtag"};
+    return {SyntaxToken::HASHTAG, "#", "Hashtag"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {

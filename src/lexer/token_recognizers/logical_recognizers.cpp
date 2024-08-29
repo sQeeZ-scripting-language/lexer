@@ -3,74 +3,74 @@
 Token recognizeEqual(Lexer& lexer) {
   if (lexer.checkKeyword("==")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_EQUAL, "==", "Equal"};
+    return {LogicalToken::EQUAL, "==", "Equal"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeNotEqual(Lexer& lexer) {
   if (lexer.checkKeyword("!=")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_NOT_EQUAL, "!=", "Not Equal"};
+    return {LogicalToken::NOT_EQUAL, "!=", "Not Equal"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeGreater(Lexer& lexer) {
   if (lexer.checkKeyword(">") && !lexer.checkKeyword(">=") && !lexer.checkKeyword(">>")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_GREATER, ">", "Greater"};
+    return {LogicalToken::GREATER, ">", "Greater"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeLess(Lexer& lexer) {
   if (lexer.checkKeyword("<") && !lexer.checkKeyword("<=") && !lexer.checkKeyword("<<") && !lexer.checkKeyword("<>") &&
       !lexer.checkKeyword("<#>") && !lexer.checkKeyword("<!>")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_LESS, "<", "Less"};
+    return {LogicalToken::LESS, "<", "Less"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeGreaterEqual(Lexer& lexer) {
   if (lexer.checkKeyword(">=")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_GREATER_EQUAL, ">=", "Greater Equal"};
+    return {LogicalToken::GREATER_EQUAL, ">=", "Greater Equal"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeLessEqual(Lexer& lexer) {
   if (lexer.checkKeyword("<=")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_LESS_EQUAL, "<=", "Less Equal"};
+    return {LogicalToken::LESS_EQUAL, "<=", "Less Equal"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeAnd(Lexer& lexer) {
   if (lexer.checkKeyword("&&")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_AND, "&&", "And"};
+    return {LogicalToken::AND, "&&", "And"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeOr(Lexer& lexer) {
   if (lexer.checkKeyword("||")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_OR, "||", "Or"};
+    return {LogicalToken::OR, "||", "Or"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeNot(Lexer& lexer) {
   if (lexer.checkKeyword("!") && !lexer.checkKeyword("!=") && !lexer.checkKeyword("!!")) {
     lexer.skip(1);
-    return {TokenType::TOKEN_NOT, "!", "Not"};
+    return {LogicalToken::NOT, "!", "Not"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 void registerLogicalRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {

@@ -3,57 +3,57 @@
 Token recognizeVariable(Lexer& lexer) {
   if (lexer.checkKeyword("var")) {
     lexer.skip(3);
-    return {TokenType::TOKEN_VARIABLE, "var", "Variable declaration"};
+    return {KeywordToken::VARIABLE, "var", "Variable declaration"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeIf(Lexer& lexer) {
   if (lexer.checkKeyword("if")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_IF, "if", "Conditional statement"};
+    return {KeywordToken::IF, "if", "Conditional statement"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeElse(Lexer& lexer) {
   if (lexer.checkKeyword("else")) {
     lexer.skip(4);
-    return {TokenType::TOKEN_ELSE, "else", "Else statement"};
+    return {KeywordToken::ELSE, "else", "Else statement"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeElseIf(Lexer& lexer) {
   if (lexer.checkKeyword("elif")) {
     lexer.skip(4);
-    return {TokenType::TOKEN_ELSE_IF, "elif", "Else if statement"};
+    return {KeywordToken::ELSE_IF, "elif", "Else if statement"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeFor(Lexer& lexer) {
   if (lexer.checkKeyword("for")) {
     lexer.skip(3);
-    return {TokenType::TOKEN_FOR, "for", "For loop"};
+    return {KeywordToken::FOR, "for", "For loop"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeFunction(Lexer& lexer) {
   if (lexer.checkKeyword("fn")) {
     lexer.skip(2);
-    return {TokenType::TOKEN_FUNCTION, "fn", "Function declaration"};
+    return {KeywordToken::FUNCTION, "fn", "Function declaration"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 Token recognizeReturn(Lexer& lexer) {
   if (lexer.checkKeyword("return")) {
     lexer.skip(6);
-    return {TokenType::TOKEN_RETURN, "return", "Return keyword"};
+    return {KeywordToken::RETURN, "return", "Return keyword"};
   }
-  return {TokenType::TOKEN_UNKNOWN, "Unknown"};
+  return {BasicToken::UNKNOWN, "Unknown"};
 }
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
