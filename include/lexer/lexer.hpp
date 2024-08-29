@@ -5,7 +5,7 @@
 #include <stdexcept>
 #include <string>
 #include <unordered_map>
-#include "token.hpp"
+#include <lexer/tokens/token.hpp>
 
 class Lexer {
 public:

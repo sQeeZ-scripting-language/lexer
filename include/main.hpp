@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "lexer/lexer.hpp"
-#include "lexer/token.hpp"
 
 void lex(const std::string& code);
 
