@@ -1,73 +1,65 @@
 #ifndef TOKEN_HPP
 #define TOKEN_HPP
 
-enum class TokenType {
+#include <string>
+
+#include "data_tokens.hpp"
+#include "error_tokens.hpp"
+#include "keyword_tokens.hpp"
+#include "log_tokens.hpp"
+#include "logical_tokens.hpp"
+#include "operator_tokens.hpp"
+#include "syntax_tokens.hpp"
+
+enum class BasicToken {
   TOKEN_EOF,
-  // Syntax
-  TOKEN_SEMICOLON,
-  TOKEN_COMMA,
-  TOKEN_DOT,
-  TOKEN_COLON,
-  TOKEN_SINGLE_QUOTE,
-  TOKEN_DOUBLE_QUOTE,
-  TOKEN_OPEN_PARENTHESIS,
-  TOKEN_CLOSE_PARENTHESIS,
-  TOKEN_OPEN_BRACKET,
-  TOKEN_CLOSE_BRACKET,
-  TOKEN_OPEN_BRACE,
-  TOKEN_CLOSE_BRACE,
-  TOKEN_ARROW,
-  TOKEN_HASHTAG,
-  // Keywords
-  TOKEN_VARIABLE,
-  TOKEN_IF,
-  TOKEN_ELSE,
-  TOKEN_ELSE_IF,
-  TOKEN_FOR,
-  TOKEN_FUNCTION,
-  TOKEN_RETURN,
-  // Operators
-  TOKEN_ASSIGN,
-  TOKEN_ADDITION,
-  TOKEN_SUBTRACTION,
-  TOKEN_MULTIPLICATION,
-  TOKEN_DIVISION,
-  TOKEN_MODULUS,
-  TOKEN_ADDITION_ASSIGNMENT,
-  TOKEN_SUBTRACTION_ASSIGNMENT,
-  TOKEN_MULTIPLICATION_ASSIGNMENT,
-  TOKEN_DIVISION_ASSIGNMENT,
-  TOKEN_MODULUS_ASSIGNMENT,
-  TOKEN_INCREMENT,
-  TOKEN_DECREMENT,
-  TOKEN_POTENTIATION,
-  TOKEN_FLOOR_DIVISION,
-  // Logical
-  TOKEN_EQUAL,
-  TOKEN_NOT_EQUAL,
-  TOKEN_GREATER,
-  TOKEN_LESS,
-  TOKEN_GREATER_EQUAL,
-  TOKEN_LESS_EQUAL,
-  TOKEN_AND,
-  TOKEN_OR,
-  TOKEN_NOT,
-  // Log
-  TOKEN_LOG_BASIC,
-  TOKEN_LOG_COLORED,
-  TOKEN_LOG_ERROR,
-  // Data
-  TOKEN_FUNCTION_NAME,
-  TOKEN_VARIABLE_NAME,
-  // Default
-  TOKEN_FAILURE,
-  TOKEN_UNKNOWN
+  UNKNOWN
 };
 
 struct Token {
-  TokenType type;
-  std::string value;
-  std::string desc;
+    enum class TypeTag {
+        BASIC,
+        DATA,
+        ERROR,
+        KEYWORD,
+        LOG,
+        LOGICAL,
+        OPERATOR,
+        SYNTAX
+    } tag;
+
+    union TokenType {
+        BasicToken basicToken;
+        DataToken dataToken;
+        ErrorToken errorToken;
+        KeywordToken keywordToken;
+        LogToken logToken;
+        LogicalToken logicalToken;
+        OperatorToken operatorToken;
+        SyntaxToken syntaxToken;
+
+        TokenType() {}
+        TokenType(BasicToken t) : basicToken(t) {}
+        TokenType(DataToken t) : dataToken(t) {}
+        TokenType(ErrorToken t) : errorToken(t) {}
+        TokenType(KeywordToken t) : keywordToken(t) {}
+        TokenType(LogToken t) : logToken(t) {}
+        TokenType(LogicalToken t) : logicalToken(t) {}
+        TokenType(OperatorToken t) : operatorToken(t) {}
+        TokenType(SyntaxToken t) : syntaxToken(t) {}
+    } type;
+
+    std::string value;
+    std::string desc;
+
+    Token(BasicToken b, std::string value = "", std::string desc = "") : tag(TypeTag::BASIC), type(b), value(std::move(value)), desc(std::move(desc)) {}
+    Token(DataToken d, std::string value = "", std::string desc = "") : tag(TypeTag::DATA), type(d), value(std::move(value)), desc(std::move(desc)) {}
+    Token(ErrorToken e, std::string value = "", std::string desc = "") : tag(TypeTag::ERROR), type(e), value(std::move(value)), desc(std::move(desc)) {}
+    Token(KeywordToken k, std::string value = "", std::string desc = "") : tag(TypeTag::KEYWORD), type(k), value(std::move(value)), desc(std::move(desc)) {}
+    Token(LogToken l, std::string value = "", std::string desc = "") : tag(TypeTag::LOG), type(l), value(std::move(value)), desc(std::move(desc)) {}
+    Token(LogicalToken l, std::string value = "", std::string desc = "") : tag(TypeTag::LOGICAL), type(l), value(std::move(value)), desc(std::move(desc)) {}
+    Token(OperatorToken o, std::string value = "", std::string desc = "") : tag(TypeTag::OPERATOR), type(o), value(std::move(value)), desc(std::move(desc)) {}
+    Token(SyntaxToken s, std::string value = "", std::string desc = "") : tag(TypeTag::SYNTAX), type(s), value(std::move(value)), desc(std::move(desc)) {}
 };
 
 #endif
