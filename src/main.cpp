@@ -43,5 +43,5 @@ void lex(const std::string& code) {
     std::cout << std::endl;
     tokens.push_back(lexer.getNextToken());
     previousToken = tokens.back();
-  } while (previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF);
+  } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
 }
