@@ -1,7 +1,7 @@
 #ifndef SYNTAX_TOKEN_HPP
 #define SYNTAX_TOKEN_HPP
 
-enum class SyntaxToken {  
+enum class SyntaxToken {
   SEMICOLON,
   COMMA,
   DOT,

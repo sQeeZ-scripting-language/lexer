@@ -1,7 +1,7 @@
 #ifndef OPERATOR_TOKEN_HPP
 #define OPERATOR_TOKEN_HPP
 
-enum class OperatorToken {  
+enum class OperatorToken {
   ASSIGN,
   ADDITION,
   SUBTRACTION,

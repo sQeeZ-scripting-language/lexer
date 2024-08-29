@@ -2,10 +2,10 @@
 #define DATA_RECOGNIZERS_HPP
 
 #include <cctype>
+#include <regex>
 #include <stdexcept>
 #include <string>
 #include <unordered_map>
-#include <regex>
 
 #include "lexer.hpp"
 

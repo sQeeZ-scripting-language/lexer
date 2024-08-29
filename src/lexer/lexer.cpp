@@ -1,4 +1,5 @@
 #include "lexer/lexer.hpp"
+
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 #include "lexer/token_recognizers/log_recognizers.hpp"
 #include "lexer/token_recognizers/logical_recognizers.hpp"
@@ -6,9 +7,7 @@
 #include "lexer/token_recognizers/syntax_recognizers.hpp"
 #include "lexer/tokens/token.hpp"
 
-Lexer::Lexer(const std::string& code) : code(code), pos(0) {
-  registerTokenRecognizers();
-}
+Lexer::Lexer(const std::string& code) : code(code), pos(0) { registerTokenRecognizers(); }
 
 void Lexer::registerTokenRecognizers() {
   registerSyntaxRecognizers(tokenRecognizers);
@@ -32,19 +31,15 @@ Token Lexer::getNextToken() {
     }
     pos = originalPosition;
   }
-  
+
   char currentChar = peek();
   advance();
   return {BasicToken::UNKNOWN, std::string(1, currentChar), "Unknown"};
 }
 
-bool Lexer::checkKeyword(const std::string& keyword) {
-  return code.substr(pos, keyword.size()) == keyword; 
-}
+bool Lexer::checkKeyword(const std::string& keyword) { return code.substr(pos, keyword.size()) == keyword; }
 
-void Lexer::skip(size_t size) {
-  pos += size;
-}
+void Lexer::skip(size_t size) { pos += size; }
 
 void Lexer::skipWhitespace() {
   while (!isEOF() && std::isspace(peek())) {
@@ -52,9 +47,7 @@ void Lexer::skipWhitespace() {
   }
 }
 
-bool Lexer::isEOF() { 
-  return pos >= code.size();
-}
+bool Lexer::isEOF() { return pos >= code.size(); }
 
 char Lexer::peek() {
   if (isEOF()) {
