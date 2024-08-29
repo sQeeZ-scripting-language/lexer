@@ -1,6 +1,6 @@
-#include "interpreter.hpp"
+#include "main.hpp"
 
-int main(int argc, char *argv[]) {
+int main(int argc, char* argv[]) {
   if (argc != 2) {
     std::cerr << "Usage: " << argv[0] << " <filename>.sqz" << std::endl;
     return 1;
@@ -25,8 +25,23 @@ int main(int argc, char *argv[]) {
     code += line + "\n";
   }
 
-  Interpreter interpreter;
-  interpreter.interpret(code);
-
+  lex(code);
   return 0;
+}
+
+std::vector<Token> tokens;
+
+void lex(const std::string& code) {
+  Lexer lexer(code);
+  Token previousToken = {BasicToken::UNKNOWN, "Unknown", "Initialize Lexer"};
+
+  do {
+    std::cout << "###Token###" << std::endl;
+    std::cout << "Value: " << previousToken.value << std::endl;
+    std::cout << "Desc: " << previousToken.desc << std::endl;
+    std::cout << "Position: " << lexer.pos << std::endl;
+    std::cout << std::endl;
+    tokens.push_back(lexer.getNextToken());
+    previousToken = tokens.back();
+  } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
 }

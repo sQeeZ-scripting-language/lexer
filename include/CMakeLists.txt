@@ -1,7 +1,7 @@
 add_subdirectory(lexer)
 
 set(INCLUDE_HEADERS
-    interpreter.hpp
+    main.hpp
 )
 
 install(FILES ${INCLUDE_HEADERS} DESTINATION include)

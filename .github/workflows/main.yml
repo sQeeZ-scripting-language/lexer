@@ -1,4 +1,4 @@
-name: sQeeZ-Interpreter-CI
+name: sQeeZ-Lexer-CI
 
 on:
   push:

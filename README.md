@@ -1,1 +1,1 @@
-# The interpreter of sQeeZ
+# The Lexer of sQeeZ

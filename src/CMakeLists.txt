@@ -1,5 +1,5 @@
 set(SRC_SOURCES
-    interpreter.cpp
+    main.cpp
 )
 
 add_subdirectory(lexer)
