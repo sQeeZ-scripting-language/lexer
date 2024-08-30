@@ -1,5 +1,7 @@
 #include "main.hpp"
 
+std::unordered_map<std::string, bool> lexerState;
+
 int main(int argc, char* argv[]) {
   if (argc != 2) {
     std::cerr << "Usage: " << argv[0] << " <filename>.sqz" << std::endl;
@@ -25,23 +27,39 @@ int main(int argc, char* argv[]) {
     code += line + "\n";
   }
 
+  lexerState["insideString"] = false;
+
   lex(code);
   return 0;
 }
 
-std::vector<Token> tokens;
-
 void lex(const std::string& code) {
   Lexer lexer(code);
-  Token previousToken = {BasicToken::UNKNOWN, "Unknown", "Initialize Lexer"};
+  DataRecognizer dataRecognizer;
+  std::vector<Token> tokens;
+  Token previousToken = {BasicToken::UNKNOWN, 0, "NONE", "Initialize Lexer"};
 
   do {
     std::cout << "###Token###" << std::endl;
     std::cout << "Value: " << previousToken.value << std::endl;
+    std::cout << "Size: " << previousToken.size << std::endl;
     std::cout << "Desc: " << previousToken.desc << std::endl;
     std::cout << "Position: " << lexer.pos << std::endl;
     std::cout << std::endl;
-    tokens.push_back(lexer.getNextToken());
+    Token* tokenPtr = lexSpecialCases(previousToken, dataRecognizer, lexer);
+    tokens.push_back(tokenPtr != nullptr ? *tokenPtr : lexer.getNextToken());
     previousToken = tokens.back();
   } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
+}
+
+Token* lexSpecialCases(Token previousToken, DataRecognizer dataRecognizer, Lexer &lexer) {
+  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE && !lexerState["insideString"]) {
+    lexerState["insideString"] = true;
+    std::cout << "Recognizing String" << std::endl;
+    return dataRecognizer.recognizeString(lexer);
+  }
+  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE && lexerState["insideString"]) {
+    lexerState["insideString"] = false;
+  }
+  return nullptr;
 }

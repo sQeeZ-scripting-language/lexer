@@ -20,21 +20,24 @@ void Lexer::registerTokenRecognizers() {
 Token Lexer::getNextToken() {
   skipWhitespace();
   if (isEOF()) {
-    return {BasicToken::TOKEN_EOF, "EOF", "The end of the file"};
+    return {BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"};
   }
 
   for (const auto& recognizer : tokenRecognizers) {
     size_t originalPosition = pos;
-    Token token = recognizer.second(*this);
-    if (!(token.tag == Token::TypeTag::BASIC && token.type.basicToken == BasicToken::UNKNOWN)) {
+    Token* tokenPtr = recognizer.second(*this);
+
+    if (tokenPtr != nullptr) {
+      Token token = *tokenPtr;
+      pos = pos + token.size;
+      delete tokenPtr;
       return token;
     }
-    pos = originalPosition;
   }
 
   char currentChar = peek();
   advance();
-  return {BasicToken::UNKNOWN, std::string(1, currentChar), "Unknown"};
+  return {BasicToken::UNKNOWN, 0, std::string(1, currentChar), "Unknown"};
 }
 
 bool Lexer::checkKeyword(const std::string& keyword) { return code.substr(pos, keyword.size()) == keyword; }
@@ -47,7 +50,12 @@ void Lexer::skipWhitespace() {
   }
 }
 
-bool Lexer::isEOF() { return pos >= code.size(); }
+char Lexer::advance() {
+  if (!isEOF()) {
+    pos++;
+  }
+  return peek();
+}
 
 char Lexer::peek() {
   if (isEOF()) {
@@ -56,9 +64,4 @@ char Lexer::peek() {
   return code[pos];
 }
 
-char Lexer::advance() {
-  if (!isEOF()) {
-    pos++;
-  }
-  return peek();
-}
+bool Lexer::isEOF() { return pos >= code.size(); }

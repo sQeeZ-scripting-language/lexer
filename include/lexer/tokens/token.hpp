@@ -37,25 +37,26 @@ struct Token {
     TokenType(SyntaxToken t) : syntaxToken(t) {}
   } type;
 
+  int size;
   std::string value;
   std::string desc;
 
-  Token(BasicToken b, std::string value = "", std::string desc = "")
-      : tag(TypeTag::BASIC), type(b), value(std::move(value)), desc(std::move(desc)) {}
-  Token(DataToken d, std::string value = "", std::string desc = "")
-      : tag(TypeTag::DATA), type(d), value(std::move(value)), desc(std::move(desc)) {}
-  Token(ErrorToken e, std::string value = "", std::string desc = "")
-      : tag(TypeTag::ERROR), type(e), value(std::move(value)), desc(std::move(desc)) {}
-  Token(KeywordToken k, std::string value = "", std::string desc = "")
-      : tag(TypeTag::KEYWORD), type(k), value(std::move(value)), desc(std::move(desc)) {}
-  Token(LogToken l, std::string value = "", std::string desc = "")
-      : tag(TypeTag::LOG), type(l), value(std::move(value)), desc(std::move(desc)) {}
-  Token(LogicalToken l, std::string value = "", std::string desc = "")
-      : tag(TypeTag::LOGICAL), type(l), value(std::move(value)), desc(std::move(desc)) {}
-  Token(OperatorToken o, std::string value = "", std::string desc = "")
-      : tag(TypeTag::OPERATOR), type(o), value(std::move(value)), desc(std::move(desc)) {}
-  Token(SyntaxToken s, std::string value = "", std::string desc = "")
-      : tag(TypeTag::SYNTAX), type(s), value(std::move(value)), desc(std::move(desc)) {}
+  Token(BasicToken b, int size = 0, std::string value = "", std::string desc = "")
+      : tag(TypeTag::BASIC), type(b), size(size), value(std::move(value)), desc(std::move(desc)) {}
+  Token(DataToken d, int size = 0, std::string value = "", std::string desc = "")
+      : tag(TypeTag::DATA), type(d), size(size), value(std::move(value)), desc(std::move(desc)) {}
+  Token(ErrorToken e, int size = 0, std::string value = "", std::string desc = "")
+      : tag(TypeTag::ERROR), type(e), size(size), value(std::move(value)), desc(std::move(desc)) {}
+  Token(KeywordToken k, int size = 0, std::string value = "", std::string desc = "")
+      : tag(TypeTag::KEYWORD), type(k), size(size), value(std::move(value)), desc(std::move(desc)) {}
+  Token(LogToken l, int size = 0, std::string value = "", std::string desc = "")
+      : tag(TypeTag::LOG), type(l), size(size), value(std::move(value)), desc(std::move(desc)) {}
+  Token(LogicalToken l, int size = 0, std::string value = "", std::string desc = "")
+      : tag(TypeTag::LOGICAL), type(l), size(size), value(std::move(value)), desc(std::move(desc)) {}
+  Token(OperatorToken o, int size = 0, std::string value = "", std::string desc = "")
+      : tag(TypeTag::OPERATOR), type(o), size(size), value(std::move(value)), desc(std::move(desc)) {}
+  Token(SyntaxToken s, int size = 0, std::string value = "", std::string desc = "")
+      : tag(TypeTag::SYNTAX), type(s), size(size), value(std::move(value)), desc(std::move(desc)) {}
 };
 
 #endif
