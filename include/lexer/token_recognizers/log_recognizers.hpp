@@ -6,11 +6,11 @@
 
 #include "lexer/lexer.hpp"
 
-using TokenRecognizer = Token (*)(Lexer&);
+using TokenRecognizer = Token* (*)(Lexer&);
 
-Token recognizeColoredLog(Lexer& lexer);
-Token recognizeBasicLog(Lexer& lexer);
-Token recognizeErrorLog(Lexer& lexer);
+Token* recognizeColoredLog(Lexer& lexer);
+Token* recognizeBasicLog(Lexer& lexer);
+Token* recognizeErrorLog(Lexer& lexer);
 
 void registerLogRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

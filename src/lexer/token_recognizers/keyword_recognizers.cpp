@@ -1,59 +1,31 @@
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 
-Token recognizeVariable(Lexer& lexer) {
-  if (lexer.checkKeyword("var")) {
-    lexer.skip(3);
-    return {KeywordToken::VARIABLE, "var", "Variable declaration"};
-  }
-  return {BasicToken::UNKNOWN, "Unknown"};
+Token* recognizeVariable(Lexer& lexer) {
+  return lexer.checkKeyword("var") ? new Token{KeywordToken::VARIABLE, 3, "var", "Variable declaration"} : nullptr;
 }
 
-Token recognizeIf(Lexer& lexer) {
-  if (lexer.checkKeyword("if")) {
-    lexer.skip(2);
-    return {KeywordToken::IF, "if", "Conditional statement"};
-  }
-  return {BasicToken::UNKNOWN, "Unknown"};
+Token* recognizeIf(Lexer& lexer) {
+  return lexer.checkKeyword("if") ? new Token{KeywordToken::IF, 2, "if", "Conditional statement"} : nullptr;
 }
 
-Token recognizeElse(Lexer& lexer) {
-  if (lexer.checkKeyword("else")) {
-    lexer.skip(4);
-    return {KeywordToken::ELSE, "else", "Else statement"};
-  }
-  return {BasicToken::UNKNOWN, "Unknown"};
+Token* recognizeElse(Lexer& lexer) {
+  return lexer.checkKeyword("else") ? new Token{KeywordToken::ELSE, 4, "else", "Else statement"} : nullptr;
 }
 
-Token recognizeElseIf(Lexer& lexer) {
-  if (lexer.checkKeyword("elif")) {
-    lexer.skip(4);
-    return {KeywordToken::ELSE_IF, "elif", "Else if statement"};
-  }
-  return {BasicToken::UNKNOWN, "Unknown"};
+Token* recognizeElseIf(Lexer& lexer) {
+  return lexer.checkKeyword("elif") ? new Token{KeywordToken::ELSE_IF, 4, "elif", "Else if statement"} : nullptr;
 }
 
-Token recognizeFor(Lexer& lexer) {
-  if (lexer.checkKeyword("for")) {
-    lexer.skip(3);
-    return {KeywordToken::FOR, "for", "For loop"};
-  }
-  return {BasicToken::UNKNOWN, "Unknown"};
+Token* recognizeFor(Lexer& lexer) {
+  return lexer.checkKeyword("for") ? new Token{KeywordToken::FOR, 3, "for", "For loop"} : nullptr;
 }
 
-Token recognizeFunction(Lexer& lexer) {
-  if (lexer.checkKeyword("fn")) {
-    lexer.skip(2);
-    return {KeywordToken::FUNCTION, "fn", "Function declaration"};
-  }
-  return {BasicToken::UNKNOWN, "Unknown"};
+Token* recognizeFunction(Lexer& lexer) {
+  return lexer.checkKeyword("fn") ? new Token{KeywordToken::FUNCTION, 2, "fn", "Function declaration"} : nullptr;
 }
 
-Token recognizeReturn(Lexer& lexer) {
-  if (lexer.checkKeyword("return")) {
-    lexer.skip(6);
-    return {KeywordToken::RETURN, "return", "Return keyword"};
-  }
-  return {BasicToken::UNKNOWN, "Unknown"};
+Token* recognizeReturn(Lexer& lexer) {
+  return lexer.checkKeyword("return") ? new Token{KeywordToken::RETURN, 6, "return", "Return keyword"} : nullptr;
 }
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
