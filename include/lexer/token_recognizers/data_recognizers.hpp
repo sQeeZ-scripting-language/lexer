@@ -11,15 +11,17 @@
 
 class DataRecognizer {
 public:
+  Token *storeIdentifier(Lexer &lexer, char type);
+  Token *recognizeIdentifier(Lexer &lexer);
+  Token *recognizeString(Lexer &lexer);
+
+  std::unordered_map<std::string, char> identifiers;
+
+private:
   bool isValidIdentifier(std::string identifier);
   bool isReservedKeyword(std::string identifier);
   char getType(std::string identifier);
   std::string extractIdentifier(Lexer &lexer);
-  Token storeIdentifier(Lexer &lexer, std::string identifier, char type);
-  Token recognizeIdentifier(std::string identifier);
-  Token* recognizeString(Lexer &lexer);
-
-  std::unordered_map<std::string, char> identifiers;
 };
 
 #endif

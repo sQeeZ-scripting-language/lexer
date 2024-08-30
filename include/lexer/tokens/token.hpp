@@ -11,7 +11,7 @@
 #include "operator_tokens.hpp"
 #include "syntax_tokens.hpp"
 
-enum class BasicToken { TOKEN_EOF, UNKNOWN };
+enum class BasicToken { INIT, TOKEN_EOF, UNKNOWN };
 
 struct Token {
   enum class TypeTag { BASIC, DATA, ERROR, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;

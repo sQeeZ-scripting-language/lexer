@@ -37,7 +37,7 @@ void lex(const std::string& code) {
   Lexer lexer(code);
   DataRecognizer dataRecognizer;
   std::vector<Token> tokens;
-  Token previousToken = {BasicToken::UNKNOWN, 0, "NONE", "Initialize Lexer"};
+  Token previousToken = {BasicToken::INIT, 0, "\0", "Initialize Lexer"};
 
   do {
     std::cout << "###Token###" << std::endl;
@@ -47,19 +47,38 @@ void lex(const std::string& code) {
     std::cout << "Position: " << lexer.pos << std::endl;
     std::cout << std::endl;
     Token* tokenPtr = lexSpecialCases(previousToken, dataRecognizer, lexer);
-    tokens.push_back(tokenPtr != nullptr ? *tokenPtr : lexer.getNextToken());
+    if (tokenPtr == nullptr) tokenPtr = lexer.getNextToken();
+    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(lexer);
+    if (tokenPtr != nullptr) {
+      tokens.push_back(*tokenPtr);
+    } else {
+      tokens.push_back({BasicToken::UNKNOWN, 1, std::string(1, lexer.peek()), "Unknown Token"});
+      lexer.skip(1);
+    }
     previousToken = tokens.back();
   } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
 }
 
-Token* lexSpecialCases(Token previousToken, DataRecognizer dataRecognizer, Lexer &lexer) {
-  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE && !lexerState["insideString"]) {
+Token* lexSpecialCases(Token previousToken, DataRecognizer dataRecognizer, Lexer& lexer) {
+  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::FUNCTION) {
+    return dataRecognizer.storeIdentifier(lexer, 'F');
+  }
+  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::VARIABLE) {
+    return dataRecognizer.storeIdentifier(lexer, 'V');
+  }
+  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::CONSTANT) {
+    return dataRecognizer.storeIdentifier(lexer, 'C');
+  }
+  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
+      !lexerState["insideString"]) {
     lexerState["insideString"] = true;
     std::cout << "Recognizing String" << std::endl;
     return dataRecognizer.recognizeString(lexer);
   }
-  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE && lexerState["insideString"]) {
+  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
+      lexerState["insideString"]) {
     lexerState["insideString"] = false;
+    return nullptr;
   }
   return nullptr;
 }

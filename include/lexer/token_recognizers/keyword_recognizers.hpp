@@ -9,6 +9,7 @@
 using TokenRecognizer = Token* (*)(Lexer&);
 
 Token* recognizeVariable(Lexer& lexer);
+Token* recognizeConstant(Lexer& lexer);
 Token* recognizeIf(Lexer& lexer);
 Token* recognizeElse(Lexer& lexer);
 Token* recognizeElseIf(Lexer& lexer);

@@ -17,10 +17,10 @@ void Lexer::registerTokenRecognizers() {
   registerLogRecognizers(tokenRecognizers);
 }
 
-Token Lexer::getNextToken() {
+Token* Lexer::getNextToken() {
   skipWhitespace();
   if (isEOF()) {
-    return {BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"};
+    return new Token{BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"};
   }
 
   for (const auto& recognizer : tokenRecognizers) {
@@ -28,16 +28,14 @@ Token Lexer::getNextToken() {
     Token* tokenPtr = recognizer.second(*this);
 
     if (tokenPtr != nullptr) {
-      Token token = *tokenPtr;
-      pos = pos + token.size;
-      delete tokenPtr;
-      return token;
+      pos = pos + tokenPtr->size;
+      return tokenPtr;
     }
   }
 
   char currentChar = peek();
   advance();
-  return {BasicToken::UNKNOWN, 0, std::string(1, currentChar), "Unknown"};
+  return nullptr;
 }
 
 bool Lexer::checkKeyword(const std::string& keyword) { return code.substr(pos, keyword.size()) == keyword; }
