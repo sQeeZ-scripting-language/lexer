@@ -11,11 +11,12 @@ enable_testing()
 
 set(LEXER_SOURCES
     ${CMAKE_SOURCE_DIR}/src/lexer/lexer.cpp
-    ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/syntax_recognizers.cpp
+    ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/data_recognizers.cpp
     ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/keyword_recognizers.cpp
-    ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/operator_recognizers.cpp
-    ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/logical_recognizers.cpp
     ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/log_recognizers.cpp
+    ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/logical_recognizers.cpp
+    ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/operator_recognizers.cpp
+    ${CMAKE_SOURCE_DIR}/src/lexer/token_recognizers/syntax_recognizers.cpp
 )
 
 add_library(test_lexer ${LEXER_SOURCES})
