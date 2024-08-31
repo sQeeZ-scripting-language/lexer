@@ -48,6 +48,7 @@ void lex(const std::string& code) {
     std::cout << std::endl;
     Token* tokenPtr = lexSpecialCases(previousToken, dataRecognizer, lexer);
     if (tokenPtr == nullptr) tokenPtr = lexer.getNextToken();
+    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(lexer);
     if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(lexer);
     if (tokenPtr != nullptr) {
       tokens.push_back(*tokenPtr);

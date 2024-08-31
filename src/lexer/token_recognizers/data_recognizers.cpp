@@ -3,7 +3,7 @@
 #include <iostream>
 
 Token* DataRecognizer::storeIdentifier(Lexer &lexer, char type) {
-  std::string identifier = extractIdentifier(lexer);
+  std::string identifier = extractToken(lexer);
   lexer.skip(identifier.size());
   if (!isValidIdentifier(identifier)) {
     return new Token{ErrorToken::IDENTIFIER_INVALID_FORMAT, static_cast<int>(identifier.length()), identifier,
@@ -33,7 +33,7 @@ Token* DataRecognizer::storeIdentifier(Lexer &lexer, char type) {
 }
 
 Token* DataRecognizer::recognizeIdentifier(Lexer &lexer) {
-  std::string identifier = extractIdentifier(lexer);
+  std::string identifier = extractToken(lexer);
   switch (getType(identifier)) {
     case 'F':
       return new Token{DataToken::USE_FUNCTION_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
@@ -66,6 +66,24 @@ Token *DataRecognizer::recognizeString(Lexer &lexer) {
   return new Token{DataToken::STRING_VALUE, static_cast<int>(charList.size()), value, "String Value"};
 }
 
+Token *DataRecognizer::recognizeNumericValue(Lexer &lexer) {
+  std::string number = extractToken(lexer);
+  std::regex integerPattern(R"(^\d+$)");
+  std::regex doublePattern(R"(^\d*\.?\d+$)");
+  if (std::regex_match(number, integerPattern)) {
+    return new Token{DataToken::INTEGER_VALUE, static_cast<int>(number.length()), number, "Integer Value"};
+  } else if (std::regex_match(number, doublePattern)) {
+    return new Token{DataToken::DOUBLE_VALUE, static_cast<int>(number.length()), number, "Double Value"};
+  }
+  return nullptr;
+}
+
+std::string DataRecognizer::extractToken(Lexer &lexer) {
+  lexer.skipWhitespace();
+  size_t i = lexer.code.find(' ', lexer.pos);
+  return (i == std::string::npos) ? lexer.code.substr(lexer.pos) : lexer.code.substr(lexer.pos, i - lexer.pos);
+}
+
 bool DataRecognizer::isValidIdentifier(std::string identifier) {
   std::regex regexPattern("^[a-zA-Z_][a-zA-Z0-9_]*$");
   return std::regex_match(identifier, regexPattern);
@@ -81,8 +99,3 @@ char DataRecognizer::getType(std::string identifier) {
   return identifiers.find(identifier) != identifiers.end() ? identifiers[identifier] : '\0';
 }
 
-std::string DataRecognizer::extractIdentifier(Lexer &lexer) {
-  lexer.skipWhitespace();
-  size_t i = lexer.code.find(' ', lexer.pos);
-  return (i == std::string::npos) ? lexer.code.substr(lexer.pos) : lexer.code.substr(lexer.pos, i - lexer.pos);
-}

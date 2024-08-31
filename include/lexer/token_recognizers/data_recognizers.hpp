@@ -14,14 +14,15 @@ public:
   Token *storeIdentifier(Lexer &lexer, char type);
   Token *recognizeIdentifier(Lexer &lexer);
   Token *recognizeString(Lexer &lexer);
+  Token *recognizeNumericValue(Lexer &lexer);
 
   std::unordered_map<std::string, char> identifiers;
 
 private:
+  std::string extractToken(Lexer &lexer);
   bool isValidIdentifier(std::string identifier);
   bool isReservedKeyword(std::string identifier);
   char getType(std::string identifier);
-  std::string extractIdentifier(Lexer &lexer);
 };
 
 #endif
