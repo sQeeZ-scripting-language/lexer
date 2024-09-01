@@ -26,15 +26,8 @@ Token* Lexer::getNextToken() {
   for (const auto& recognizer : tokenRecognizers) {
     size_t originalPosition = pos;
     Token* tokenPtr = recognizer.second(*this);
-
-    if (tokenPtr != nullptr) {
-      pos = pos + tokenPtr->size;
-      return tokenPtr;
-    }
+    if (tokenPtr != nullptr) return tokenPtr;
   }
-
-  char currentChar = peek();
-  advance();
   return nullptr;
 }
 

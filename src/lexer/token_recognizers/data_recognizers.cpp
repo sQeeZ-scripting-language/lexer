@@ -4,10 +4,9 @@
 
 Token* DataRecognizer::storeIdentifier(Lexer &lexer, char type) {
   std::string identifier = extractToken(lexer);
-  lexer.skip(identifier.size());
   if (!isValidIdentifier(identifier)) {
     return new Token{ErrorToken::IDENTIFIER_INVALID_FORMAT, static_cast<int>(identifier.length()), identifier,
-            "Invalid identifier"};
+            "Invalid identifier format"};
   } else if (isReservedKeyword(identifier)) {
     return new Token{ErrorToken::IDENTIFIER_RESERVED_KEYWORD, static_cast<int>(identifier.length()), identifier,
             "Reserved keyword"};
@@ -78,9 +77,9 @@ Token *DataRecognizer::recognizeNumericValue(Lexer &lexer) {
   return nullptr;
 }
 
-std::string DataRecognizer::extractToken(Lexer &lexer) {
+std::string DataRecognizer::extractToken(Lexer &lexer) {  
   lexer.skipWhitespace();
-  size_t i = lexer.code.find(' ', lexer.pos);
+  size_t i = lexer.code.find_first_of(' ', lexer.pos);
   return (i == std::string::npos) ? lexer.code.substr(lexer.pos) : lexer.code.substr(lexer.pos, i - lexer.pos);
 }
 
@@ -91,8 +90,8 @@ bool DataRecognizer::isValidIdentifier(std::string identifier) {
 
 bool DataRecognizer::isReservedKeyword(std::string identifier) {
   Lexer lexer(identifier);
-  Token token = *lexer.getNextToken();
-  return token.tag == Token::TypeTag::BASIC && token.type.basicToken == BasicToken::TOKEN_EOF;
+  Token* token = lexer.getNextToken();
+  return token != nullptr;
 }
 
 char DataRecognizer::getType(std::string identifier) {

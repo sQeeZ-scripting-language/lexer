@@ -9,7 +9,10 @@
 #include "lexer/lexer.hpp"
 #include "lexer/token_recognizers/data_recognizers.hpp"
 
-void lex(const std::string& code);
-Token* lexSpecialCases(Token previousToken, DataRecognizer dataRecognizer, Lexer& lexer);
+std::vector<Token> lex(const std::string& code);
+Token* lexSpecialCases(Token previousToken, DataRecognizer &dataRecognizer, Lexer& lexer);
+void logToken();
+
+std::vector<Token> tokens;
 
 #endif

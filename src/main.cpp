@@ -30,37 +30,35 @@ int main(int argc, char* argv[]) {
   lexerState["insideString"] = false;
 
   lex(code);
+  logToken();
+
   return 0;
 }
 
-void lex(const std::string& code) {
+std::vector<Token> lex(const std::string& code) {
   Lexer lexer(code);
   DataRecognizer dataRecognizer;
-  std::vector<Token> tokens;
   Token previousToken = {BasicToken::INIT, 0, "\0", "Initialize Lexer"};
+  tokens.push_back(previousToken);
 
   do {
-    std::cout << "###Token###" << std::endl;
-    std::cout << "Value: " << previousToken.value << std::endl;
-    std::cout << "Size: " << previousToken.size << std::endl;
-    std::cout << "Desc: " << previousToken.desc << std::endl;
-    std::cout << "Position: " << lexer.pos << std::endl;
-    std::cout << std::endl;
     Token* tokenPtr = lexSpecialCases(previousToken, dataRecognizer, lexer);
     if (tokenPtr == nullptr) tokenPtr = lexer.getNextToken();
     if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(lexer);
     if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(lexer);
     if (tokenPtr != nullptr) {
       tokens.push_back(*tokenPtr);
+      lexer.skip(tokenPtr->size);
     } else {
       tokens.push_back({BasicToken::UNKNOWN, 1, std::string(1, lexer.peek()), "Unknown Token"});
       lexer.skip(1);
     }
     previousToken = tokens.back();
   } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
+  return tokens;
 }
 
-Token* lexSpecialCases(Token previousToken, DataRecognizer dataRecognizer, Lexer& lexer) {
+Token* lexSpecialCases(Token previousToken, DataRecognizer &dataRecognizer, Lexer& lexer) {
   if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::FUNCTION) {
     return dataRecognizer.storeIdentifier(lexer, 'F');
   }
@@ -82,4 +80,14 @@ Token* lexSpecialCases(Token previousToken, DataRecognizer dataRecognizer, Lexer
     return nullptr;
   }
   return nullptr;
+}
+
+void logToken() {
+  for (Token token : tokens) {
+    std::cout << "###Token###" << std::endl;
+    std::cout << "Value: " << token.value << std::endl;
+    std::cout << "Size: " << token.size << std::endl;
+    std::cout << "Desc: " << token.desc << std::endl;
+    std::cout << std::endl;
+  }
 }
