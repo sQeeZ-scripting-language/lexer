@@ -7,15 +7,22 @@
 #include <string>
 #include <unordered_map>
 
-#include "lexer.hpp"
+#include "lexer/lexer.hpp"
 
-std::unordered_map<std::string, char> identifiers;
+class DataRecognizer {
+public:
+  Token *storeIdentifier(Lexer &lexer, char type);
+  Token *recognizeIdentifier(Lexer &lexer);
+  Token *recognizeString(Lexer &lexer);
+  Token *recognizeNumericValue(Lexer &lexer);
 
-char getType(std::string identifier);
-std::string extractIdentifier(Lexer &lexer);
-Token storeIdentifier(Lexer &lexer, std::string identifier, char type);
-Token recognizeIdentifier(std::string identifier);
-bool isValidIdentifier(std::string identifier);
-bool isReservedKeyword(std::string identifier);
+  std::unordered_map<std::string, char> identifiers;
+
+private:
+  std::string extractToken(Lexer &lexer);
+  bool isValidIdentifier(std::string identifier);
+  bool isReservedKeyword(std::string identifier);
+  char getType(std::string identifier);
+};
 
 #endif

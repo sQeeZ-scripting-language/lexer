@@ -6,23 +6,23 @@
 
 #include "lexer/lexer.hpp"
 
-using TokenRecognizer = Token (*)(Lexer&);
+using TokenRecognizer = Token* (*)(Lexer&);
 
-Token recognizeAssign(Lexer& lexer);
-Token recognizeAddition(Lexer& lexer);
-Token recognizeSubtraction(Lexer& lexer);
-Token recognizeMultiplication(Lexer& lexer);
-Token recognizeDivision(Lexer& lexer);
-Token recognizeModulus(Lexer& lexer);
-Token recognizeAdditionAssignment(Lexer& lexer);
-Token recognizeSubtractionAssignment(Lexer& lexer);
-Token recognizeMultiplicationAssignment(Lexer& lexer);
-Token recognizeDivisionAssignment(Lexer& lexer);
-Token recognizeModulusAssignment(Lexer& lexer);
-Token recognizeIncrement(Lexer& lexer);
-Token recognizeDecrement(Lexer& lexer);
-Token recognizePotentiation(Lexer& lexer);
-Token recognizeFloorDivision(Lexer& lexer);
+Token* recognizeAssign(Lexer& lexer);
+Token* recognizeAddition(Lexer& lexer);
+Token* recognizeSubtraction(Lexer& lexer);
+Token* recognizeMultiplication(Lexer& lexer);
+Token* recognizeDivision(Lexer& lexer);
+Token* recognizeModulus(Lexer& lexer);
+Token* recognizeAdditionAssignment(Lexer& lexer);
+Token* recognizeSubtractionAssignment(Lexer& lexer);
+Token* recognizeMultiplicationAssignment(Lexer& lexer);
+Token* recognizeDivisionAssignment(Lexer& lexer);
+Token* recognizeModulusAssignment(Lexer& lexer);
+Token* recognizeIncrement(Lexer& lexer);
+Token* recognizeDecrement(Lexer& lexer);
+Token* recognizePotentiation(Lexer& lexer);
+Token* recognizeFloorDivision(Lexer& lexer);
 
 bool checkIfOperator(const std::string& keyword, Lexer& lexer);
 
