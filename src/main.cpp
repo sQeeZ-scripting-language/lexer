@@ -30,7 +30,6 @@ int main(int argc, char* argv[]) {
   lexerState["insideString"] = false;
 
   lex(code);
-  logToken();
 
   return 0;
 }
@@ -40,9 +39,12 @@ std::vector<Token> lex(const std::string& code) {
   DataRecognizer dataRecognizer;
   Token previousToken = {BasicToken::INIT, 0, "\0", "Initialize Lexer"};
   tokens.push_back(previousToken);
+  logToken(previousToken);
 
   do {
-    Token* tokenPtr = lexSpecialCases(previousToken, dataRecognizer, lexer);
+    lexer.skipWhitespace();
+    Token* tokenPtr = lexer.isEOF() ? new Token{BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"} : nullptr;
+    if (tokenPtr == nullptr) tokenPtr = lexSpecialCases(previousToken, dataRecognizer, lexer);
     if (tokenPtr == nullptr) tokenPtr = lexer.getNextToken();
     if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(lexer);
     if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(lexer);
@@ -51,9 +53,10 @@ std::vector<Token> lex(const std::string& code) {
       lexer.skip(tokenPtr->size);
     } else {
       tokens.push_back({BasicToken::UNKNOWN, 1, std::string(1, lexer.peek()), "Unknown Token"});
-      lexer.skip(1);
+      lexer.advance();
     }
     previousToken = tokens.back();
+    logToken(previousToken);
   } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
   return tokens;
 }
@@ -71,7 +74,6 @@ Token* lexSpecialCases(Token previousToken, DataRecognizer &dataRecognizer, Lexe
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
       !lexerState["insideString"]) {
     lexerState["insideString"] = true;
-    std::cout << "Recognizing String" << std::endl;
     return dataRecognizer.recognizeString(lexer);
   }
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
@@ -82,12 +84,10 @@ Token* lexSpecialCases(Token previousToken, DataRecognizer &dataRecognizer, Lexe
   return nullptr;
 }
 
-void logToken() {
-  for (Token token : tokens) {
-    std::cout << "###Token###" << std::endl;
-    std::cout << "Value: " << token.value << std::endl;
-    std::cout << "Size: " << token.size << std::endl;
-    std::cout << "Desc: " << token.desc << std::endl;
-    std::cout << std::endl;
-  }
+void logToken(Token token) {
+  std::cout << "###Token###" << std::endl;
+  std::cout << "Value: " << token.value << std::endl;
+  std::cout << "Size: " << token.size << std::endl;
+  std::cout << "Desc: " << token.desc << std::endl;
+  std::cout << std::endl;
 }

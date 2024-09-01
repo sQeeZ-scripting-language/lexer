@@ -11,7 +11,7 @@
 
 std::vector<Token> lex(const std::string& code);
 Token* lexSpecialCases(Token previousToken, DataRecognizer &dataRecognizer, Lexer& lexer);
-void logToken();
+void logToken(Token token);
 
 std::vector<Token> tokens;
 
