@@ -61,7 +61,7 @@ std::vector<Token> lex(const std::string& code) {
   return tokens;
 }
 
-Token* lexSpecialCases(Token previousToken, DataRecognizer &dataRecognizer, Lexer& lexer) {
+Token* lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, Lexer& lexer) {
   if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::FUNCTION) {
     return dataRecognizer.storeIdentifier(lexer, 'F');
   }

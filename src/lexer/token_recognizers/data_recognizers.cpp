@@ -2,50 +2,50 @@
 
 #include <iostream>
 
-Token* DataRecognizer::storeIdentifier(Lexer &lexer, char type) {
+Token *DataRecognizer::storeIdentifier(Lexer &lexer, char type) {
   std::string identifier = extractToken(lexer);
   if (!isValidIdentifier(identifier)) {
     return new Token{ErrorToken::IDENTIFIER_INVALID_FORMAT, static_cast<int>(identifier.length()), identifier,
-            "Invalid identifier format"};
+                     "Invalid identifier format"};
   } else if (isReservedKeyword(identifier)) {
     return new Token{ErrorToken::IDENTIFIER_RESERVED_KEYWORD, static_cast<int>(identifier.length()), identifier,
-            "Reserved keyword"};
+                     "Reserved keyword"};
   } else if (getType(identifier) == '\0') {
     identifiers[identifier] = type;
     switch (type) {
       case 'F':
         return new Token{DataToken::SET_FUNCTION_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                "Function identifier stored"};
+                         "Function identifier stored"};
       case 'V':
         return new Token{DataToken::SET_VARIABLE_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                "Variable identifier stored"};
+                         "Variable identifier stored"};
       case 'C':
         return new Token{DataToken::SET_CONSTANT_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                "Constant identifier stored"};
+                         "Constant identifier stored"};
       default:
         return new Token{BasicToken::UNKNOWN, 0, identifier, "Invalid type"};
     }
   } else {
     return new Token{ErrorToken::IDENTIFIER_ALREADY_EXISTS, static_cast<int>(identifier.length()), identifier,
-            "Identifier already exists"};
+                     "Identifier already exists"};
   }
 }
 
-Token* DataRecognizer::recognizeIdentifier(Lexer &lexer) {
+Token *DataRecognizer::recognizeIdentifier(Lexer &lexer) {
   std::string identifier = extractToken(lexer);
   switch (getType(identifier)) {
     case 'F':
       return new Token{DataToken::USE_FUNCTION_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-              "Function identifier"};
+                       "Function identifier"};
     case 'V':
       return new Token{DataToken::USE_VARIABLE_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-              "Variable identifier"};
+                       "Variable identifier"};
     case 'C':
       return new Token{DataToken::USE_CONSTANT_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-              "Constant identifier"};
+                       "Constant identifier"};
     default:
       return new Token{ErrorToken::IDENTIFIER_NOT_FOUND, static_cast<int>(identifier.length()), identifier,
-              "Invalid identifier"};
+                       "Invalid identifier"};
   }
 }
 
@@ -109,7 +109,7 @@ bool DataRecognizer::isValidIdentifier(std::string identifier) {
 
 bool DataRecognizer::isReservedKeyword(std::string identifier) {
   Lexer lexer(identifier);
-  Token* token = lexer.getNextToken();
+  Token *token = lexer.getNextToken();
   return token != nullptr;
 }
 
