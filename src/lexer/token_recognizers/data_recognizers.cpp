@@ -77,10 +77,29 @@ Token *DataRecognizer::recognizeNumericValue(Lexer &lexer) {
   return nullptr;
 }
 
-std::string DataRecognizer::extractToken(Lexer &lexer) {  
+std::string DataRecognizer::extractToken(Lexer &lexer) {
   lexer.skipWhitespace();
-  size_t i = lexer.code.find_first_of(' ', lexer.pos);
-  return (i == std::string::npos) ? lexer.code.substr(lexer.pos) : lexer.code.substr(lexer.pos, i - lexer.pos);
+  if (lexer.isEOF()) return "";
+  size_t start = lexer.pos;
+  size_t pos = lexer.pos;
+  if (std::isalpha(lexer.code[start]) || lexer.code[start] == '_') {
+    while (pos < lexer.code.size() && (std::isalnum(lexer.code[pos]) || lexer.code[pos] == '_')) {
+      ++pos;
+    }
+  } else if (std::isdigit(lexer.code[start])) {
+    while (pos < lexer.code.size() && std::isdigit(lexer.code[pos])) {
+      ++pos;
+    }
+    if (pos < lexer.code.size() && lexer.code[pos] == '.') {
+      ++pos;
+      while (pos < lexer.code.size() && std::isdigit(lexer.code[pos])) {
+        ++pos;
+      }
+    }
+  } else {
+    ++pos;
+  }
+  return lexer.code.substr(start, pos - start);
 }
 
 bool DataRecognizer::isValidIdentifier(std::string identifier) {
@@ -97,4 +116,3 @@ bool DataRecognizer::isReservedKeyword(std::string identifier) {
 char DataRecognizer::getType(std::string identifier) {
   return identifiers.find(identifier) != identifiers.end() ? identifiers[identifier] : '\0';
 }
-
