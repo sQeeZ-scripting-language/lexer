@@ -29,12 +29,13 @@ int main(int argc, char* argv[]) {
 
   lexerState["insideString"] = false;
 
-  lex(code);
+  LexerMain lexerMain;
+  lexerMain.lex(code);
 
   return 0;
 }
 
-std::vector<Token> lex(const std::string& code) {
+std::vector<Token> LexerMain::lex(const std::string& code) {
   Lexer lexer(code);
   DataRecognizer dataRecognizer;
   Token previousToken = {BasicToken::INIT, 0, "\0", "Initialize Lexer"};
@@ -61,7 +62,7 @@ std::vector<Token> lex(const std::string& code) {
   return tokens;
 }
 
-Token* lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, Lexer& lexer) {
+Token* LexerMain::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, Lexer& lexer) {
   if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::FUNCTION) {
     return dataRecognizer.storeIdentifier(lexer, 'F');
   }
@@ -84,7 +85,7 @@ Token* lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, Lexe
   return nullptr;
 }
 
-void logToken(Token token) {
+void LexerMain::logToken(Token token) {
   std::cout << "###Token###" << std::endl;
   std::cout << "Value: " << token.value << std::endl;
   std::cout << "Size: " << token.size << std::endl;
