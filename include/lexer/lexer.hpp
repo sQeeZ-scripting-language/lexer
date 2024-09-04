@@ -5,6 +5,7 @@
 #include <optional>
 #include <stdexcept>
 #include <string>
+#include <iostream>
 #include <unordered_map>
 
 #include "lexer/tokens/token.hpp"
@@ -13,6 +14,7 @@
 class Lexer {
 public:
   Lexer(const std::string& code);
+  std::vector<Token> lex();
   Token* lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer);
   Token* getNextToken();
   Token* extractStringValue();
@@ -30,6 +32,8 @@ public:
 
 private:
   void registerTokenRecognizers();
+  void log(Token token);
+  std::vector<Token> tokens;
 };
 
 #endif

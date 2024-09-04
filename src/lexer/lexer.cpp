@@ -22,6 +22,40 @@ void Lexer::registerTokenRecognizers() {
   registerLogRecognizers(tokenRecognizers);
 }
 
+void Lexer::log(Token token) {
+  std::cout << "###Token###" << std::endl;
+  std::cout << "Value: " << token.value << std::endl;
+  std::cout << "Size: " << token.size << std::endl;
+  std::cout << "Desc: " << token.desc << std::endl;
+  std::cout << std::endl;
+}
+
+std::vector<Token> Lexer::lex() {
+  DataRecognizer dataRecognizer;
+  Token previousToken = {BasicToken::INIT, 0, "\0", "Initialize Lexer"};
+  tokens.push_back(previousToken);
+  log(previousToken);
+
+  do {
+    skipWhitespace();
+    Token* tokenPtr = isEOF() ? new Token{BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"} : nullptr;
+    if (tokenPtr == nullptr) tokenPtr = lexSpecialCases(previousToken, dataRecognizer);
+    if (tokenPtr == nullptr) tokenPtr = getNextToken();
+    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(extractToken());
+    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(extractToken());
+    if (tokenPtr != nullptr) {
+      tokens.push_back(*tokenPtr);
+      skip(tokenPtr->size);
+    } else {
+      tokens.push_back({BasicToken::UNKNOWN, 1, std::string(1, peek()), "Unknown Token"});
+      advance();
+    }
+    previousToken = tokens.back();
+    log(previousToken);
+  } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
+  return tokens;
+}
+
 Token* Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer) {
   if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::FUNCTION) {
     return dataRecognizer.storeIdentifier(extractToken(), 'F');

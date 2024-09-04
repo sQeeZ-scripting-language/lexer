@@ -25,43 +25,8 @@ int main(int argc, char* argv[]) {
     code += line + "\n";
   }
 
-  LexerMain lexerMain;
-  lexerMain.lex(code);
+  Lexer lexer(code);
+  lexer.lex();
 
   return 0;
-}
-
-std::vector<Token> LexerMain::lex(const std::string& code) {
-  Lexer lexer(code);
-  DataRecognizer dataRecognizer;
-  Token previousToken = {BasicToken::INIT, 0, "\0", "Initialize Lexer"};
-  tokens.push_back(previousToken);
-  logToken(previousToken);
-
-  do {
-    lexer.skipWhitespace();
-    Token* tokenPtr = lexer.isEOF() ? new Token{BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"} : nullptr;
-    if (tokenPtr == nullptr) tokenPtr = lexer.lexSpecialCases(previousToken, dataRecognizer);
-    if (tokenPtr == nullptr) tokenPtr = lexer.getNextToken();
-    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(lexer.extractToken());
-    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(lexer.extractToken());
-    if (tokenPtr != nullptr) {
-      tokens.push_back(*tokenPtr);
-      lexer.skip(tokenPtr->size);
-    } else {
-      tokens.push_back({BasicToken::UNKNOWN, 1, std::string(1, lexer.peek()), "Unknown Token"});
-      lexer.advance();
-    }
-    previousToken = tokens.back();
-    logToken(previousToken);
-  } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
-  return tokens;
-}
-
-void LexerMain::logToken(Token token) {
-  std::cout << "###Token###" << std::endl;
-  std::cout << "Value: " << token.value << std::endl;
-  std::cout << "Size: " << token.size << std::endl;
-  std::cout << "Desc: " << token.desc << std::endl;
-  std::cout << std::endl;
 }
