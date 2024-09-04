@@ -634,3 +634,47 @@ TEST(LexerTest, AccessConstantIdentifier) {
     EXPECT_EQ(tokens[4].value, "name");
     EXPECT_EQ(tokens[4].desc, "Constant identifier");
 }
+
+/*
+ * Invalid Identifiers
+ */
+
+TEST(LexerTest, InvalidIdentifierFormat) {
+    Lexer lexer("fn 1");
+    std::vector<Token> tokens = lexer.lex();
+    EXPECT_EQ(tokens[2].tag, Token::TypeTag::ERROR);
+    EXPECT_EQ(tokens[2].type.errorToken, ErrorToken::IDENTIFIER_INVALID_FORMAT);
+    EXPECT_EQ(tokens[2].size, 1);
+    EXPECT_EQ(tokens[2].value, "1");
+    EXPECT_EQ(tokens[2].desc, "Invalid identifier format");
+}
+
+TEST(LexerTest, ReservedKeyword) {
+    Lexer lexer("fn var");
+    std::vector<Token> tokens = lexer.lex();
+    EXPECT_EQ(tokens[2].tag, Token::TypeTag::ERROR);
+    EXPECT_EQ(tokens[2].type.errorToken, ErrorToken::IDENTIFIER_RESERVED_KEYWORD);
+    EXPECT_EQ(tokens[2].size, 3);
+    EXPECT_EQ(tokens[2].value, "var");
+    EXPECT_EQ(tokens[2].desc, "Reserved keyword");
+}
+
+TEST(LexerTest, IdentifierAlreadyExists) {
+    Lexer lexer("fn name; fn name");
+    std::vector<Token> tokens = lexer.lex();
+    EXPECT_EQ(tokens[5].tag, Token::TypeTag::ERROR);
+    EXPECT_EQ(tokens[5].type.errorToken, ErrorToken::IDENTIFIER_ALREADY_EXISTS);
+    EXPECT_EQ(tokens[5].size, 4);
+    EXPECT_EQ(tokens[5].value, "name");
+    EXPECT_EQ(tokens[5].desc, "Identifier already exists");
+}
+
+TEST(LexerTest, InvalidIdentifier) {
+    Lexer lexer("fn name; name2");
+    std::vector<Token> tokens = lexer.lex();
+    EXPECT_EQ(tokens[4].tag, Token::TypeTag::ERROR);
+    EXPECT_EQ(tokens[4].type.errorToken, ErrorToken::IDENTIFIER_NOT_FOUND);
+    EXPECT_EQ(tokens[4].size, 5);
+    EXPECT_EQ(tokens[4].value, "name2");
+    EXPECT_EQ(tokens[4].desc, "Invalid identifier");
+}
