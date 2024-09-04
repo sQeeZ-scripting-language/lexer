@@ -1,7 +1,5 @@
 #include "main.hpp"
 
-std::unordered_map<std::string, bool> lexerState;
-
 int main(int argc, char* argv[]) {
   if (argc != 2) {
     std::cerr << "Usage: " << argv[0] << " <filename>.sqz" << std::endl;
@@ -27,8 +25,6 @@ int main(int argc, char* argv[]) {
     code += line + "\n";
   }
 
-  lexerState["insideString"] = false;
-
   LexerMain lexerMain;
   lexerMain.lex(code);
 
@@ -45,10 +41,10 @@ std::vector<Token> LexerMain::lex(const std::string& code) {
   do {
     lexer.skipWhitespace();
     Token* tokenPtr = lexer.isEOF() ? new Token{BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"} : nullptr;
-    if (tokenPtr == nullptr) tokenPtr = lexSpecialCases(previousToken, dataRecognizer, lexer);
+    if (tokenPtr == nullptr) tokenPtr = lexer.lexSpecialCases(previousToken, dataRecognizer);
     if (tokenPtr == nullptr) tokenPtr = lexer.getNextToken();
-    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(lexer);
-    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(lexer);
+    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(lexer.extractToken());
+    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(lexer.extractToken());
     if (tokenPtr != nullptr) {
       tokens.push_back(*tokenPtr);
       lexer.skip(tokenPtr->size);
@@ -60,29 +56,6 @@ std::vector<Token> LexerMain::lex(const std::string& code) {
     logToken(previousToken);
   } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
   return tokens;
-}
-
-Token* LexerMain::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, Lexer& lexer) {
-  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::FUNCTION) {
-    return dataRecognizer.storeIdentifier(lexer, 'F');
-  }
-  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::VARIABLE) {
-    return dataRecognizer.storeIdentifier(lexer, 'V');
-  }
-  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::CONSTANT) {
-    return dataRecognizer.storeIdentifier(lexer, 'C');
-  }
-  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
-      !lexerState["insideString"]) {
-    lexerState["insideString"] = true;
-    return dataRecognizer.recognizeString(lexer);
-  }
-  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
-      lexerState["insideString"]) {
-    lexerState["insideString"] = false;
-    return nullptr;
-  }
-  return nullptr;
 }
 
 void LexerMain::logToken(Token token) {
