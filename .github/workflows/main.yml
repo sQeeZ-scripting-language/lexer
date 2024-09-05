@@ -80,9 +80,8 @@ jobs:
       - name: Create release artifact
         run: |
           ls
-          cd ../
-          ls
-          cd ../
+          cd lexer
+          echo "----"
           ls
           mkdir release
           cd build
