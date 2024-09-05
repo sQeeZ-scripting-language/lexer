@@ -154,3 +154,23 @@ This enum class categorizes various operators used in the sQeeZ language for mat
 | `DECREMENT` | 2 | -- | Decrement operator (Decreases value by 1) |
 | `POTENTIATION` | 2 | ** | Potentiation operator (Exponentiation) |
 | `FLOOR_DIVISION` | 2| // | Floor Division operator (Division with Rounding Down) |
+
+### Syntax Tokens
+This enum class categorizes various syntax tokens used in the sQeeZ language. These tokens represent punctuation and structural elements that define the organization of the code, such as grouping expressions, separating statements, and denoting specific syntax patterns.
+
+| **Token** | **Size** | **Value** | **Description** |
+| --- | --- | --- | --- |
+| `SEMICOLON` | 1| ; | The Semicolon, used to terminate statements |
+| `COMMA` | 1| , | The Comma, used to separate elements in lists or parameters |
+| `DOT` | 1| . | The Dot, typically, used for accessing members or methods |
+| `COLON` | 1 | : | The colon, used in various syntax constructs like slice operations |
+| `SINGLE_QUOTE` | 1 | ' | The Single Quote, used for character or string literals |
+| `DOUBLE_QUOTE` | 1 | " | The Double Quote, used for string literals |
+| `OPEN_PARENTHESIS` | 1 | ( | The Opening Parenthesis, used for grouping expressions or function calls |
+| `CLOSE_PARENTHESIS` | 1 | ) | The Closing Parenthesis, used for grouping expressions or function calls |
+| `OPEN_BRACKET` | 1 | [ | The Opening Bracket, used for array or list indexing |
+| `CLOSE_BRACKET` | 1 | ] | The Closing Bracket, used for array or list indexing |
+| `OPEN_BRACE` | 1 | { | The Opening brace, used to define blocks of code or object literals |
+| `CLOSE_BRACE` | 1 | } | The Closing brace, used to define blocks of code or object literals |
+| `ARROW` | 2 | ->| The Arrow Operator, used in lambda expressions |
+| `HASHTAG` | 1 | # | The Hashtag, used for Hex-Codes |
