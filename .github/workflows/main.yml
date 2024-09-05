@@ -78,14 +78,7 @@ jobs:
     needs: compile_and_test
     steps:
       - name: Create release artifact
-        run: |
-          ls
-          cd lexer
-          echo "----"
-          ls
-          mkdir release
-          cd build
-          zip -r ../release/sQeeZ-Lexer-${{ github.run_number }}.zip .
+        run: ls
 
       - name: Upload Release Asset
         uses: actions/upload-artifact@v2
