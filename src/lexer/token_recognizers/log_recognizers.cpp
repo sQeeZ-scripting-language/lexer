@@ -10,6 +10,10 @@ Token* recognizeColoredLog(Lexer& lexer) {
   return lexer.checkKeyword("logc") ? new Token{LogToken::COLORED, 4, "logc", "Colored logging function"} : nullptr;
 }
 
+Token* recognizeWarnLog(Lexer& lexer) {
+  return lexer.checkKeyword("warn") ? new Token{LogToken::WARN, 4, "warn", "Warning logging function"} : nullptr;
+}
+
 Token* recognizeErrorLog(Lexer& lexer) {
   return lexer.checkKeyword("error") ? new Token{LogToken::ERROR, 5, "error", "Error logging function"} : nullptr;
 }
@@ -17,5 +21,6 @@ Token* recognizeErrorLog(Lexer& lexer) {
 void registerLogRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
   tokenRecognizers["log"] = recognizeBasicLog;
   tokenRecognizers["logc"] = recognizeColoredLog;
+  tokenRecognizers["warn"] = recognizeWarnLog;
   tokenRecognizers["error"] = recognizeErrorLog;
 }

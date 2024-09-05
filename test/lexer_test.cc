@@ -550,6 +550,17 @@ TEST(LexerTest, IdentifyColoredLogger) {
     EXPECT_EQ(token.desc, "Colored logging function");
 }
 
+TEST(LexerTest, IdentifyWarnLogger) {
+    Lexer lexer("warn");
+    Token token = *lexer.getNextToken();
+
+    EXPECT_EQ(token.tag, Token::TypeTag::LOG);
+    EXPECT_EQ(token.type.logToken, LogToken::WARN);
+    EXPECT_EQ(token.size, 4);
+    EXPECT_EQ(token.value, "warn");
+    EXPECT_EQ(token.desc, "Warning logging function");
+}
+
 TEST(LexerTest, IdentifyErrorLogger) {
     Lexer lexer("error");
     Token token = *lexer.getNextToken();
