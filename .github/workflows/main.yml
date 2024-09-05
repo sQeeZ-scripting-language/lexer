@@ -6,14 +6,15 @@ on:
   pull_request:
     branches: [ main ]
   release:
-    types: [published]
+    types: [published] 
+
 
 jobs:
   compile_and_test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
+        os: [ubuntu-latest,macos-latest]
 
     steps:
     - name: Checkout repository
@@ -73,35 +74,82 @@ jobs:
         cd build/test
         ctest
 
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-output-${{ matrix.os }} 
+        path: |
+          build/*.so
+          build/*.dll
+          build/*.lib
+          build/*.a
+          build/*.dylib
+          build/*.exe
+
   release:
+    if: github.event_name == 'push' || github.event_name == 'release'
     runs-on: ubuntu-latest
     needs: compile_and_test
     steps:
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Download build artifacts (Linux)
+        uses: actions/download-artifact@v3
         with:
-          limit-access-to-actor: false
+          name: build-output-ubuntu-latest
+          path: ./build-output-ubuntu
+
+      - name: Download build artifacts (macOS)
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output-macos-latest
+          path: ./build-output-macos
+
+      - name: Get the latest tag or fallback to 0.0.1
+        id: get_version
+        run: |
+          git fetch --tags
+          LATEST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "0.0.1")
+          echo "Latest tag is: $LATEST_TAG"
+          echo "::set-output name=LATEST_TAG::$LATEST_TAG"
+  
+      - name: Determine release version (tag or latest tag + build number)
+        id: determine_version
+        run: |
+          if [ "${{ github.event_name }}" == "release" ]; then
+            # Use the tag version for a release event
+            VERSION="${{ github.event.release.tag_name }}"
+            IS_DRAFT=false
+          else
+            # Append build number to the latest tag for non-tag events
+            BUILD_NUMBER=${{ github.run_number }}
+            VERSION="${{ steps.get_version.outputs.LATEST_TAG }}+${BUILD_NUMBER}"
+            IS_DRAFT=true
+          fi
+          echo "Release version: $VERSION"
+          echo "::set-output name=VERSION::$VERSION"
+          echo "::set-output name=IS_DRAFT::$IS_DRAFT"
 
       - name: Create release artifact
-        run: echo ls
+        run: |
+          mkdir -p release
+          zip -r release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-ubuntu
+          zip -r release/sQeeZ-Lexer-macos-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-macos
+        
 
-      - name: Upload Release Asset
-        uses: actions/upload-artifact@v2
-        with:
-          name: sQeeZ-Lexer-${{ github.run_number }}.zip
-          path: release/sQeeZ-Lexer-${{ github.run_number }}.zip
-
-      - name: Create GitHub Release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
+      - name: Create or Update Tag
+        run: |
+          TAG="v${{ steps.determine_version.outputs.VERSION }}"
+          git tag -f $TAG
+          git push origin $TAG --force
 
       - name: Upload release asset to GitHub
         uses: ncipollo/release-action@v1
         with:
-          files: release/sQeeZ-Lexer-${{ github.run_number }}.zip
+          tag: v${{ steps.determine_version.outputs.VERSION }}
+          prerelease: ${{ steps.determine_version.outputs.IS_DRAFT }}
+          artifacts: |
+            release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip,
+            release/sQeeZ-Lexer-macos-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip,
