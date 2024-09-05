@@ -2,9 +2,104 @@
 
 The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scripting language into tokens, which are the fundamental building blocks used by the parser and interpreter. This lexer adheres to the core principles of sQeeZ: compactness, readability by convention, and a focus on data structures.
 
-## Token Types
+# How to Use
+> **Note:**
+> 
+> For convenience, each category (Build, Testing, Code Formatting, Deployment) has a corresponding script:
+> 
+> - `build.sh`
+> - `test.sh`
+> - `checkstyle.sh`
+> - `deploy.sh`
+> 
+> These scripts can be run directly from the root directory of the project to automate the respective tasks.
+
+## Build & Run
+To compile the project, follow these steps:
+
+### 1. Create and Navigate to Build Directory
+```bash
+mkdir build
+cd build
+```
+
+### 2. Configure the Project with CMake
+```bash
+cmake ..
+```
+
+### 3. Build the Project
+```bash
+cmake --build .
+```
+
+### 4. Run the generated Binary
+```bash
+cd build
+./sQeeZ $FILE_PATH.sqz
+```
+
+## Testing
+To run the tests, do the following:
+
+### 1. Navigate to the Test Directory
+```bash
+cd build/test
+```
+
+### 2. Execute the Tests
+```bash
+ctest --output-on-failure
+```
+
+## Code Formatting
+To format your code, execute the following script, which will apply the clang-format to all .cpp and .hpp files in the project directory:
+
+### 1. Apply clang-format
+```bash
+function format_file {
+  local file=$1
+  clang-format -i "$file"
+}
+
+for file in $(find . -name '*.cpp' -o -name '*.hpp'); do
+  format_file "$file"
+done
+```
+
+## Deployment
+To deploy the project, follow these steps:
+
+### 1. Create and Navigate to Build Directory
+```bash
+mkdir build
+cd build
+```
+
+### 2. Configure the Project with CMake
+```bash
+cmake ..
+```
+
+### 3. Build the Project
+```bash
+cmake --build .
+```
+
+### 4. Install the Project
+```bash
+cmake --install . --prefix "/usr/local/"
+```
+
+### 5. Package the Project
+```bash
+cpack
+```
+
+# Tokens
 The lexer identifies several token types that reflect the compact nature of the sQeeZ language. Each token is categorized based on its role in the language, and is structured using the Token class. This class provides a flexible and efficient way to represent various tokens using an enum and a union for different token types.
 
+## Token Structure
 ```cpp
 struct Token {
     enum class TypeTag { BASIC, DATA, ERROR, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;
@@ -60,7 +155,7 @@ struct Token {
 };
 ```
 
-### Basic Tokens
+## Basic Tokens
 This enum provides a base for handling fundamental lexical states, ensuring that the lexer properly tracks the beginning, end, and any unrecognized tokens encountered during tokenization.
 
 | **Token** | **Size** | **Value** | **Description** |
@@ -69,7 +164,7 @@ This enum provides a base for handling fundamental lexical states, ensuring that
 | `TOKEN_EOF` | 0 | \0 | Indicates the end of the input stream (end-of-file). |
 | `UNKNOWN` | 1 | The Next Charackter | Marks the next charackter as a token that the lexer cannot categorize. |
 
-### Data Tokens
+## Data Tokens
 This enum class categorizes identifiers and values used in data-related operations, allowing the lexer to handle both definitions and usages of variables, constants, and functions, as well as different literal types.
 
 | **Token** | **Size** | **Value** | **Description** |
@@ -84,7 +179,7 @@ This enum class categorizes identifiers and values used in data-related operatio
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |
 
-### Error Tokens
+## Error Tokens
 This enum class categorizes various error conditions encountered by the lexer during tokenization. These tokens help diagnose problems such as undefined identifiers, reserved keyword misuse, and format issues. Each error token pinpoints the exact nature of the problem, facilitating easier debugging and code correction.
 
 | **Token** | **Size** | **Value** | **Description** |
@@ -95,7 +190,7 @@ This enum class categorizes various error conditions encountered by the lexer du
 | `IDENTIFIER_INVALID_FORMAT` | Size of the Identifier | The Identifier | Raised when an Identifier does not meet the required Naming Conventions |
 | `IDENTIFIER_INVALID_TYPE` | Size of the Identifier | The Identifier | Raised when an Identifier is used with an unexpected Type |
 
-### Keyword Tokens
+## Keyword Tokens
 This enum class categorizes the reserved keywords used in the sQeeZ language. These keywords are integral to the language’s syntax and control flow, defining key constructs such as variable declarations, conditional statements, loops, and function definitions. By identifying these tokens, the lexer can correctly parse and interpret language constructs, ensuring that the code adheres to the language's syntax rules and functionality.
 
 | **Token** | **Size** | **Value** | **Description** |
@@ -109,7 +204,7 @@ This enum class categorizes the reserved keywords used in the sQeeZ language. Th
 | `FUNCTION` | 2 | fn | Keyword for defining a Function |
 | `RETURN` | 6 | return | Keyword for Returning a Value from a Function |
 
-### Log Tokens
+## Log Tokens
 This enum class categorizes various types of log tokens used in the sQeeZ language for output and debugging purposes. These tokens enable different logging behaviors, including the basic output, a colored formatting for better visibility, and specific log levels such as warnings and errors.
 
 | **Token** | **Size** | **Value** | **Description** |
@@ -119,7 +214,7 @@ This enum class categorizes various types of log tokens used in the sQeeZ langua
 | `WARN` | 4 | warn | Warning Log Output indicating a Potential Issue |
 | `ERROR` | 5 | error | Error Log Output indicating a Critical Issue that needs attention |
 
-### Logical Tokens
+## Logical Tokens
 This enum class categorizes logical operators used in conditional expressions within the sQeeZ language. These tokens facilitate the creation of complex logical conditions by providing various operators for equality checks, comparisons, and logical operations.
 
 | **Token** | **Size** | **Value** | **Description** |
@@ -134,7 +229,7 @@ This enum class categorizes logical operators used in conditional expressions wi
 | `OR` | 2 | \|\| | The logical OR used to combine two boolean expressions |
 | `NOT` | 1 | ! | The logical NOT used to negate a boolean expression |
 
-### Operator Tokens
+## Operator Tokens
 This enum class categorizes various operators used in the sQeeZ language for mathematical operations and assignments. These tokens represent both basic arithmetic operations and their compound assignment counterparts, along with special operators like increment, decrement, floor division and potentation.
 
 | **Token** | **Size** | **Value** | **Description** |
@@ -155,7 +250,7 @@ This enum class categorizes various operators used in the sQeeZ language for mat
 | `POTENTIATION` | 2 | ** | Potentiation operator (Exponentiation) |
 | `FLOOR_DIVISION` | 2| // | Floor Division operator (Division with Rounding Down) |
 
-### Syntax Tokens
+## Syntax Tokens
 This enum class categorizes various syntax tokens used in the sQeeZ language. These tokens represent punctuation and structural elements that define the organization of the code, such as grouping expressions, separating statements, and denoting specific syntax patterns.
 
 | **Token** | **Size** | **Value** | **Description** |
