@@ -34,6 +34,7 @@ jobs:
       run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 
     - name: Check code style
+      shell: bash
       run: |
         function run_clang_format {
           local file=$1
