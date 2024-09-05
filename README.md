@@ -59,3 +59,12 @@ struct Token {
         : tag(TypeTag::SYNTAX), type(s), size(size), value(std::move(value)), desc(std::move(desc)) {}
 };
 ```
+
+### Basic Tokens
+This enum provides a base for handling fundamental lexical states, ensuring that the lexer properly tracks the beginning, end, and any unrecognized tokens encountered during tokenization.
+
+Token | Size | Value | Description
+--- | --- | --- | ---
+INIT | 0 | \0 | Represents the initial state before any token has been identified.
+TOKEN_EOF | 0 | \0 | Indicates the end of the input stream (end-of-file).
+UNKNOWN | 1 | Next Charackter | Marks the next charackter as a token that the lexer cannot categorize.
