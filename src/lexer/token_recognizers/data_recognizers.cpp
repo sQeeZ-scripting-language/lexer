@@ -24,7 +24,7 @@ Token *DataRecognizer::storeIdentifier(std::string identifier, char type) {
         return new Token{DataToken::SET_CONSTANT_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
                          "Constant identifier stored"};
       default:
-        return new Token{BasicToken::UNKNOWN, 0, identifier, "Invalid type"};
+        return new Token{ErrorToken::IDENTIFIER_INVALID_TYPE, 0, identifier, "Invalid Identifier type"};
     }
   } else {
     return new Token{ErrorToken::IDENTIFIER_ALREADY_EXISTS, static_cast<int>(identifier.length()), identifier,
