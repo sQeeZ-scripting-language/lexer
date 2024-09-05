@@ -2,14 +2,14 @@
 #define LEXER_HPP
 
 #include <cctype>
+#include <iostream>
 #include <optional>
 #include <stdexcept>
 #include <string>
-#include <iostream>
 #include <unordered_map>
 
-#include "lexer/tokens/token.hpp"
 #include "lexer/token_recognizers/data_recognizers.hpp"
+#include "lexer/tokens/token.hpp"
 
 class Lexer {
 public:

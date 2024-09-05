@@ -1,7 +1,8 @@
 #include "lexer/token_recognizers/data_recognizers.hpp"
-#include "lexer/lexer.hpp"
 
 #include <iostream>
+
+#include "lexer/lexer.hpp"
 
 Token *DataRecognizer::storeIdentifier(std::string identifier, char type) {
   if (!isValidIdentifier(identifier)) {

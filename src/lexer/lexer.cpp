@@ -93,11 +93,11 @@ Token* Lexer::getNextToken() {
   return nullptr;
 }
 
-Token *Lexer::extractStringValue() {
+Token* Lexer::extractStringValue() {
   std::vector<char> charList;
   bool isClosed = false;
   int position = pos;
-  while (position < code.size() ) {
+  while (position < code.size()) {
     if (code[position] == '"' && (charList.empty() || charList.back() != '\\')) {
       isClosed = true;
       break;
