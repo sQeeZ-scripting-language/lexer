@@ -77,9 +77,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: compile_and_test
     steps:
-      - uses: actions/checkout@v2
       - name: Setup upterm session
         uses: lhotari/action-upterm@v1
+        with:
+          limit-access-to-actor: false
 
       - name: Create release artifact
         run: echo ls
