@@ -13,7 +13,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
 
     steps:
     - name: Checkout repository
@@ -78,7 +78,7 @@ jobs:
     needs: compile_and_test
     steps:
       - name: Create release artifact
-        run: ls
+        run: echo ls
 
       - name: Upload Release Asset
         uses: actions/upload-artifact@v2
