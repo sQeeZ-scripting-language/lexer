@@ -114,7 +114,22 @@ This enum class categorizes various types of log tokens used in the sQeeZ langua
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
-| `BASIC` | 3 | log | Represents a Basic Log Output without any special formatting |
-| `COLORED` | 4 | logc | Represents a Log Output with Color Formatting for better visibility |
-| `WARN` | 4 | warn | Represents a Warning Log Output indicating a Potential Issue |
-| `ERROR` | 5 | error | Represents an Error Log Output indicating a Critical Issue that needs attention |
+| `BASIC` | 3 | log | Basic Log Output without any special formatting |
+| `COLORED` | 4 | logc | Log Output with Color Formatting for better visibility |
+| `WARN` | 4 | warn | Warning Log Output indicating a Potential Issue |
+| `ERROR` | 5 | error | Error Log Output indicating a Critical Issue that needs attention |
+
+### Logical Tokens
+This enum class categorizes logical operators used in conditional expressions within the sQeeZ language. These tokens facilitate the creation of complex logical conditions by providing various operators for equality checks, comparisons, and logical operations.
+
+| **Token** | **Size** | **Value** | **Description** |
+| --- | --- | --- | --- |
+| `EQUAL` | 2 | == | Operator used to compare two values for Equality |
+| `NOT_EQUAL` | 2 | != | Operator used to compare two values for Non-Equality |
+| `GREATER` | 1 | > | Operator used to compare if one value is Larger than another |
+| `LESS` | 1 | < | Operator used to compare if one value is Smaller than another |
+| `GREATER_EQUAL` | 2 | >= | Operator used to compare if one value is Greater Than or Equal to another |
+| `LESS_EQUAL` | 2 | <= | Operator used to compare if one value is Smaller Than or Equal to another |
+| `AND` | 2 | && | The logical AND operator used to combine two boolean expressions |
+| `OR` | 2 | \|\| | The logical OR operator used to combine two boolean expressions |
+| `NOT` | 1 | ! | The logical NOT operator used to negate a boolean expression |
