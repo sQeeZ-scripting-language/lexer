@@ -108,3 +108,13 @@ This enum class categorizes the reserved keywords used in the sQeeZ language. Th
 | `FOR` | 3 | for | Keyword for starting a Loop |
 | `FUNCTION` | 2 | fn | Keyword for defining a Function |
 | `RETURN` | 6 | return | Keyword for Returning a Value from a Function |
+
+### Log Tokens
+This enum class categorizes various types of log tokens used in the sQeeZ language for output and debugging purposes. These tokens enable different logging behaviors, including the basic output, a colored formatting for better visibility, and specific log levels such as warnings and errors.
+
+| **Token** | **Size** | **Value** | **Description** |
+| --- | --- | --- | --- |
+| `BASIC` | 3 | log | Represents a Basic Log Output without any special formatting |
+| `COLORED` | 4 | logc | Represents a Log Output with Color Formatting for better visibility |
+| `WARN` | 4 | warn | Represents a Warning Log Output indicating a Potential Issue |
+| `ERROR` | 5 | error | Represents an Error Log Output indicating a Critical Issue that needs attention |
