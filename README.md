@@ -1,6 +1,22 @@
 # sQeeZ Lexer
-
 The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scripting language into tokens, which are the fundamental building blocks used by the parser and interpreter. This lexer adheres to the core principles of sQeeZ: compactness, readability by convention, and a focus on data structures.
+
+# Table of Contents
+- [How to Use](#how-to-use)
+  - [Build & Run](#build--run)
+  - [Testing](#testing)
+  - [Code Formatting](#code-formatting)
+  - [Deployment](#deployment)
+- [Tokens](#tokens)
+  - [Token Structure](#token-structure)
+  - [Basic Tokens](#basic-tokens)
+  - [Data Tokens](#data-tokens)
+  - [Error Tokens](#error-tokens)
+  - [Keyword Tokens](#keyword-tokens)
+  - [Log Tokens](#log-tokens)
+  - [Logical Tokens](#logical-tokens)
+  - [Operator Tokens](#operator-tokens)
+  - [Syntax Tokens](#syntax-tokens)
 
 # How to Use
 > **Note:**
@@ -269,3 +285,5 @@ This enum class categorizes various syntax tokens used in the sQeeZ language. Th
 | `CLOSE_BRACE` | 1 | } | The Closing brace, used to define blocks of code or object literals |
 | `ARROW` | 2 | ->| The Arrow Operator, used in lambda expressions |
 | `HASHTAG` | 1 | # | The Hashtag, used for Hex-Codes |
+
+[Back to Top](#sqeez-lexer)
