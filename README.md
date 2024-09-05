@@ -94,3 +94,17 @@ This enum class categorizes various error conditions encountered by the lexer du
 | `IDENTIFIER_ALREADY_EXISTS` | Size of the Identifier | The Identifier | Raised when attempting to define an Identifier that already exists |
 | `IDENTIFIER_INVALID_FORMAT` | Size of the Identifier | The Identifier | Raised when an Identifier does not meet the required Naming Conventions |
 | `IDENTIFIER_INVALID_TYPE` | Size of the Identifier | The Identifier | Raised when an Identifier is used with an unexpected Type |
+
+### Keyword Tokens
+This enum class categorizes the reserved keywords used in the sQeeZ language. These keywords are integral to the language’s syntax and control flow, defining key constructs such as variable declarations, conditional statements, loops, and function definitions. By identifying these tokens, the lexer can correctly parse and interpret language constructs, ensuring that the code adheres to the language's syntax rules and functionality.
+
+| **Token** | **Size** | **Value** | **Description** |
+| --- | --- | --- | --- |
+| `VARIABLE` | 3 | var | Keyword for declaring a Variable |
+| `CONSTANT` | 5 | const | Keyword for declaring a Constant |
+| `IF` | 2 | if | Keyword for initiating a Conditional Statement |
+| `ELSE` | 4 | else | Keyword for specifying an Alternative Branch in a Conditional Statement |
+| `ELSE_IF` | 4 | elif | Keyword for adding Additional Conditions to an Conditional Statement |
+| `FOR` | 3 | for | Keyword for starting a Loop |
+| `FUNCTION` | 2 | fn | Keyword for defining a Function |
+| `RETURN` | 6 | return | Keyword for Returning a Value from a Function |
