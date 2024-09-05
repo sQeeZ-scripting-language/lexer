@@ -41,7 +41,7 @@ std::vector<Token> Lexer::lex() {
     Token* tokenPtr = isEOF() ? new Token{BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"} : nullptr;
     if (tokenPtr == nullptr) tokenPtr = lexSpecialCases(previousToken, dataRecognizer);
     if (tokenPtr == nullptr) tokenPtr = getNextToken();
-    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(extractToken());
+    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericLiteral(extractToken());
     if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(extractToken());
     if (tokenPtr != nullptr) {
       tokens.push_back(*tokenPtr);
@@ -69,9 +69,9 @@ Token* Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognize
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
       !lexerState["insideString"]) {
     lexerState["insideString"] = true;
-    return extractStringValue();
+    return extractStringLiteral();
   }
-  if (previousToken.tag == Token::TypeTag::DATA && previousToken.type.dataToken == DataToken::STRING_VALUE &&
+  if (previousToken.tag == Token::TypeTag::DATA && previousToken.type.dataToken == DataToken::STRING_LITERAL &&
       lexerState["insideString"]) {
     lexerState["insideString"] = false;
     return new Token{SyntaxToken::DOUBLE_QUOTE, 1, "\"", "Double Quote"};
@@ -93,7 +93,7 @@ Token* Lexer::getNextToken() {
   return nullptr;
 }
 
-Token* Lexer::extractStringValue() {
+Token* Lexer::extractStringLiteral() {
   std::vector<char> charList;
   bool isClosed = false;
   int position = pos;
@@ -105,8 +105,8 @@ Token* Lexer::extractStringValue() {
     charList.push_back(code[position]);
     ++position;
   }
-  std::string value(charList.begin(), charList.end());
-  return new Token{DataToken::STRING_VALUE, static_cast<int>(charList.size()), value, "String Value"};
+  std::string literal(charList.begin(), charList.end());
+  return new Token{DataToken::STRING_LITERAL, static_cast<int>(charList.size()), literal, "String Literal"};
 }
 
 std::string Lexer::extractToken() {

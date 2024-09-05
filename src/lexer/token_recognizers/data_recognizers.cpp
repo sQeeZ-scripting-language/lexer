@@ -24,7 +24,7 @@ Token *DataRecognizer::storeIdentifier(std::string identifier, char type) {
         return new Token{DataToken::SET_CONSTANT_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
                          "Constant identifier stored"};
       default:
-        return new Token{BasicToken::UNKNOWN, 0, identifier, "Invalid type"};
+        return new Token{ErrorToken::IDENTIFIER_INVALID_TYPE, 0, identifier, "Invalid Identifier type"};
     }
   } else {
     return new Token{ErrorToken::IDENTIFIER_ALREADY_EXISTS, static_cast<int>(identifier.length()), identifier,
@@ -49,13 +49,13 @@ Token *DataRecognizer::recognizeIdentifier(std::string identifier) {
   }
 }
 
-Token *DataRecognizer::recognizeNumericValue(std::string number) {
+Token *DataRecognizer::recognizeNumericLiteral(std::string number) {
   std::regex integerPattern(R"(^\d+$)");
   std::regex doublePattern(R"(^\d*\.?\d+$)");
   if (std::regex_match(number, integerPattern)) {
-    return new Token{DataToken::INTEGER_VALUE, static_cast<int>(number.length()), number, "Integer Value"};
+    return new Token{DataToken::INTEGER_LITERAL, static_cast<int>(number.length()), number, "Integer Literal"};
   } else if (std::regex_match(number, doublePattern)) {
-    return new Token{DataToken::DOUBLE_VALUE, static_cast<int>(number.length()), number, "Double Value"};
+    return new Token{DataToken::DOUBLE_LITERAL, static_cast<int>(number.length()), number, "Double Literal"};
   }
   return nullptr;
 }

@@ -550,6 +550,17 @@ TEST(LexerTest, IdentifyColoredLogger) {
     EXPECT_EQ(token.desc, "Colored logging function");
 }
 
+TEST(LexerTest, IdentifyWarnLogger) {
+    Lexer lexer("warn");
+    Token token = *lexer.getNextToken();
+
+    EXPECT_EQ(token.tag, Token::TypeTag::LOG);
+    EXPECT_EQ(token.type.logToken, LogToken::WARN);
+    EXPECT_EQ(token.size, 4);
+    EXPECT_EQ(token.value, "warn");
+    EXPECT_EQ(token.desc, "Warning logging function");
+}
+
 TEST(LexerTest, IdentifyErrorLogger) {
     Lexer lexer("error");
     Token token = *lexer.getNextToken();
@@ -564,29 +575,29 @@ TEST(LexerTest, IdentifyErrorLogger) {
 /*
  * Data Types
  */
-TEST(LexerTest, IdentifyIntegerValue) {
+TEST(LexerTest, IdentifyIntegerLiteral) {
     Lexer lexer("12345");
     std::vector<Token> tokens = lexer.lex();
 
     EXPECT_EQ(tokens[1].tag, Token::TypeTag::DATA);
-    EXPECT_EQ(tokens[1].type.dataToken, DataToken::INTEGER_VALUE);
+    EXPECT_EQ(tokens[1].type.dataToken, DataToken::INTEGER_LITERAL);
     EXPECT_EQ(tokens[1].size, 5);
     EXPECT_EQ(tokens[1].value, "12345");
-    EXPECT_EQ(tokens[1].desc, "Integer Value");
+    EXPECT_EQ(tokens[1].desc, "Integer Literal");
 }
 
-TEST(LexerTest, IdentifyDoubleValue) {
+TEST(LexerTest, IdentifyDoubleLiteral) {
     Lexer lexer("123.45");
     std::vector<Token> tokens = lexer.lex();
 
     EXPECT_EQ(tokens[1].tag, Token::TypeTag::DATA);
-    EXPECT_EQ(tokens[1].type.dataToken, DataToken::DOUBLE_VALUE);
+    EXPECT_EQ(tokens[1].type.dataToken, DataToken::DOUBLE_LITERAL);
     EXPECT_EQ(tokens[1].size, 6);
     EXPECT_EQ(tokens[1].value, "123.45");
-    EXPECT_EQ(tokens[1].desc, "Double Value");
+    EXPECT_EQ(tokens[1].desc, "Double Literal");
 }
 
-TEST(LexerTest, IdentifyStringValue) {
+TEST(LexerTest, IdentifyStringLiteral) {
     Lexer lexer("\"Hello, World!\"");
     std::vector<Token> tokens = lexer.lex();
 
@@ -597,10 +608,10 @@ TEST(LexerTest, IdentifyStringValue) {
     EXPECT_EQ(tokens[1].desc, "Double Quote");
 
     EXPECT_EQ(tokens[2].tag, Token::TypeTag::DATA);
-    EXPECT_EQ(tokens[2].type.dataToken, DataToken::STRING_VALUE);
+    EXPECT_EQ(tokens[2].type.dataToken, DataToken::STRING_LITERAL);
     EXPECT_EQ(tokens[2].size, 13);
     EXPECT_EQ(tokens[2].value, "Hello, World!");
-    EXPECT_EQ(tokens[2].desc, "String Value");
+    EXPECT_EQ(tokens[2].desc, "String Literal");
 
     EXPECT_EQ(tokens[3].tag, Token::TypeTag::SYNTAX);
     EXPECT_EQ(tokens[3].type.syntaxToken, SyntaxToken::DOUBLE_QUOTE);

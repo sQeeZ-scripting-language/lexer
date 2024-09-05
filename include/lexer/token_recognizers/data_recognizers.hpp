@@ -13,7 +13,7 @@ class DataRecognizer {
 public:
   Token *storeIdentifier(std::string identifier, char type);
   Token *recognizeIdentifier(std::string identifier);
-  Token *recognizeNumericValue(std::string number);
+  Token *recognizeNumericLiteral(std::string number);
 
   std::unordered_map<std::string, char> identifiers;
 

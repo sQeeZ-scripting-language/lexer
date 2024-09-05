@@ -17,7 +17,7 @@ public:
   std::vector<Token> lex();
   Token* lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer);
   Token* getNextToken();
-  Token* extractStringValue();
+  Token* extractStringLiteral();
   std::string extractToken();
   bool checkKeyword(const std::string& keyword);
   void skip(size_t size);
