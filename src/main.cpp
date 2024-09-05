@@ -1,7 +1,5 @@
 #include "main.hpp"
 
-std::unordered_map<std::string, bool> lexerState;
-
 int main(int argc, char* argv[]) {
   if (argc != 2) {
     std::cerr << "Usage: " << argv[0] << " <filename>.sqz" << std::endl;
@@ -27,68 +25,8 @@ int main(int argc, char* argv[]) {
     code += line + "\n";
   }
 
-  lexerState["insideString"] = false;
-
-  LexerMain lexerMain;
-  lexerMain.lex(code);
+  Lexer lexer(code);
+  lexer.lex();
 
   return 0;
-}
-
-std::vector<Token> LexerMain::lex(const std::string& code) {
-  Lexer lexer(code);
-  DataRecognizer dataRecognizer;
-  Token previousToken = {BasicToken::INIT, 0, "\0", "Initialize Lexer"};
-  tokens.push_back(previousToken);
-  logToken(previousToken);
-
-  do {
-    lexer.skipWhitespace();
-    Token* tokenPtr = lexer.isEOF() ? new Token{BasicToken::TOKEN_EOF, 0, "EOF", "The end of the file"} : nullptr;
-    if (tokenPtr == nullptr) tokenPtr = lexSpecialCases(previousToken, dataRecognizer, lexer);
-    if (tokenPtr == nullptr) tokenPtr = lexer.getNextToken();
-    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeNumericValue(lexer);
-    if (tokenPtr == nullptr) tokenPtr = dataRecognizer.recognizeIdentifier(lexer);
-    if (tokenPtr != nullptr) {
-      tokens.push_back(*tokenPtr);
-      lexer.skip(tokenPtr->size);
-    } else {
-      tokens.push_back({BasicToken::UNKNOWN, 1, std::string(1, lexer.peek()), "Unknown Token"});
-      lexer.advance();
-    }
-    previousToken = tokens.back();
-    logToken(previousToken);
-  } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
-  return tokens;
-}
-
-Token* LexerMain::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, Lexer& lexer) {
-  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::FUNCTION) {
-    return dataRecognizer.storeIdentifier(lexer, 'F');
-  }
-  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::VARIABLE) {
-    return dataRecognizer.storeIdentifier(lexer, 'V');
-  }
-  if (previousToken.tag == Token::TypeTag::KEYWORD && previousToken.type.keywordToken == KeywordToken::CONSTANT) {
-    return dataRecognizer.storeIdentifier(lexer, 'C');
-  }
-  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
-      !lexerState["insideString"]) {
-    lexerState["insideString"] = true;
-    return dataRecognizer.recognizeString(lexer);
-  }
-  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
-      lexerState["insideString"]) {
-    lexerState["insideString"] = false;
-    return nullptr;
-  }
-  return nullptr;
-}
-
-void LexerMain::logToken(Token token) {
-  std::cout << "###Token###" << std::endl;
-  std::cout << "Value: " << token.value << std::endl;
-  std::cout << "Size: " << token.size << std::endl;
-  std::cout << "Desc: " << token.desc << std::endl;
-  std::cout << std::endl;
 }

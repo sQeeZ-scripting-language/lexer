@@ -1,2 +1,2 @@
 cd build/test
-ctest
+ctest --output-on-failure
