@@ -124,12 +124,33 @@ This enum class categorizes logical operators used in conditional expressions wi
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
-| `EQUAL` | 2 | == | Operator used to compare two values for Equality |
-| `NOT_EQUAL` | 2 | != | Operator used to compare two values for Non-Equality |
-| `GREATER` | 1 | > | Operator used to compare if one value is Larger than another |
-| `LESS` | 1 | < | Operator used to compare if one value is Smaller than another |
-| `GREATER_EQUAL` | 2 | >= | Operator used to compare if one value is Greater Than or Equal to another |
-| `LESS_EQUAL` | 2 | <= | Operator used to compare if one value is Smaller Than or Equal to another |
-| `AND` | 2 | && | The logical AND operator used to combine two boolean expressions |
-| `OR` | 2 | \|\| | The logical OR operator used to combine two boolean expressions |
-| `NOT` | 1 | ! | The logical NOT operator used to negate a boolean expression |
+| `EQUAL` | 2 | == | Compare two values for Equality |
+| `NOT_EQUAL` | 2 | != | Compare two values for Non-Equality |
+| `GREATER` | 1 | > | Compare if one value is Larger than another |
+| `LESS` | 1 | < | Compare if one value is Smaller than another |
+| `GREATER_EQUAL` | 2 | >= | Compare if one value is Greater Than or Equal to another |
+| `LESS_EQUAL` | 2 | <= | Compare if one value is Smaller Than or Equal to another |
+| `AND` | 2 | && | The logical AND used to combine two boolean expressions |
+| `OR` | 2 | \|\| | The logical OR used to combine two boolean expressions |
+| `NOT` | 1 | ! | The logical NOT used to negate a boolean expression |
+
+### Operator Tokens
+This enum class categorizes various operators used in the sQeeZ language for mathematical operations and assignments. These tokens represent both basic arithmetic operations and their compound assignment counterparts, along with special operators like increment, decrement, floor division and potentation.
+
+| **Token** | **Size** | **Value** | **Description** |
+| --- | --- | --- | --- |
+| `ASSIGN` | 1 | = | Assignment operator |
+| `ADDITION` | 1 | + | Addition operator |
+| `SUBTRACTION` | 1 | - | Subtraction operator |
+| `MULTIPLICATION` | 1 | * | Multiplication operator |
+| `DIVISION` | 1 | / | Division operator |
+| `MODULUS` | 1 | % | Modulus operator |
+| `ADDITION_ASSIGNMENT` | 2 | += | Addition Assignment operator (Adds and Assigns) |
+| `SUBTRACTION_ASSIGNMENT` | 2 | -= | Subtraction Assignment operator (Subtracts and Assigns) |
+| `MULTIPLICATION_ASSIGNMENT` | 2 | *= | Multiplication Assignment operator (Multiplies and Assigns) |
+| `DIVISION_ASSIGNMENT` | 2 | /= | Division Assignment operator (Divides and Assigns) |
+| `MODULUS_ASSIGNMENT` | 2 | %= | Modulus Assignment operator (Modulus and Assigns) |
+| `INCREMENT` | 2 | ++ | Increment operator (Increases value by 1) |
+| `DECREMENT` | 2 | -- | Decrement operator (Decreases value by 1) |
+| `POTENTIATION` | 2 | ** | Potentiation operator (Exponentiation) |
+| `FLOOR_DIVISION` | 2| // | Floor Division operator (Division with Rounding Down) |
