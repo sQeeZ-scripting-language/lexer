@@ -67,7 +67,7 @@ This enum provides a base for handling fundamental lexical states, ensuring that
 | --- | --- | --- | --- |
 | `INIT` | 0 | \0 | Represents the initial state before any token has been identified. |
 | `TOKEN_EOF` | 0 | \0 | Indicates the end of the input stream (end-of-file). |
-| `UNKNOWN` | 1 | Next Charackter | Marks the next charackter as a token that the lexer cannot categorize. |
+| `UNKNOWN` | 1 | The Next Charackter | Marks the next charackter as a token that the lexer cannot categorize. |
 
 ### Data Tokens
 This enum class categorizes identifiers and values used in data-related operations, allowing the lexer to handle both definitions and usages of variables, constants, and functions, as well as different literal types.
@@ -77,9 +77,20 @@ This enum class categorizes identifiers and values used in data-related operatio
 | `SET_FUNCTION_IDENTIFIER` | Size of the Function Identifier | The Function Identifier | Defines a Function Identifier |
 | `SET_VARIABLE_IDENTIFIER` | Size of the Variable Identifier | The Variable Identifier | Defines a Variable Identifier |
 | `SET_CONSTANT_IDENTIFIER` | Size of the Constant Identifier | The Constant Identifier | Defines a Constant Identifier |
-| `USE_FUNCTION_IDENTIFIER` | Size of the Function Identifier | Function name | Refers to a previously defined function |
-| `USE_VARIABLE_IDENTIFIER` | Size of the Variable Identifier | Variable name | Refers to a previously defined variable |
-| `USE_CONSTANT_IDENTIFIER` | Size of the Constant Identifier | Constant name | Refers to a previously defined constant |
+| `USE_FUNCTION_IDENTIFIER` | Size of the Function Identifier | The Function Identifier | Refers to a previously defined Function |
+| `USE_VARIABLE_IDENTIFIER` | Size of the Variable Identifier | The Variable Identifier | Refers to a previously defined Variable |
+| `USE_CONSTANT_IDENTIFIER` | Size of the Constant Identifier | The Constant Identifier | Refers to a previously defined Constant |
 | `STRING_LITERAL` | Length of the String Literal | The String Literal | Represents a String Literal |
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |
+
+### Error Tokens
+This enum class categorizes various error conditions encountered by the lexer during tokenization. These tokens help diagnose problems such as undefined identifiers, reserved keyword misuse, and format issues. Each error token pinpoints the exact nature of the problem, facilitating easier debugging and code correction.
+
+| **Token** | **Size** | **Value** | **Description** |
+| --- | --- | --- | --- |
+| `IDENTIFIER_NOT_FOUND` | Size of the Identifier | The Identifier | Raised when an Identifier is used before Definition |
+| `IDENTIFIER_RESERVED_KEYWORD` | Size of the Identifier | The Identifier | Raised when an Identifier is a Reserved Keyword|
+| `IDENTIFIER_ALREADY_EXISTS` | Size of the Identifier | The Identifier | Raised when attempting to define an Identifier that already exists |
+| `IDENTIFIER_INVALID_FORMAT` | Size of the Identifier | The Identifier | Raised when an Identifier does not meet the required Naming Conventions |
+| `IDENTIFIER_INVALID_TYPE` | Size of the Identifier | The Identifier | Raised when an Identifier is used with an unexpected Type |
