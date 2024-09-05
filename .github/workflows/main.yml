@@ -79,7 +79,11 @@ jobs:
     steps:
       - name: Create release artifact
         run: |
-          cd ../../
+          ls
+          cd ../
+          ls
+          cd ../
+          ls
           mkdir release
           cd build
           zip -r ../release/sQeeZ-Lexer-${{ github.run_number }}.zip .
