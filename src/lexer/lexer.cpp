@@ -71,10 +71,10 @@ Token* Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognize
     lexerState["insideString"] = true;
     return extractStringValue();
   }
-  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
+  if (previousToken.tag == Token::TypeTag::DATA && previousToken.type.dataToken == DataToken::STRING_VALUE &&
       lexerState["insideString"]) {
     lexerState["insideString"] = false;
-    return nullptr;
+    return new Token{SyntaxToken::DOUBLE_QUOTE, 1, "\"", "Double Quote"};
   }
   return nullptr;
 }
@@ -96,14 +96,14 @@ Token* Lexer::getNextToken() {
 Token *Lexer::extractStringValue() {
   std::vector<char> charList;
   bool isClosed = false;
-  while (!isEOF()) {
-    char current = peek();
-    if (current == '"' && (charList.empty() || charList.back() != '\\')) {
+  int position = pos;
+  while (position < code.size() ) {
+    if (code[position] == '"' && (charList.empty() || charList.back() != '\\')) {
       isClosed = true;
       break;
     }
-    charList.push_back(current);
-    advance();
+    charList.push_back(code[position]);
+    ++position;
   }
   std::string value(charList.begin(), charList.end());
   return new Token{DataToken::STRING_VALUE, static_cast<int>(charList.size()), value, "String Value"};
