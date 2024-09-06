@@ -1,21 +1,22 @@
 #ifndef KEYWORD_RECOGNIZERS_HPP
 #define KEYWORD_RECOGNIZERS_HPP
 
+#include <memory>
 #include <string>
 #include <unordered_map>
 
 #include "lexer/lexer.hpp"
 
-using TokenRecognizer = Token* (*)(Lexer&);
+using TokenRecognizer = std::function<void(Lexer&, std::unique_ptr<Token>&)>;
 
-Token* recognizeVariable(Lexer& lexer);
-Token* recognizeConstant(Lexer& lexer);
-Token* recognizeIf(Lexer& lexer);
-Token* recognizeElse(Lexer& lexer);
-Token* recognizeElseIf(Lexer& lexer);
-Token* recognizeFor(Lexer& lexer);
-Token* recognizeFunction(Lexer& lexer);
-Token* recognizeReturn(Lexer& lexer);
+void recognizeVariable(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeConstant(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeIf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeElse(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeElseIf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeFor(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeFunction(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeReturn(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

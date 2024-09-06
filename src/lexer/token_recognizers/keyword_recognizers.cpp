@@ -1,35 +1,51 @@
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 
-Token* recognizeVariable(Lexer& lexer) {
-  return lexer.checkKeyword("var") ? new Token{KeywordToken::VARIABLE, 3, "var", "Variable declaration"} : nullptr;
+void recognizeVariable(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("var")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::VARIABLE, 3, "var", "Variable declaration");
+  }
 }
 
-Token* recognizeConstant(Lexer& lexer) {
-  return lexer.checkKeyword("const") ? new Token{KeywordToken::CONSTANT, 5, "const", "Constant declaration"} : nullptr;
+void recognizeConstant(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("const")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::CONSTANT, 5, "const", "Constant declaration");
+  }
 }
 
-Token* recognizeIf(Lexer& lexer) {
-  return lexer.checkKeyword("if") ? new Token{KeywordToken::IF, 2, "if", "Conditional statement"} : nullptr;
+void recognizeIf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("if")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::IF, 2, "if", "Conditional statement");
+  }
 }
 
-Token* recognizeElse(Lexer& lexer) {
-  return lexer.checkKeyword("else") ? new Token{KeywordToken::ELSE, 4, "else", "Else statement"} : nullptr;
+void recognizeElse(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("else")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::ELSE, 4, "else", "Else statement");
+  }
 }
 
-Token* recognizeElseIf(Lexer& lexer) {
-  return lexer.checkKeyword("elif") ? new Token{KeywordToken::ELSE_IF, 4, "elif", "Else if statement"} : nullptr;
+void recognizeElseIf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("elif")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::ELSE_IF, 4, "elif", "Else if statement");
+  }
 }
 
-Token* recognizeFor(Lexer& lexer) {
-  return lexer.checkKeyword("for") ? new Token{KeywordToken::FOR, 3, "for", "For loop"} : nullptr;
+void recognizeFor(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("for")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::FOR, 3, "for", "For loop");
+  }
 }
 
-Token* recognizeFunction(Lexer& lexer) {
-  return lexer.checkKeyword("fn") ? new Token{KeywordToken::FUNCTION, 2, "fn", "Function declaration"} : nullptr;
+void recognizeFunction(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("fn")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::FUNCTION, 2, "fn", "Function declaration");
+  }
 }
 
-Token* recognizeReturn(Lexer& lexer) {
-  return lexer.checkKeyword("return") ? new Token{KeywordToken::RETURN, 6, "return", "Return keyword"} : nullptr;
+void recognizeReturn(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("return")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::RETURN, 6, "return", "Return keyword");
+  }
 }
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {

@@ -1,21 +1,27 @@
 #include "lexer/token_recognizers/log_recognizers.hpp"
 
-Token* recognizeBasicLog(Lexer& lexer) {
-  return lexer.checkKeyword("log") && !lexer.checkKeyword("logc")
-             ? new Token{LogToken::BASIC, 3, "log", "Basic logging function"}
-             : nullptr;
+void recognizeBasicLog(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("log") && !lexer.checkKeyword("logc")) {
+    tokenPtr = std::make_unique<Token>(LogToken::BASIC, 3, "log", "Basic logging function");
+  }
 }
 
-Token* recognizeColoredLog(Lexer& lexer) {
-  return lexer.checkKeyword("logc") ? new Token{LogToken::COLORED, 4, "logc", "Colored logging function"} : nullptr;
+void recognizeColoredLog(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("logc")) {
+    tokenPtr = std::make_unique<Token>(LogToken::COLORED, 4, "logc", "Colored logging function");
+  }
 }
 
-Token* recognizeWarnLog(Lexer& lexer) {
-  return lexer.checkKeyword("warn") ? new Token{LogToken::WARN, 4, "warn", "Warning logging function"} : nullptr;
+void recognizeWarnLog(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("warn")) {
+    tokenPtr = std::make_unique<Token>(LogToken::WARN, 4, "warn", "Warning logging function");
+  }
 }
 
-Token* recognizeErrorLog(Lexer& lexer) {
-  return lexer.checkKeyword("error") ? new Token{LogToken::ERROR, 5, "error", "Error logging function"} : nullptr;
+void recognizeErrorLog(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("error")) {
+    tokenPtr = std::make_unique<Token>(LogToken::ERROR, 5, "error", "Error logging function");
+  }
 }
 
 void registerLogRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
