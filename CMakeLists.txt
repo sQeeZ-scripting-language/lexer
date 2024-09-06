@@ -1,8 +1,18 @@
-cmake_minimum_required(VERSION 3.20)
-project(lexer VERSION 1.0.0)
+cmake_minimum_required(VERSION 3.16)
+project(sQeeZ-Lexer VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+
+# Cross-platform definitions
+if(MSVC)
+  add_definitions(-D_SQEEZ_WIN)
+  set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+elseif(APPLE)
+  add_definitions(-D_SQEEZ_MAC)
+else()
+  add_definitions(-D_SQEEZ_LINUX)
+endif()
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
