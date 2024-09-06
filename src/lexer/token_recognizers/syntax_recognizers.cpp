@@ -1,59 +1,87 @@
 #include "lexer/token_recognizers/syntax_recognizers.hpp"
 
-Token* recognizeSemicolon(Lexer& lexer) {
-  return lexer.checkKeyword(";") ? new Token{SyntaxToken::SEMICOLON, 1, ";", "Semicolon"} : nullptr;
+void recognizeSemicolon(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword(";")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::SEMICOLON, 1, ";", "Semicolon");
+  }
 }
 
-Token* recognizeComma(Lexer& lexer) {
-  return lexer.checkKeyword(",") ? new Token{SyntaxToken::COMMA, 1, ",", "Comma"} : nullptr;
+void recognizeComma(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword(",")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::COMMA, 1, ",", "Comma");
+  }
 }
 
-Token* recognizeDot(Lexer& lexer) {
-  return lexer.checkKeyword(".") ? new Token{SyntaxToken::DOT, 1, ".", "Dot"} : nullptr;
+void recognizeDot(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword(".")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::DOT, 1, ".", "Dot");
+  }
 }
 
-Token* recognizeColon(Lexer& lexer) {
-  return lexer.checkKeyword(":") ? new Token{SyntaxToken::COLON, 1, ":", "Colon"} : nullptr;
+void recognizeColon(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword(":")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::COLON, 1, ":", "Colon");
+  }
 }
 
-Token* recognizeSingleQuote(Lexer& lexer) {
-  return lexer.checkKeyword("'") ? new Token{SyntaxToken::SINGLE_QUOTE, 1, "'", "Single Quote"} : nullptr;
+void recognizeSingleQuote(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("'")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::SINGLE_QUOTE, 1, "'", "Single Quote");
+  }
 }
 
-Token* recognizeDoubleQuote(Lexer& lexer) {
-  return lexer.checkKeyword("\"") ? new Token{SyntaxToken::DOUBLE_QUOTE, 1, "\"", "Double Quote"} : nullptr;
+void recognizeDoubleQuote(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("\"")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, "\"", "Double Quote");
+  }
 }
 
-Token* recognizeOpenParenthesis(Lexer& lexer) {
-  return lexer.checkKeyword("(") ? new Token{SyntaxToken::OPEN_PARENTHESIS, 1, "(", "Open Parenthesis"} : nullptr;
+void recognizeOpenParenthesis(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("(")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::OPEN_PARENTHESIS, 1, "(", "Open Parenthesis");
+  }
 }
 
-Token* recognizeCloseParenthesis(Lexer& lexer) {
-  return lexer.checkKeyword(")") ? new Token{SyntaxToken::CLOSE_PARENTHESIS, 1, ")", "Close Parenthesis"} : nullptr;
+void recognizeCloseParenthesis(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword(")")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::CLOSE_PARENTHESIS, 1, ")", "Close Parenthesis");
+  }
 }
 
-Token* recognizeOpenBracket(Lexer& lexer) {
-  return lexer.checkKeyword("[") ? new Token{SyntaxToken::OPEN_BRACKET, 1, "[", "Open Bracket"} : nullptr;
+void recognizeOpenBracket(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("[")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::OPEN_BRACKET, 1, "[", "Open Bracket");
+  }
 }
 
-Token* recognizeCloseBracket(Lexer& lexer) {
-  return lexer.checkKeyword("]") ? new Token{SyntaxToken::CLOSE_BRACKET, 1, "]", "Close Bracket"} : nullptr;
+void recognizeCloseBracket(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("]")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::CLOSE_BRACKET, 1, "]", "Close Bracket");
+  }
 }
 
-Token* recognizeOpenBrace(Lexer& lexer) {
-  return lexer.checkKeyword("{") ? new Token{SyntaxToken::OPEN_BRACE, 1, "{", "Open Brace"} : nullptr;
+void recognizeOpenBrace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("{")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::OPEN_BRACE, 1, "{", "Open Brace");
+  }
 }
 
-Token* recognizeCloseBrace(Lexer& lexer) {
-  return lexer.checkKeyword("}") ? new Token{SyntaxToken::CLOSE_BRACE, 1, "}", "Close Brace"} : nullptr;
+void recognizeCloseBrace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("}")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::CLOSE_BRACE, 1, "}", "Close Brace");
+  }
 }
 
-Token* recognizeArrow(Lexer& lexer) {
-  return lexer.checkKeyword("->") ? new Token{SyntaxToken::ARROW, 2, "->", "Arrow"} : nullptr;
+void recognizeArrow(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("->")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::ARROW, 2, "->", "Arrow");
+  }
 }
 
-Token* recognizeHashtag(Lexer& lexer) {
-  return lexer.checkKeyword("#") ? new Token{SyntaxToken::HASHTAG, 1, "#", "Hashtag"} : nullptr;
+void recognizeHashtag(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("#")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::HASHTAG, 1, "#", "Hashtag");
+  }
 }
 
 void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {

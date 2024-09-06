@@ -4,60 +4,68 @@
 
 #include "lexer/lexer.hpp"
 
-Token *DataRecognizer::storeIdentifier(std::string identifier, char type) {
+void DataRecognizer::storeIdentifier(std::string identifier, char type, std::unique_ptr<Token>& tokenPtr) {
   if (!isValidIdentifier(identifier)) {
-    return new Token{ErrorToken::IDENTIFIER_INVALID_FORMAT, static_cast<int>(identifier.length()), identifier,
-                     "Invalid identifier format"};
+    tokenPtr = std::make_unique<Token>(ErrorToken::IDENTIFIER_INVALID_FORMAT, static_cast<int>(identifier.length()),
+                                       identifier, "Invalid identifier format");
   } else if (isReservedKeyword(identifier)) {
-    return new Token{ErrorToken::IDENTIFIER_RESERVED_KEYWORD, static_cast<int>(identifier.length()), identifier,
-                     "Reserved keyword"};
+    tokenPtr = std::make_unique<Token>(ErrorToken::IDENTIFIER_RESERVED_KEYWORD, static_cast<int>(identifier.length()),
+                                       identifier, "Reserved keyword");
   } else if (getType(identifier) == '\0') {
     identifiers[identifier] = type;
     switch (type) {
       case 'F':
-        return new Token{DataToken::SET_FUNCTION_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                         "Function identifier stored"};
+        tokenPtr = std::make_unique<Token>(DataToken::SET_FUNCTION_IDENTIFIER, static_cast<int>(identifier.length()),
+                                           identifier, "Function identifier stored");
+        break;
       case 'V':
-        return new Token{DataToken::SET_VARIABLE_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                         "Variable identifier stored"};
+        tokenPtr = std::make_unique<Token>(DataToken::SET_VARIABLE_IDENTIFIER, static_cast<int>(identifier.length()),
+                                           identifier, "Variable identifier stored");
+        break;
       case 'C':
-        return new Token{DataToken::SET_CONSTANT_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                         "Constant identifier stored"};
+        tokenPtr = std::make_unique<Token>(DataToken::SET_CONSTANT_IDENTIFIER, static_cast<int>(identifier.length()),
+                                           identifier, "Constant identifier stored");
+        break;
       default:
-        return new Token{ErrorToken::IDENTIFIER_INVALID_TYPE, 0, identifier, "Invalid Identifier type"};
+        tokenPtr =
+            std::make_unique<Token>(ErrorToken::IDENTIFIER_INVALID_TYPE, 0, identifier, "Invalid Identifier type");
     }
   } else {
-    return new Token{ErrorToken::IDENTIFIER_ALREADY_EXISTS, static_cast<int>(identifier.length()), identifier,
-                     "Identifier already exists"};
+    tokenPtr = std::make_unique<Token>(ErrorToken::IDENTIFIER_ALREADY_EXISTS, static_cast<int>(identifier.length()),
+                                       identifier, "Identifier already exists");
   }
 }
 
-Token *DataRecognizer::recognizeIdentifier(std::string identifier) {
+void DataRecognizer::recognizeIdentifier(std::string identifier, std::unique_ptr<Token>& tokenPtr) {
   switch (getType(identifier)) {
     case 'F':
-      return new Token{DataToken::USE_FUNCTION_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                       "Function identifier"};
+      tokenPtr = std::make_unique<Token>(DataToken::USE_FUNCTION_IDENTIFIER, static_cast<int>(identifier.length()),
+                                         identifier, "Function identifier");
+      break;
     case 'V':
-      return new Token{DataToken::USE_VARIABLE_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                       "Variable identifier"};
+      tokenPtr = std::make_unique<Token>(DataToken::USE_VARIABLE_IDENTIFIER, static_cast<int>(identifier.length()),
+                                         identifier, "Variable identifier");
+      break;
     case 'C':
-      return new Token{DataToken::USE_CONSTANT_IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                       "Constant identifier"};
+      tokenPtr = std::make_unique<Token>(DataToken::USE_CONSTANT_IDENTIFIER, static_cast<int>(identifier.length()),
+                                         identifier, "Constant identifier");
+      break;
     default:
-      return new Token{ErrorToken::IDENTIFIER_NOT_FOUND, static_cast<int>(identifier.length()), identifier,
-                       "Invalid identifier"};
+      tokenPtr = std::make_unique<Token>(ErrorToken::IDENTIFIER_NOT_FOUND, static_cast<int>(identifier.length()),
+                                         identifier, "Invalid identifier");
   }
 }
 
-Token *DataRecognizer::recognizeNumericLiteral(std::string number) {
+void DataRecognizer::recognizeNumericLiteral(std::string number, std::unique_ptr<Token>& tokenPtr) {
   std::regex integerPattern(R"(^\d+$)");
   std::regex doublePattern(R"(^\d*\.?\d+$)");
   if (std::regex_match(number, integerPattern)) {
-    return new Token{DataToken::INTEGER_LITERAL, static_cast<int>(number.length()), number, "Integer Literal"};
+    tokenPtr = std::make_unique<Token>(DataToken::INTEGER_LITERAL, static_cast<int>(number.length()), number,
+                                       "Integer Literal");
   } else if (std::regex_match(number, doublePattern)) {
-    return new Token{DataToken::DOUBLE_LITERAL, static_cast<int>(number.length()), number, "Double Literal"};
+    tokenPtr =
+        std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(number.length()), number, "Double Literal");
   }
-  return nullptr;
 }
 
 bool DataRecognizer::isValidIdentifier(std::string identifier) {
@@ -67,8 +75,9 @@ bool DataRecognizer::isValidIdentifier(std::string identifier) {
 
 bool DataRecognizer::isReservedKeyword(std::string identifier) {
   Lexer lexer(identifier);
-  Token *token = lexer.getNextToken();
-  return token != nullptr;
+  std::unique_ptr<Token> tokenPtr;
+  lexer.getNextToken(tokenPtr);
+  return tokenPtr != nullptr;
 }
 
 char DataRecognizer::getType(std::string identifier) {

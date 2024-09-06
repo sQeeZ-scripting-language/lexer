@@ -1,30 +1,29 @@
 #ifndef OPERATOR_RECOGNIZERS_HPP
 #define OPERATOR_RECOGNIZERS_HPP
 
+#include <memory>
 #include <string>
 #include <unordered_map>
 
 #include "lexer/lexer.hpp"
 
-using TokenRecognizer = Token* (*)(Lexer&);
+using TokenRecognizer = std::function<void(Lexer&, std::unique_ptr<Token>&)>;
 
-Token* recognizeAssign(Lexer& lexer);
-Token* recognizeAddition(Lexer& lexer);
-Token* recognizeSubtraction(Lexer& lexer);
-Token* recognizeMultiplication(Lexer& lexer);
-Token* recognizeDivision(Lexer& lexer);
-Token* recognizeModulus(Lexer& lexer);
-Token* recognizeAdditionAssignment(Lexer& lexer);
-Token* recognizeSubtractionAssignment(Lexer& lexer);
-Token* recognizeMultiplicationAssignment(Lexer& lexer);
-Token* recognizeDivisionAssignment(Lexer& lexer);
-Token* recognizeModulusAssignment(Lexer& lexer);
-Token* recognizeIncrement(Lexer& lexer);
-Token* recognizeDecrement(Lexer& lexer);
-Token* recognizePotentiation(Lexer& lexer);
-Token* recognizeFloorDivision(Lexer& lexer);
-
-bool checkIfOperator(const std::string& keyword, Lexer& lexer);
+void recognizeAssign(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeAddition(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeSubtraction(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeMultiplication(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeDivision(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeModulus(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeAdditionAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeSubtractionAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeMultiplicationAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeDivisionAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeModulusAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeIncrement(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeDecrement(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizePotentiation(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeFloorDivision(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

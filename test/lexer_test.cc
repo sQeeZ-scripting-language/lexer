@@ -8,156 +8,170 @@
 
 TEST(LexerTest, IdentifySemicolon) {
     Lexer lexer(";");
-    Token token = *lexer.getNextToken();
-
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::SEMICOLON);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, ";");
-    EXPECT_EQ(token.desc, "Semicolon");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+    
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::SEMICOLON);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, ";");
+    EXPECT_EQ(tokenPtr->desc, "Semicolon");
 }
 
 TEST(LexerTest, IdentifyComma) {
     Lexer lexer(",");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::COMMA);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, ",");
-    EXPECT_EQ(token.desc, "Comma");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::COMMA);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, ",");
+    EXPECT_EQ(tokenPtr->desc, "Comma");
 }
 
 TEST(LexerTest, IdentifyDot) {
     Lexer lexer(".");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::DOT);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, ".");
-    EXPECT_EQ(token.desc, "Dot");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::DOT);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, ".");
+    EXPECT_EQ(tokenPtr->desc, "Dot");
 }
 
 TEST(LexerTest, IdentifyColon) {
     Lexer lexer(":");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::COLON);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, ":");
-    EXPECT_EQ(token.desc, "Colon");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::COLON);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, ":");
+    EXPECT_EQ(tokenPtr->desc, "Colon");
 }
 
 TEST(LexerTest, IdentifySingleQuote) {
     Lexer lexer("'");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::SINGLE_QUOTE);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "'");
-    EXPECT_EQ(token.desc, "Single Quote");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::SINGLE_QUOTE);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "'");
+    EXPECT_EQ(tokenPtr->desc, "Single Quote");
 }
 
 TEST(LexerTest, IdentifyDoubleQuote) {
     Lexer lexer("\"");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::DOUBLE_QUOTE);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "\"");
-    EXPECT_EQ(token.desc, "Double Quote");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::DOUBLE_QUOTE);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "\"");
+    EXPECT_EQ(tokenPtr->desc, "Double Quote");
 }
 
 TEST(LexerTest, IdentifyOpenParenthesis) {
     Lexer lexer("(");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::OPEN_PARENTHESIS);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "(");
-    EXPECT_EQ(token.desc, "Open Parenthesis");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::OPEN_PARENTHESIS);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "(");
+    EXPECT_EQ(tokenPtr->desc, "Open Parenthesis");
 }
 
 TEST(LexerTest, IdentifyCloseParenthesis) {
     Lexer lexer(")");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::CLOSE_PARENTHESIS);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, ")");
-    EXPECT_EQ(token.desc, "Close Parenthesis");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::CLOSE_PARENTHESIS);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, ")");
+    EXPECT_EQ(tokenPtr->desc, "Close Parenthesis");
 }
 
 TEST(LexerTest, IdentifyOpenBracket) {
     Lexer lexer("[");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::OPEN_BRACKET);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "[");
-    EXPECT_EQ(token.desc, "Open Bracket");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::OPEN_BRACKET);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "[");
+    EXPECT_EQ(tokenPtr->desc, "Open Bracket");
 }
 
 TEST(LexerTest, IdentifyCloseBracket) {
     Lexer lexer("]");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::CLOSE_BRACKET);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "]");
-    EXPECT_EQ(token.desc, "Close Bracket");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::CLOSE_BRACKET);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "]");
+    EXPECT_EQ(tokenPtr->desc, "Close Bracket");
 }
 
 TEST(LexerTest, IdentifyOpenBrace) {
     Lexer lexer("{");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::OPEN_BRACE);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "{");
-    EXPECT_EQ(token.desc, "Open Brace");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::OPEN_BRACE);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "{");
+    EXPECT_EQ(tokenPtr->desc, "Open Brace");
 }
 
 TEST(LexerTest, IdentifyCloseBrace) {
     Lexer lexer("}");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::CLOSE_BRACE);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "}");
-    EXPECT_EQ(token.desc, "Close Brace");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::CLOSE_BRACE);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "}");
+    EXPECT_EQ(tokenPtr->desc, "Close Brace");
 }
 
 TEST(LexerTest, IdentifyArrow) {
     Lexer lexer("->");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::ARROW);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "->");
-    EXPECT_EQ(token.desc, "Arrow");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::ARROW);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "->");
+    EXPECT_EQ(tokenPtr->desc, "Arrow");
 }
 
 TEST(LexerTest, IdentifyHashtag) {
     Lexer lexer("#");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(token.type.syntaxToken, SyntaxToken::HASHTAG);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "#");
-    EXPECT_EQ(token.desc, "Hashtag");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::HASHTAG);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "#");
+    EXPECT_EQ(tokenPtr->desc, "Hashtag");
 }
 
 /*
@@ -166,90 +180,98 @@ TEST(LexerTest, IdentifyHashtag) {
 
 TEST(LexerTest, IdentifyVariable) {
     Lexer lexer("var");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::KEYWORD);
-    EXPECT_EQ(token.type.keywordToken, KeywordToken::VARIABLE);
-    EXPECT_EQ(token.size, 3);
-    EXPECT_EQ(token.value, "var");
-    EXPECT_EQ(token.desc, "Variable declaration");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::VARIABLE);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->value, "var");
+    EXPECT_EQ(tokenPtr->desc, "Variable declaration");
 }
 
 TEST(LexerTest, IdentifyConstant) {
     Lexer lexer("const");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::KEYWORD);
-    EXPECT_EQ(token.type.keywordToken, KeywordToken::CONSTANT);
-    EXPECT_EQ(token.size, 5);
-    EXPECT_EQ(token.value, "const");
-    EXPECT_EQ(token.desc, "Constant declaration");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::CONSTANT);
+    EXPECT_EQ(tokenPtr->size, 5);
+    EXPECT_EQ(tokenPtr->value, "const");
+    EXPECT_EQ(tokenPtr->desc, "Constant declaration");
 }
 
 TEST(LexerTest, IdentifyIf) {
     Lexer lexer("if");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::KEYWORD);
-    EXPECT_EQ(token.type.keywordToken, KeywordToken::IF);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "if");
-    EXPECT_EQ(token.desc, "Conditional statement");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::IF);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "if");
+    EXPECT_EQ(tokenPtr->desc, "Conditional statement");
 }
 
 TEST(LexerTest, IdentifyElse) {
     Lexer lexer("else");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::KEYWORD);
-    EXPECT_EQ(token.type.keywordToken, KeywordToken::ELSE);
-    EXPECT_EQ(token.size, 4);
-    EXPECT_EQ(token.value, "else");
-    EXPECT_EQ(token.desc, "Else statement");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::ELSE);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->value, "else");
+    EXPECT_EQ(tokenPtr->desc, "Else statement");
 }
 
 TEST(LexerTest, IdentifyElseIf) {
     Lexer lexer("elif");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::KEYWORD);
-    EXPECT_EQ(token.type.keywordToken, KeywordToken::ELSE_IF);
-    EXPECT_EQ(token.size, 4);
-    EXPECT_EQ(token.value, "elif");
-    EXPECT_EQ(token.desc, "Else if statement");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::ELSE_IF);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->value, "elif");
+    EXPECT_EQ(tokenPtr->desc, "Else if statement");
 }
 
 TEST(LexerTest, IdentifyFor) {
     Lexer lexer("for");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::KEYWORD);
-    EXPECT_EQ(token.type.keywordToken, KeywordToken::FOR);
-    EXPECT_EQ(token.size, 3);
-    EXPECT_EQ(token.value, "for");
-    EXPECT_EQ(token.desc, "For loop");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::FOR);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->value, "for");
+    EXPECT_EQ(tokenPtr->desc, "For loop");
 }
 
 TEST(LexerTest, IdentifyFunction) {
     Lexer lexer("fn");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::KEYWORD);
-    EXPECT_EQ(token.type.keywordToken, KeywordToken::FUNCTION);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "fn");
-    EXPECT_EQ(token.desc, "Function declaration");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::FUNCTION);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "fn");
+    EXPECT_EQ(tokenPtr->desc, "Function declaration");
 }
 
 TEST(LexerTest, IdentifyReturn) {
     Lexer lexer("return");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::KEYWORD);
-    EXPECT_EQ(token.type.keywordToken, KeywordToken::RETURN);
-    EXPECT_EQ(token.size, 6);
-    EXPECT_EQ(token.value, "return");
-    EXPECT_EQ(token.desc, "Return keyword");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::RETURN);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "return");
+    EXPECT_EQ(tokenPtr->desc, "Return keyword");
 }
 
 /*
@@ -258,167 +280,182 @@ TEST(LexerTest, IdentifyReturn) {
 
 TEST(LexerTest, IdentifyAssign) {
     Lexer lexer("=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::ASSIGN); 
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "=");
-    EXPECT_EQ(token.desc, "Assign");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::ASSIGN); 
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "=");
+    EXPECT_EQ(tokenPtr->desc, "Assign");
 }
 
 TEST(LexerTest, IdentifyAddition) {
     Lexer lexer("+");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::ADDITION);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "+");
-    EXPECT_EQ(token.desc, "Addition");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::ADDITION);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "+");
+    EXPECT_EQ(tokenPtr->desc, "Addition");
 }
 
 TEST(LexerTest, IdentifySubtraction) {
     Lexer lexer("-");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::SUBTRACTION);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "-");
-    EXPECT_EQ(token.desc, "Subtraction");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::SUBTRACTION);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "-");
+    EXPECT_EQ(tokenPtr->desc, "Subtraction");
 }
 
 TEST(LexerTest, IdentifyMultiplication) {
     Lexer lexer("*");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::MULTIPLICATION);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "*");
-    EXPECT_EQ(token.desc, "Multiplication");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::MULTIPLICATION);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "*");
+    EXPECT_EQ(tokenPtr->desc, "Multiplication");
 }
 
 TEST(LexerTest, IdentifyDivision) {
     Lexer lexer("/");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::DIVISION);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "/");
-    EXPECT_EQ(token.desc, "Division");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::DIVISION);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "/");
+    EXPECT_EQ(tokenPtr->desc, "Division");
 }
 
 TEST(LexerTest, IdentifyModulus) {
     Lexer lexer("%");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::MODULUS);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "%");
-    EXPECT_EQ(token.desc, "Modulus");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::MODULUS);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "%");
+    EXPECT_EQ(tokenPtr->desc, "Modulus");
 }
 
 TEST(LexerTest, IdentifyAdditionAssignment) {
     Lexer lexer("+=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::ADDITION_ASSIGNMENT);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "+=");
-    EXPECT_EQ(token.desc, "Addition Assignment");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::ADDITION_ASSIGNMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "+=");
+    EXPECT_EQ(tokenPtr->desc, "Addition Assignment");
 }
 
 TEST(LexerTest, IdentifySubtractionAssignment) {
     Lexer lexer("-=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::SUBTRACTION_ASSIGNMENT);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "-=");
-    EXPECT_EQ(token.desc, "Subtraction Assignment");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::SUBTRACTION_ASSIGNMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "-=");
+    EXPECT_EQ(tokenPtr->desc, "Subtraction Assignment");
 }
 
 TEST(LexerTest, IdentifyMultiplicationAssignment) {
     Lexer lexer("*=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::MULTIPLICATION_ASSIGNMENT);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "*=");
-    EXPECT_EQ(token.desc, "Multiplication Assignment");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::MULTIPLICATION_ASSIGNMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "*=");
+    EXPECT_EQ(tokenPtr->desc, "Multiplication Assignment");
 }
 
 TEST(LexerTest, IdentifyDivisionAssignment) {
     Lexer lexer("/=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::DIVISION_ASSIGNMENT);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "/=");
-    EXPECT_EQ(token.desc, "Division Assignment");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::DIVISION_ASSIGNMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "/=");
+    EXPECT_EQ(tokenPtr->desc, "Division Assignment");
 }
 
 TEST(LexerTest, IdentifyModulusAssignment) {
     Lexer lexer("%=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::MODULUS_ASSIGNMENT);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "%=");
-    EXPECT_EQ(token.desc, "Modulus Assignment");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::MODULUS_ASSIGNMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "%=");
+    EXPECT_EQ(tokenPtr->desc, "Modulus Assignment");
 }
 
 TEST(LexerTest, IdentifyIncrement) {
     Lexer lexer("++");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::INCREMENT);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "++");
-    EXPECT_EQ(token.desc, "Increment");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::INCREMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "++");
+    EXPECT_EQ(tokenPtr->desc, "Increment");
 }
 
 TEST(LexerTest, IdentifyDecrement) {
     Lexer lexer("--");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::DECREMENT);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "--");
-    EXPECT_EQ(token.desc, "Decrement");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::DECREMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "--");
+    EXPECT_EQ(tokenPtr->desc, "Decrement");
 }
 
 TEST(LexerTest, IdentifyPotentiation) {
     Lexer lexer("**");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::POTENTIATION);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "**");
-    EXPECT_EQ(token.desc, "Potentiation");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::POTENTIATION);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "**");
+    EXPECT_EQ(tokenPtr->desc, "Potentiation");
 }
 
 TEST(LexerTest, IdentifyFloorDivision) {
     Lexer lexer("//");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(token.type.operatorToken, OperatorToken::FLOOR_DIVISION);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "//");
-    EXPECT_EQ(token.desc, "Floor Division");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::FLOOR_DIVISION);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "//");
+    EXPECT_EQ(tokenPtr->desc, "Floor Division");
 }
 
 /*
@@ -427,101 +464,110 @@ TEST(LexerTest, IdentifyFloorDivision) {
 
 TEST(LexerTest, IdentifyEqual) {
     Lexer lexer("==");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::EQUAL);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "==");
-    EXPECT_EQ(token.desc, "Equal");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::EQUAL);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "==");
+    EXPECT_EQ(tokenPtr->desc, "Equal");
 }
 
 TEST(LexerTest, IdentifyNotEqual) {
     Lexer lexer("!=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::NOT_EQUAL);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "!=");
-    EXPECT_EQ(token.desc, "Not Equal");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::NOT_EQUAL);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "!=");
+    EXPECT_EQ(tokenPtr->desc, "Not Equal");
 }
 
 TEST(LexerTest, IdentifyGreater) {
     Lexer lexer(">");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::GREATER);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, ">");
-    EXPECT_EQ(token.desc, "Greater");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::GREATER);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, ">");
+    EXPECT_EQ(tokenPtr->desc, "Greater");
 }
 
 TEST(LexerTest, IdentifyLess) {
     Lexer lexer("<");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::LESS);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "<");
-    EXPECT_EQ(token.desc, "Less");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::LESS);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "<");
+    EXPECT_EQ(tokenPtr->desc, "Less");
 }
 
 TEST(LexerTest, IdentifyGreaterEqual) {
     Lexer lexer(">=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::GREATER_EQUAL);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, ">=");
-    EXPECT_EQ(token.desc, "Greater Equal");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::GREATER_EQUAL);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, ">=");
+    EXPECT_EQ(tokenPtr->desc, "Greater Equal");
 }
 
 TEST(LexerTest, IdentifyLessEqual) {
     Lexer lexer("<=");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::LESS_EQUAL);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "<=");
-    EXPECT_EQ(token.desc, "Less Equal");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::LESS_EQUAL);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "<=");
+    EXPECT_EQ(tokenPtr->desc, "Less Equal");
 }
 
 TEST(LexerTest, IdentifyAnd) {
     Lexer lexer("&&");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::AND);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "&&");
-    EXPECT_EQ(token.desc, "And");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::AND);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "&&");
+    EXPECT_EQ(tokenPtr->desc, "And");
 }
 
 TEST(LexerTest, IdentifyOr) {
     Lexer lexer("||");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::OR);
-    EXPECT_EQ(token.size, 2);
-    EXPECT_EQ(token.value, "||");
-    EXPECT_EQ(token.desc, "Or");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::OR);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "||");
+    EXPECT_EQ(tokenPtr->desc, "Or");
 }
 
 TEST(LexerTest, IdentifyNot) {
     Lexer lexer("!");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOGICAL);
-    EXPECT_EQ(token.type.logicalToken, LogicalToken::NOT);
-    EXPECT_EQ(token.size, 1);
-    EXPECT_EQ(token.value, "!");
-    EXPECT_EQ(token.desc, "Not");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOGICAL);
+    EXPECT_EQ(tokenPtr->type.logicalToken, LogicalToken::NOT);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "!");
+    EXPECT_EQ(tokenPtr->desc, "Not");
 }
 
 /*
@@ -530,46 +576,50 @@ TEST(LexerTest, IdentifyNot) {
 
 TEST(LexerTest, IdentifyLogger) {
     Lexer lexer("log");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOG);
-    EXPECT_EQ(token.type.logToken, LogToken::BASIC);
-    EXPECT_EQ(token.size, 3);
-    EXPECT_EQ(token.value, "log");
-    EXPECT_EQ(token.desc, "Basic logging function");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOG);
+    EXPECT_EQ(tokenPtr->type.logToken, LogToken::BASIC);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->value, "log");
+    EXPECT_EQ(tokenPtr->desc, "Basic logging function");
 }
 
 TEST(LexerTest, IdentifyColoredLogger) {
     Lexer lexer("logc");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOG);
-    EXPECT_EQ(token.type.logToken, LogToken::COLORED);
-    EXPECT_EQ(token.size, 4);
-    EXPECT_EQ(token.value, "logc");
-    EXPECT_EQ(token.desc, "Colored logging function");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOG);
+    EXPECT_EQ(tokenPtr->type.logToken, LogToken::COLORED);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->value, "logc");
+    EXPECT_EQ(tokenPtr->desc, "Colored logging function");
 }
 
 TEST(LexerTest, IdentifyWarnLogger) {
     Lexer lexer("warn");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOG);
-    EXPECT_EQ(token.type.logToken, LogToken::WARN);
-    EXPECT_EQ(token.size, 4);
-    EXPECT_EQ(token.value, "warn");
-    EXPECT_EQ(token.desc, "Warning logging function");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOG);
+    EXPECT_EQ(tokenPtr->type.logToken, LogToken::WARN);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->value, "warn");
+    EXPECT_EQ(tokenPtr->desc, "Warning logging function");
 }
 
 TEST(LexerTest, IdentifyErrorLogger) {
     Lexer lexer("error");
-    Token token = *lexer.getNextToken();
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
 
-    EXPECT_EQ(token.tag, Token::TypeTag::LOG);
-    EXPECT_EQ(token.type.logToken, LogToken::ERROR);
-    EXPECT_EQ(token.size, 5);
-    EXPECT_EQ(token.value, "error");
-    EXPECT_EQ(token.desc, "Error logging function");
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::LOG);
+    EXPECT_EQ(tokenPtr->type.logToken, LogToken::ERROR);
+    EXPECT_EQ(tokenPtr->size, 5);
+    EXPECT_EQ(tokenPtr->value, "error");
+    EXPECT_EQ(tokenPtr->desc, "Error logging function");
 }
 
 /*
