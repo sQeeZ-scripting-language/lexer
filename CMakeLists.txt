@@ -1,10 +1,9 @@
 cmake_minimum_required(VERSION 3.16)
-project(sQeeZ-Lexer VERSION 1.0.0)
+project(sQeeZ-Lexer)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-# Cross-platform definitions
 if(MSVC)
   add_definitions(-D_SQEEZ_WIN)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
@@ -17,37 +16,8 @@ endif()
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_subdirectory(src)
-
-add_executable(sQeeZ src/main.cpp)
-
-target_link_libraries(sQeeZ src)
 add_subdirectory(test)
 
-add_library(sQeeZ-lexer STATIC
-    src/main.cpp
-)
+add_executable(sQeeZ-Lexer src/main.cpp)
 
-target_include_directories(sQeeZ-lexer PUBLIC include)
-
-install(TARGETS sQeeZ-lexer DESTINATION lib)
-install(DIRECTORY include/ DESTINATION include)
-
-include(CMakePackageConfigHelpers)
-write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/sQeeZLexerConfigVersion.cmake"
-    VERSION ${PROJECT_VERSION}
-    COMPATIBILITY AnyNewerVersion
-)
-
-install(FILES
-    "${CMAKE_CURRENT_BINARY_DIR}/sQeeZLexerConfigVersion.cmake"
-    DESTINATION lib/cmake/sQeeZ-lexer
-)
-
-include(CPack)
-set(CPACK_GENERATOR "ZIP;TGZ")
-
-set(CPACK_PACKAGE_NAME "sQeeZ-Lexer")
-set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
-set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}")
-set(CPACK_SOURCE_GENERATOR "TGZ")
+target_link_libraries(sQeeZ-Lexer src)

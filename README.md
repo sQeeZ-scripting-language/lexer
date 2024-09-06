@@ -6,7 +6,6 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
   - [Build & Run](#build--run)
   - [Testing](#testing)
   - [Code Formatting](#code-formatting)
-  - [Deployment](#deployment)
 - [Tokens](#tokens)
   - [Token Structure](#token-structure)
   - [Basic Tokens](#basic-tokens)
@@ -21,12 +20,11 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
 # How to Use
 > **Note:**
 > 
-> For convenience, each category (Build, Testing, Code Formatting, Deployment) has a corresponding script:
+> For convenience, each category (Build, Testing, Code Formatting) has a corresponding script:
 > 
 > - `build.sh`
 > - `test.sh`
 > - `checkstyle.sh`
-> - `deploy.sh`
 > 
 > These scripts can be run directly from the root directory of the project to automate the respective tasks.
 
@@ -52,7 +50,7 @@ cmake --build .
 ### 4. Run the generated Binary
 ```bash
 cd build
-./sQeeZ $FILE_PATH.sqz
+./sQeeZ-Lexer $FILE_PATH.sqz
 ```
 
 ## Testing
@@ -81,35 +79,6 @@ function format_file {
 for file in $(find . -name '*.cpp' -o -name '*.hpp'); do
   format_file "$file"
 done
-```
-
-## Deployment
-To deploy the project, follow these steps:
-
-### 1. Create and Navigate to Build Directory
-```bash
-mkdir build
-cd build
-```
-
-### 2. Configure the Project with CMake
-```bash
-cmake ..
-```
-
-### 3. Build the Project
-```bash
-cmake --build .
-```
-
-### 4. Install the Project
-```bash
-cmake --install . --prefix "/usr/local/"
-```
-
-### 5. Package the Project
-```bash
-cpack
 ```
 
 # Tokens
