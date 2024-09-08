@@ -20,4 +20,14 @@ add_subdirectory(test)
 
 add_executable(sQeeZ-Lexer src/main.cpp)
 
+file(GLOB_RECURSE TOKEN_RECOGNIZER_SOURCES 
+    "${CMAKE_CURRENT_SOURCE_DIR}/token_recognizers/*.cpp"
+)
+
+add_library(sQeeZLexer STATIC 
+    src/lexer/lexer.cpp 
+    ${TOKEN_RECOGNIZER_SOURCES}  
+)
+
 target_link_libraries(sQeeZ-Lexer src)
+target_include_directories(sQeeZLexer PUBLIC ${PROJECT_SOURCE_DIR}/include)
