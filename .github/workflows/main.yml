@@ -63,6 +63,7 @@ jobs:
         fi
 
     - name: Build
+      shell: bash
       run: |
         mkdir build
         cd build
@@ -70,6 +71,7 @@ jobs:
         cmake --build .
 
     - name: Run tests
+      shell: bash
       run: |
         cd build/test
         ctest
