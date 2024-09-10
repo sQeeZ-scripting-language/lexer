@@ -63,6 +63,7 @@ jobs:
         fi
 
     - name: Build
+      shell: bash
       run: |
         mkdir build
         cd build
@@ -70,6 +71,7 @@ jobs:
         cmake --build .
 
     - name: Run tests
+      shell: bash
       run: |
         cd build/test
         ctest
@@ -78,6 +80,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: build-output-${{ matrix.os }} 
+        if-no-files-found: error
         path: |
           build/*.so
           build/*.dll
