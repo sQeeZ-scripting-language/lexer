@@ -2,20 +2,20 @@
 #define LEXER_NODE_HPP
 
 #include <napi.h>
+#include <regex>
+#include <iostream>
 
-class DemoClass : public Napi::ObjectWrap<DemoClass> {
+Napi::String pingLexer(const Napi::CallbackInfo &args);
+
+class LexerNode : public Napi::ObjectWrap<LexerNode> {
 private:
     Napi::FunctionReference _require;
     Napi::Env _env = Napi::Env(nullptr);
 
 public:
-    explicit DemoClass(const Napi::CallbackInfo &args);
+    explicit LexerNode(const Napi::CallbackInfo &args);
 
-    Napi::String sayHi(const Napi::CallbackInfo &args);
-
-    Napi::Buffer<char> stringToBuffer(const Napi::CallbackInfo &args);
-
-    Napi::Buffer<char> cryptoRandomBytes(const Napi::CallbackInfo &args);
+    Napi::String pingInstance(const Napi::CallbackInfo &args);
 
     static Napi::Function GetClass(Napi::Env);
 };
