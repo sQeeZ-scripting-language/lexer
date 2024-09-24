@@ -1,5 +1,6 @@
 set(LEXER_HEADERS
     lexer.hpp
+    lexer_node.hpp
     token_recognizers/data_recognizers.hpp
     token_recognizers/keyword_recognizers.hpp
     token_recognizers/log_recognizers.hpp

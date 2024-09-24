@@ -3,6 +3,7 @@ project(sQeeZ-Lexer)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_OSX_ARCHITECTURES "arm64")
 
 if(MSVC)
   add_definitions(-D_SQEEZ_WIN)
@@ -12,6 +13,11 @@ elseif(APPLE)
 else()
   add_definitions(-D_SQEEZ_LINUX)
 endif()
+
+include(./node_modules/node-cmake/NodeJS.cmake)
+nodejs_init()
+
+include_directories(${CMAKE_JS_INC} "${CMAKE_CURRENT_BINARY_DIR}/node/${NODEJS_VERSION}/include" "${CMAKE_HOME_DIRECTORY}/node_modules/node-addon-api")
 
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
@@ -31,3 +37,7 @@ add_library(sQeeZLexer STATIC
 
 target_link_libraries(sQeeZ-Lexer src)
 target_include_directories(sQeeZLexer PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+add_library(sQeeZLexerNode SHARED src/lexer/lexer_node.cpp)
+set_target_properties(sQeeZLexerNode PROPERTIES PREFIX "" SUFFIX ".node")
+target_link_libraries(sQeeZLexerNode ${CMAKE_JS_LIB})
