@@ -38,8 +38,25 @@ Napi::String pingLexer(const Napi::CallbackInfo &args) {
   return Napi::String::New(env, "Node API for Lexer is working!");
 }
 
+Napi::String info(const Napi::CallbackInfo &args) {
+  Napi::Env env = args.Env();
+  std::string info = R"(
+    sQeeZ-Lexer Node API Information:
+
+    - Command Methods:
+      1. info: Provides this API information.
+      2. pingLexer: Pings the module to check if it's responsive.
+
+    - Instance Methods:
+      1. ping: Pings the lexer instance.
+      2. lex: Processes and lexes a provided code snippet.
+    )";
+  return Napi::String::New(env, info);
+}
+
 Napi::Object Init(Napi::Env env, Napi::Object exports) {
   exports.Set(Napi::String::New(env, "pingLexer"), Napi::Function::New(env, pingLexer));
+  exports.Set(Napi::String::New(env, "info"), Napi::Function::New(env, info));
   Napi::String name = Napi::String::New(env, "LexerNode");
   exports.Set(name, LexerNode::GetClass(env));
   return exports;

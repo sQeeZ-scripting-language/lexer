@@ -1,6 +1,7 @@
 {
     "scripts": {
-      "compile": "cmake-js compile"
+      "compile": "cmake-js compile",
+      "dev": "node index.js"
     },
     "cmake-js": {
       "runtime": "node",

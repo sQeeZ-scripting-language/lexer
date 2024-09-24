@@ -8,6 +8,7 @@
 #include "lexer/lexer.hpp"
 
 Napi::String pingLexer(const Napi::CallbackInfo &args);
+Napi::String info(const Napi::CallbackInfo &args);
 
 class LexerNode : public Napi::ObjectWrap<LexerNode> {
 private:
