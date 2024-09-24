@@ -1,4 +1,5 @@
-const addon = require('build/Release/demo.node');
+const addon = require('./build/Release/demo');
+const welcome = require('./hi');
 
 const demo = new addon.DemoClass(require);
 
