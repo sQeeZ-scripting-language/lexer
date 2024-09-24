@@ -38,6 +38,11 @@ add_library(sQeeZLexer STATIC
 target_link_libraries(sQeeZ-Lexer src)
 target_include_directories(sQeeZLexer PUBLIC ${PROJECT_SOURCE_DIR}/include)
 
-add_library(sQeeZLexerNode SHARED src/lexer/lexer_node.cpp)
+add_library(sQeeZLexerNode SHARED 
+  src/lexer/lexer_node.cpp
+  ${TOKEN_RECOGNIZER_SOURCES}
+)
+
+target_include_directories(sQeeZLexerNode PUBLIC ${PROJECT_SOURCE_DIR}/include)
 set_target_properties(sQeeZLexerNode PROPERTIES PREFIX "" SUFFIX ".node")
-target_link_libraries(sQeeZLexerNode ${CMAKE_JS_LIB})
+target_link_libraries(sQeeZLexerNode ${CMAKE_JS_LIB} sQeeZLexer)
