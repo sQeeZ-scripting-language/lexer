@@ -1,4 +1,4 @@
-const addon = require('./build/Release/sQeeZLexerNode');
+const addon = require('./build/Release/sQeeZ-Lexer-Node');
 const lexer = new addon.LexerNode(require);
 
 console.log(addon.pingLexer());
