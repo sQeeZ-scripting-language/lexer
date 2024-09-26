@@ -1,4 +1,4 @@
-#include "lexer/lexer_node.hpp"
+#include "lexer/node/lexer_node.hpp"
 
 LexerNode::LexerNode(const Napi::CallbackInfo &args) : ObjectWrap(args) {
   this->_env = args.Env();

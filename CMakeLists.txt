@@ -51,6 +51,7 @@ file(GLOB_RECURSE SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/lexer/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/lexer/token_recognizers/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/lexer/node/*.cpp
 )
 
 # Include the header files
@@ -59,6 +60,7 @@ file(GLOB_RECURSE HEADERS
   ${CMAKE_CURRENT_SOURCE_DIR}/include/lexer/*.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/lexer/token_recognizers/*.hpp
   ${CMAKE_CURRENT_SOURCE_DIR}/include/lexer/tokens/*.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/lexer/node/*.hpp
 )
 
 # Create the Library
