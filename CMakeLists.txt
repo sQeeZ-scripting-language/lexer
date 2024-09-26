@@ -13,6 +13,7 @@ if(MSVC)
 elseif(APPLE)
   add_definitions(-D_SQEEZ_MAC)
   set(CMAKE_OSX_ARCHITECTURES "arm64")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -arch arm64")
 else()
   add_definitions(-D_SQEEZ_LINUX)
 endif()
@@ -92,6 +93,7 @@ set_target_properties(
 target_link_libraries(
   sQeeZ-Lexer-Node 
   ${CMAKE_JS_LIB}
+  sQeeZ-Lexer-Lib
 )
 
 # Lexer Test

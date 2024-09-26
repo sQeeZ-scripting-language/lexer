@@ -22,8 +22,14 @@ Napi::String LexerNode::lex(const Napi::CallbackInfo &args) {
     Napi::TypeError::New(this->_env, "Code expected!").ThrowAsJavaScriptException();
   }
   Napi::Env env = args.Env();
-  auto data = args[0].As<Napi::String>().Utf8Value();
-  return Napi::String::New(this->_env, "Received Code: " + data);
+  auto code = args[0].As<Napi::String>().Utf8Value();
+  Lexer lexer(code);
+  std::string tmp = ""; 
+  auto vector = lexer.lex();
+  for (auto &token : vector) {
+    tmp += token.desc + "\n";
+  }
+  return Napi::String::New(this->_env, "Received Code: " + tmp);
 }
 
 Napi::Function LexerNode::GetClass(Napi::Env env) {
