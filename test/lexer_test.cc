@@ -162,6 +162,32 @@ TEST(LexerTest, IdentifyCloseBrace) {
     EXPECT_EQ(tokenPtr->desc, "Close Brace");
 }
 
+TEST(LexerTest, IdentifyPipe) {
+    Lexer lexer("|");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::PIPE);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "|");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::PIPE");
+    EXPECT_EQ(tokenPtr->desc, "Pipe");
+}
+
+TEST(LexerTest, IdentifyPipeOperator) {
+    Lexer lexer("|>");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::PIPE_OPERATOR);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "|>");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::PIPE_OPERATOR");
+    EXPECT_EQ(tokenPtr->desc, "Pipe Operator");
+}
+
 TEST(LexerTest, IdentifyArrow) {
     Lexer lexer("->");
     std::unique_ptr<Token> tokenPtr;
@@ -186,6 +212,19 @@ TEST(LexerTest, IdentifyHashtag) {
     EXPECT_EQ(tokenPtr->value, "#");
     EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::HASHTAG");
     EXPECT_EQ(tokenPtr->desc, "Hashtag");
+}
+
+TEST(LexerTest, IdentifyAt) {
+    Lexer lexer("@");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::AT);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->value, "@");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::AT");
+    EXPECT_EQ(tokenPtr->desc, "AT");
 }
 
 /*
@@ -270,6 +309,32 @@ TEST(LexerTest, IdentifyFor) {
     EXPECT_EQ(tokenPtr->desc, "For loop");
 }
 
+TEST(LexerTest, IdentifyWhile) {
+    Lexer lexer("while");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::WHILE);
+    EXPECT_EQ(tokenPtr->size, 5);
+    EXPECT_EQ(tokenPtr->value, "while");
+    EXPECT_EQ(tokenPtr->plainText, "KeywordToken::WHILE");
+    EXPECT_EQ(tokenPtr->desc, "While loop");
+}
+
+TEST(LexerTest, IdentifyDo) {
+    Lexer lexer("do");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::DO);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "do");
+    EXPECT_EQ(tokenPtr->plainText, "KeywordToken::DO");
+    EXPECT_EQ(tokenPtr->desc, "Do While loop");
+}
+
 TEST(LexerTest, IdentifyFunction) {
     Lexer lexer("fn");
     std::unique_ptr<Token> tokenPtr;
@@ -294,6 +359,32 @@ TEST(LexerTest, IdentifyReturn) {
     EXPECT_EQ(tokenPtr->value, "return");
     EXPECT_EQ(tokenPtr->plainText, "KeywordToken::RETURN");
     EXPECT_EQ(tokenPtr->desc, "Return keyword");
+}
+
+TEST(LexerTest, IdentifyIn) {
+    Lexer lexer("in");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::IN);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "in");
+    EXPECT_EQ(tokenPtr->plainText, "KeywordToken::IN");
+    EXPECT_EQ(tokenPtr->desc, "In");
+}
+
+TEST(LexerTest, IdentifyOf) {
+    Lexer lexer("of");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::KEYWORD);
+    EXPECT_EQ(tokenPtr->type.keywordToken, KeywordToken::OF);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "of");
+    EXPECT_EQ(tokenPtr->plainText, "KeywordToken::OF");
+    EXPECT_EQ(tokenPtr->desc, "Of");
 }
 
 /*
