@@ -51,6 +51,7 @@ file(GLOB_RECURSE SOURCES
   ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/lexer/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/lexer/token_recognizers/*.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/lexer/tokens/*.cpp
   ${CMAKE_CURRENT_SOURCE_DIR}/src/lexer/node/*.cpp
 )
 
