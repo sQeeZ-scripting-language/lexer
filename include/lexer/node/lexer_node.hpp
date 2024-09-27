@@ -2,6 +2,7 @@
 #define LEXER_NODE_HPP
 
 #include <napi.h>
+
 #include <iostream>
 #include <regex>
 
