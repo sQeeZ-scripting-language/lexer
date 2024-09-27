@@ -82,6 +82,18 @@ target_link_libraries(
   sQeeZ-Lexer-Lib
 )
 
+# Lexer Test
+add_executable(
+  lexer_test 
+  ${CMAKE_CURRENT_SOURCE_DIR}/test/lexer_test.cc
+)
+target_link_libraries(
+  lexer_test
+  GTest::gtest_main
+  sQeeZ-Lexer-Lib
+)
+gtest_discover_tests(lexer_test)
+
 # Create the NodeJS module
 add_library(
   sQeeZ-Lexer-Node 
@@ -98,15 +110,3 @@ target_link_libraries(
   ${CMAKE_JS_LIB}
   sQeeZ-Lexer-Lib
 )
-
-# Lexer Test
-add_executable(
-  lexer_test 
-  ${CMAKE_CURRENT_SOURCE_DIR}/test/lexer_test.cc
-)
-target_link_libraries(
-  lexer_test
-  GTest::gtest_main
-  sQeeZ-Lexer-Lib
-)
-gtest_discover_tests(lexer_test)
