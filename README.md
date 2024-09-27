@@ -3,7 +3,9 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
 
 # Table of Contents
 - [How to Use](#how-to-use)
+  - [Install Dependencies](#install-dependencies)
   - [Build & Run](#build--run)
+  - [Node Module](#node-module)
   - [Testing](#testing)
   - [Code Formatting](#code-formatting)
 - [Tokens](#tokens)
@@ -20,13 +22,22 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
 # How to Use
 > **Note:**
 > 
-> For convenience, each category (Build, Testing, Code Formatting) has a corresponding script:
+> For convenience, each category (Dependencies, Build, Node-Build, Testing, Code Formatting) has a corresponding script:
 > 
+> - `dependencies.sh`
 > - `build.sh`
+> - `node.sh`
 > - `test.sh`
 > - `checkstyle.sh`
 > 
 > These scripts can be run directly from the root directory of the project to automate the respective tasks.
+
+## Install Dependencies
+
+### 1. Install Node Dependecies
+```bash
+npm install
+```
 
 ## Build & Run
 To compile the project, follow these steps:
@@ -47,21 +58,41 @@ cmake ..
 cmake --build .
 ```
 
-### 4. Run the generated Binary
+### 4. Run the generated Executable
 ```bash
 cd build
-./sQeeZ-Lexer $FILE_PATH.sqz
+./sQeeZ-Lexer-Exe $FILE_PATH.sqz [--dev]
 ```
+
+## Node Module
+To compile the Lexer API as a Node Module, do the following:
+
+### 1. Compile the Node Module
+```bash
+cmake-js compile --CDNODE=true
+```
+
+### 2. Import the Node Module into a JS-File
+```javascript
+const addon = require('./build/Release/sQeeZ-Lexer-Node');
+const lexer = new addon.LexerNode(require);
+```
+
+> An example of how to use this library can be found in the [`index.js`](./index.js) file.
 
 ## Testing
 To run the tests, do the following:
 
-### 1. Navigate to the Test Directory
+### 1. Navigate to the Build Directory
 ```bash
-cd build/test
+cd build
 ```
 
 ### 2. Execute the Tests
+```bash
+./lexer_test
+```
+or
 ```bash
 ctest --output-on-failure
 ```
@@ -137,6 +168,10 @@ struct Token {
 
     Token(SyntaxToken s, int size = 0, std::string value = "", std::string desc = "")
         : tag(TypeTag::SYNTAX), type(s), size(size), value(std::move(value)), desc(std::move(desc)) {}
+
+    std::string toString() const;
+    std::string getTagString() const;
+    std::string getTypeString() const;
 };
 ```
 

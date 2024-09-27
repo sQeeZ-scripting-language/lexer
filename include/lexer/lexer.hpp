@@ -15,7 +15,7 @@
 class Lexer {
 public:
   Lexer(const std::string& code);
-  std::vector<Token> lex();
+  std::vector<Token> lex(bool devMode);
   void lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, std::unique_ptr<Token>& tokenPtr);
   void getNextToken(std::unique_ptr<Token>& tokenPtr);
   void extractStringLiteral(std::unique_ptr<Token>& tokenPtr);
@@ -33,7 +33,7 @@ public:
 
 private:
   void registerTokenRecognizers();
-  void log(Token token);
+  void log(Token token, bool devMode);
   std::vector<Token> tokens;
 };
 

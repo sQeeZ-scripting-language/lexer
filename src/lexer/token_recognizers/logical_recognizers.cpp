@@ -2,56 +2,57 @@
 
 void recognizeEqual(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("==")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::EQUAL, 2, "==", "Equal");
+    tokenPtr = std::make_unique<Token>(LogicalToken::EQUAL, 2, "==", "LogicalToken::EQUAL", "Equal");
   }
 }
 
 void recognizeNotEqual(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("!=")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::NOT_EQUAL, 2, "!=", "Not Equal");
+    tokenPtr = std::make_unique<Token>(LogicalToken::NOT_EQUAL, 2, "!=", "LogicalToken::NOT_EQUAL", "Not Equal");
   }
 }
 
 void recognizeGreater(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword(">") && !lexer.checkKeyword(">=") && !lexer.checkKeyword(">>")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::GREATER, 1, ">", "Greater");
+    tokenPtr = std::make_unique<Token>(LogicalToken::GREATER, 1, ">", "LogicalToken::GREATER", "Greater");
   }
 }
 
 void recognizeLess(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("<") && !lexer.checkKeyword("<=") && !lexer.checkKeyword("<<") && !lexer.checkKeyword("<>") &&
       !lexer.checkKeyword("<#>") && !lexer.checkKeyword("<!>")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::LESS, 1, "<", "Less");
+    tokenPtr = std::make_unique<Token>(LogicalToken::LESS, 1, "<", "LogicalToken::LESS", "Less");
   }
 }
 
 void recognizeGreaterEqual(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword(">=")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::GREATER_EQUAL, 2, ">=", "Greater Equal");
+    tokenPtr =
+        std::make_unique<Token>(LogicalToken::GREATER_EQUAL, 2, ">=", "LogicalToken::GREATER_EQUAL", "Greater Equal");
   }
 }
 
 void recognizeLessEqual(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("<=")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::LESS_EQUAL, 2, "<=", "Less Equal");
+    tokenPtr = std::make_unique<Token>(LogicalToken::LESS_EQUAL, 2, "<=", "LogicalToken::LESS_EQUAL", "Less Equal");
   }
 }
 
 void recognizeAnd(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("&&")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::AND, 2, "&&", "And");
+    tokenPtr = std::make_unique<Token>(LogicalToken::AND, 2, "&&", "LogicalToken::AND", "And");
   }
 }
 
 void recognizeOr(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("||")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::OR, 2, "||", "Or");
+    tokenPtr = std::make_unique<Token>(LogicalToken::OR, 2, "||", "LogicalToken::OR", "Or");
   }
 }
 
 void recognizeNot(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("!") && !lexer.checkKeyword("!=") && !lexer.checkKeyword("!!")) {
-    tokenPtr = std::make_unique<Token>(LogicalToken::NOT, 1, "!", "Not");
+    tokenPtr = std::make_unique<Token>(LogicalToken::NOT, 1, "!", "LogicalToken::NOT", "Not");
   }
 }
 

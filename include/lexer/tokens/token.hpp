@@ -1,6 +1,7 @@
 #ifndef TOKEN_HPP
 #define TOKEN_HPP
 
+#include <sstream>
 #include <string>
 
 #include "data_tokens.hpp"
@@ -39,24 +40,69 @@ struct Token {
 
   int size;
   std::string value;
+  std::string plainText;
   std::string desc;
 
-  Token(BasicToken b, int size = 0, std::string value = "", std::string desc = "")
-      : tag(TypeTag::BASIC), type(b), size(size), value(std::move(value)), desc(std::move(desc)) {}
-  Token(DataToken d, int size = 0, std::string value = "", std::string desc = "")
-      : tag(TypeTag::DATA), type(d), size(size), value(std::move(value)), desc(std::move(desc)) {}
-  Token(ErrorToken e, int size = 0, std::string value = "", std::string desc = "")
-      : tag(TypeTag::ERROR), type(e), size(size), value(std::move(value)), desc(std::move(desc)) {}
-  Token(KeywordToken k, int size = 0, std::string value = "", std::string desc = "")
-      : tag(TypeTag::KEYWORD), type(k), size(size), value(std::move(value)), desc(std::move(desc)) {}
-  Token(LogToken l, int size = 0, std::string value = "", std::string desc = "")
-      : tag(TypeTag::LOG), type(l), size(size), value(std::move(value)), desc(std::move(desc)) {}
-  Token(LogicalToken l, int size = 0, std::string value = "", std::string desc = "")
-      : tag(TypeTag::LOGICAL), type(l), size(size), value(std::move(value)), desc(std::move(desc)) {}
-  Token(OperatorToken o, int size = 0, std::string value = "", std::string desc = "")
-      : tag(TypeTag::OPERATOR), type(o), size(size), value(std::move(value)), desc(std::move(desc)) {}
-  Token(SyntaxToken s, int size = 0, std::string value = "", std::string desc = "")
-      : tag(TypeTag::SYNTAX), type(s), size(size), value(std::move(value)), desc(std::move(desc)) {}
+  Token(BasicToken b, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::BASIC),
+        type(b),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(DataToken d, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::DATA),
+        type(d),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(ErrorToken e, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::ERROR),
+        type(e),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(KeywordToken k, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::KEYWORD),
+        type(k),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(LogToken l, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::LOG),
+        type(l),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(LogicalToken l, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::LOGICAL),
+        type(l),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(OperatorToken o, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::OPERATOR),
+        type(o),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(SyntaxToken s, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::SYNTAX),
+        type(s),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+
+  std::string toString() const;
+  std::string getTagString() const;
+  std::string getTypeString() const;
 };
 
 #endif
