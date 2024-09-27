@@ -34,6 +34,10 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
 
+    - name: Install Node.js dependencies
+      shell: bash
+      run: npm install
+
     - name: Check code style
       shell: bash
       run: |
@@ -70,6 +74,11 @@ jobs:
         cmake ..
         cmake --build .
 
+    - name: Build Node
+      shell: bash
+      run: |
+        npm run compile
+
     - name: Run tests
       shell: bash
       run: |
@@ -88,6 +97,7 @@ jobs:
           build/*.a
           build/*.dylib
           build/*.exe
+          build/Release/*.node
 
   release:
     if: github.event_name == 'push' || github.event_name == 'release'
