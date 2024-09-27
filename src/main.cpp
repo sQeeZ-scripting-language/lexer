@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
   }
 
   if (devMode) {
-    std::cout << "Developer mode activated!" << std::endl;
+    std::cout << "Developer mode activated!\n" << std::endl;
   }
 
   Lexer lexer(code);

@@ -22,13 +22,17 @@ void Lexer::registerTokenRecognizers() {
   registerLogRecognizers(tokenRecognizers);
 }
 
-void Lexer::log(Token token) { std::cout << token.toString() << std::endl; }
+void Lexer::log(Token token, bool devMode) {
+  if (devMode) {
+    std::cout << token.toString() << std::endl;
+  }
+}
 
 std::vector<Token> Lexer::lex(bool devMode) {
   DataRecognizer dataRecognizer;
   Token previousToken = {BasicToken::INIT, 0, "\0", "BasicToken::INIT", "Initialize Lexer"};
   tokens.push_back(previousToken);
-  if(devMode) log(previousToken);
+  log(previousToken, devMode);
 
   do {
     skipWhitespace();
@@ -48,7 +52,7 @@ std::vector<Token> Lexer::lex(bool devMode) {
       advance();
     }
     previousToken = tokens.back();
-    if(devMode) log(previousToken);
+    log(previousToken, devMode);
   } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
   return tokens;
 }

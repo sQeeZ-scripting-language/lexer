@@ -2,7 +2,8 @@
 
 Napi::Object tokenToJSObject(const Napi::Env& env, const Token& token) {
   Napi::Object jsToken = Napi::Object::New(env);
-  jsToken.Set("tag", Napi::String::New(env, tags[static_cast<int>(token.tag)]));
+  jsToken.Set("tag", Napi::String::New(env, token.getTagString()));
+  jsToken.Set("type", Napi::String::New(env, token.getTypeString()));
   jsToken.Set("size", Napi::Number::New(env, token.size));
   jsToken.Set("value", Napi::String::New(env, token.value));
   jsToken.Set("plainText", Napi::String::New(env, token.plainText));

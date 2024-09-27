@@ -33,7 +33,7 @@ public:
 
 private:
   void registerTokenRecognizers();
-  void log(Token token);
+  void log(Token token, bool devMode);
   std::vector<Token> tokens;
 };
 
