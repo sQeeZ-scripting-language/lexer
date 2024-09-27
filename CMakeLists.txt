@@ -95,18 +95,20 @@ target_link_libraries(
 gtest_discover_tests(lexer_test)
 
 # Create the NodeJS module
-add_library(
-  sQeeZ-Lexer-Node 
-  SHARED 
-  ${SOURCES} 
-  ${HEADERS}
-)
-set_target_properties(
-  sQeeZ-Lexer-Node 
-  PROPERTIES PREFIX "" SUFFIX ".node"
-)
-target_link_libraries(
-  sQeeZ-Lexer-Node 
-  ${CMAKE_JS_LIB}
-  sQeeZ-Lexer-Lib
-)
+if(${NODE})
+  add_library(
+    sQeeZ-Lexer-Node 
+    SHARED 
+    ${SOURCES} 
+    ${HEADERS}
+  )
+  set_target_properties(
+    sQeeZ-Lexer-Node 
+    PROPERTIES PREFIX "" SUFFIX ".node"
+  )
+  target_link_libraries(
+    sQeeZ-Lexer-Node 
+    ${CMAKE_JS_LIB}
+    sQeeZ-Lexer-Lib
+  )
+endif()

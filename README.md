@@ -5,7 +5,7 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
 - [How to Use](#how-to-use)
   - [Install Dependencies](#install-dependencies)
   - [Build & Run](#build--run)
-  - [Build Node Module](#build-node-module)
+  - [Node Module](#node-module)
   - [Testing](#testing)
   - [Code Formatting](#code-formatting)
 - [Tokens](#tokens)
@@ -26,7 +26,7 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
 > 
 > - `dependencies.sh`
 > - `build.sh`
-> - `build_node.sh`
+> - `node.sh`
 > - `test.sh`
 > - `checkstyle.sh`
 > 
@@ -64,12 +64,12 @@ cd build
 ./sQeeZ-Lexer-Exe $FILE_PATH.sqz [--dev]
 ```
 
-## Build Node Module
+## Node Module
 To compile the Lexer API as a Node Module, do the following:
 
-### 1. Build the Node Module
+### 1. Compile the Node Module
 ```bash
-cmake-js compile
+cmake-js compile --CDNODE=true
 ```
 
 ### 2. Import the Node Module into a JS-File

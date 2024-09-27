@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "compile": "cmake-js compile",
+    "compile": "cmake-js compile --CDNODE=true",
     "dev": "node index.js"
   },
   "cmake-js": {

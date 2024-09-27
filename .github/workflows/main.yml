@@ -77,7 +77,7 @@ jobs:
     - name: Build Node
       shell: bash
       run: |
-        npm run compile
+        cmake-js compile --CDNODE=true
 
     - name: Run tests
       shell: bash
