@@ -23,8 +23,12 @@ Napi::Array LexerNode::lex(const Napi::CallbackInfo &args) {
   }
   Napi::Env env = args.Env();
   auto code = args[0].As<Napi::String>().Utf8Value();
+  bool devMode = false;
+  if (args.Length() >= 2 && args[1].IsBoolean()) {
+    devMode = args[1].As<Napi::Boolean>().Value();
+  }
   Lexer lexer(code);
-  return vectorToJSArray(env, lexer.lex());
+  return vectorToJSArray(env, lexer.lex(devMode));
 }
 
 Napi::Function LexerNode::GetClass(Napi::Env env) {
