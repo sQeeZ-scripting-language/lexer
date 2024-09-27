@@ -36,7 +36,7 @@ jobs:
 
     - name: Install Node.js dependencies
       shell: bash
-      run: npm install
+      run: npm ci
 
     - name: Check code style
       shell: bash
@@ -76,8 +76,7 @@ jobs:
 
     - name: Build Node
       shell: bash
-      run: |
-        cmake-js compile --CDNODE=true
+      run: npx cmake-js compile --CDNODE=true
 
     - name: Run tests
       shell: bash
