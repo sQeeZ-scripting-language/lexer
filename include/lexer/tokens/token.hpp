@@ -12,6 +12,8 @@
 #include "operator_tokens.hpp"
 #include "syntax_tokens.hpp"
 
+extern const char* tags[];
+
 enum class BasicToken { INIT, TOKEN_EOF, UNKNOWN };
 
 struct Token {

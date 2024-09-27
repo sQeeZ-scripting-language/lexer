@@ -7,6 +7,7 @@
 #include <regex>
 
 #include "lexer/lexer.hpp"
+#include "lexer/node/node_parser.hpp"
 
 Napi::String pingLexer(const Napi::CallbackInfo &args);
 Napi::String info(const Napi::CallbackInfo &args);
@@ -20,7 +21,7 @@ public:
   explicit LexerNode(const Napi::CallbackInfo &args);
 
   Napi::String pingInstance(const Napi::CallbackInfo &args);
-  Napi::String lex(const Napi::CallbackInfo &args);
+  Napi::Array lex(const Napi::CallbackInfo &args);
 
   static Napi::Function GetClass(Napi::Env);
 };
