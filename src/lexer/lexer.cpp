@@ -1,5 +1,6 @@
 #include "lexer/lexer.hpp"
 
+#include "lexer/token_recognizers/array_recognizers.hpp"
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 #include "lexer/token_recognizers/log_recognizers.hpp"
 #include "lexer/token_recognizers/logical_recognizers.hpp"
@@ -19,6 +20,7 @@ void Lexer::registerTokenRecognizers() {
   registerKeywordRecognizers(tokenRecognizers);
   registerOperatorRecognizers(tokenRecognizers);
   registerLogicalRecognizers(tokenRecognizers);
+  registerArrayRecognizers(tokenRecognizers);
   registerLogRecognizers(tokenRecognizers);
 }
 

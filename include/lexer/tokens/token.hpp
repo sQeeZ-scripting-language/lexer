@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 
+#include "array_tokens.hpp"
 #include "data_tokens.hpp"
 #include "error_tokens.hpp"
 #include "keyword_tokens.hpp"
@@ -15,9 +16,10 @@
 enum class BasicToken { INIT, TOKEN_EOF, UNKNOWN };
 
 struct Token {
-  enum class TypeTag { BASIC, DATA, ERROR, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;
+  enum class TypeTag { ARRAY, BASIC, DATA, ERROR, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;
 
   union TokenType {
+    ArrayToken arrayToken;
     BasicToken basicToken;
     DataToken dataToken;
     ErrorToken errorToken;
@@ -28,6 +30,7 @@ struct Token {
     SyntaxToken syntaxToken;
 
     TokenType() {}
+    TokenType(ArrayToken t): arrayToken(t) {}
     TokenType(BasicToken t) : basicToken(t) {}
     TokenType(DataToken t) : dataToken(t) {}
     TokenType(ErrorToken t) : errorToken(t) {}
@@ -43,6 +46,13 @@ struct Token {
   std::string plainText;
   std::string desc;
 
+  Token(ArrayToken a, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::ARRAY),
+        type(a),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
   Token(BasicToken b, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::BASIC),
         type(b),
