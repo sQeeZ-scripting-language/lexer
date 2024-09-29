@@ -371,7 +371,7 @@ TEST(LexerTest, IdentifyIn) {
     EXPECT_EQ(tokenPtr->size, 2);
     EXPECT_EQ(tokenPtr->value, "in");
     EXPECT_EQ(tokenPtr->plainText, "KeywordToken::IN");
-    EXPECT_EQ(tokenPtr->desc, "In");
+    EXPECT_EQ(tokenPtr->desc, "In keyword");
 }
 
 TEST(LexerTest, IdentifyOf) {
@@ -384,7 +384,7 @@ TEST(LexerTest, IdentifyOf) {
     EXPECT_EQ(tokenPtr->size, 2);
     EXPECT_EQ(tokenPtr->value, "of");
     EXPECT_EQ(tokenPtr->plainText, "KeywordToken::OF");
-    EXPECT_EQ(tokenPtr->desc, "Of");
+    EXPECT_EQ(tokenPtr->desc, "Of keyword");
 }
 
 /*
@@ -762,6 +762,231 @@ TEST(LexerTest, IdentifyErrorLogger) {
     EXPECT_EQ(tokenPtr->plainText, "LogToken::ERROR");
     EXPECT_EQ(tokenPtr->desc, "Error logging function");
 }
+
+/*
+ * Arrays
+ */
+TEST(LexerTest, IdentifyLength) {
+    Lexer lexer("length");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::LENGTH);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "length");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::LENGTH");
+    EXPECT_EQ(tokenPtr->desc, "Get the length of an array");
+}
+
+TEST(LexerTest, IdentifyPush) {
+    Lexer lexer("push");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::PUSH);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->value, "push");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::PUSH");
+    EXPECT_EQ(tokenPtr->desc, "Push item to the end of an array");
+}
+
+TEST(LexerTest, IdentifyPop) {
+    Lexer lexer("pop");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::POP);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->value, "pop");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::POP");
+    EXPECT_EQ(tokenPtr->desc, "Pop item from the end of an array");
+}
+
+TEST(LexerTest, IdentifyShift) {
+    Lexer lexer("shift");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::SHIFT);
+    EXPECT_EQ(tokenPtr->size, 5);
+    EXPECT_EQ(tokenPtr->value, "shift");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::SHIFT");
+    EXPECT_EQ(tokenPtr->desc, "Shift item from the beginning of an array");
+}
+
+TEST(LexerTest, IdentifyUnshift) {
+    Lexer lexer("unshift");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::UNSHIFT);
+    EXPECT_EQ(tokenPtr->size, 7);
+    EXPECT_EQ(tokenPtr->value, "unshift");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::UNSHIFT");
+    EXPECT_EQ(tokenPtr->desc, "Unshift item to the beginning of an array");
+}
+
+TEST(LexerTest, IdentifySplice) {
+    Lexer lexer("splice");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::SPLICE);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "splice");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::SPLICE");
+    EXPECT_EQ(tokenPtr->desc, "Splice items into an array");
+}
+
+TEST(LexerTest, IdentifySlice) {
+    Lexer lexer("slice");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::SLICE);
+    EXPECT_EQ(tokenPtr->size, 5);
+    EXPECT_EQ(tokenPtr->value, "slice");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::SLICE");
+    EXPECT_EQ(tokenPtr->desc, "Slice items from an array");
+}
+
+TEST(LexerTest, IdentifyConcat) {
+    Lexer lexer("concat");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::CONCAT);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "concat");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::CONCAT");
+    EXPECT_EQ(tokenPtr->desc, "Concatenate arrays");
+}
+
+TEST(LexerTest, IdentifyJoin) {
+    Lexer lexer("join");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::JOIN);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->value, "join");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::JOIN");
+    EXPECT_EQ(tokenPtr->desc, "Join array elements into a string");
+}
+
+TEST(LexerTest, IdentifyReverse) {
+    Lexer lexer("reverse");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::REVERSE);
+    EXPECT_EQ(tokenPtr->size, 7);
+    EXPECT_EQ(tokenPtr->value, "reverse");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::REVERSE");
+    EXPECT_EQ(tokenPtr->desc, "Reverse array elements");
+}
+
+TEST(LexerTest, IdentifySort) {
+    Lexer lexer("sort");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::SORT);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->value, "sort");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::SORT");
+    EXPECT_EQ(tokenPtr->desc, "Sort array elements");
+}
+
+TEST(LexerTest, IdentifyMap) {
+    Lexer lexer("map");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::MAP);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->value, "map");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::MAP");
+    EXPECT_EQ(tokenPtr->desc, "Map array elements");
+}
+
+TEST(LexerTest, IdentifyFilter) {
+    Lexer lexer("filter");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::FILTER);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "filter");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::FILTER");
+    EXPECT_EQ(tokenPtr->desc, "Filter array elements");
+}
+
+TEST(LexerTest, IdentifyReduce) {
+    Lexer lexer("reduce");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::REDUCE);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "reduce");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::REDUCE");
+    EXPECT_EQ(tokenPtr->desc, "Reduce array elements");
+}
+
+TEST(LexerTest, IdentifyIncludes) {
+    Lexer lexer("includes");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::INCLUDES);
+    EXPECT_EQ(tokenPtr->size, 8);
+    EXPECT_EQ(tokenPtr->value, "includes");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::INCLUDES");
+    EXPECT_EQ(tokenPtr->desc, "Check if an array includes an element");
+}
+
+TEST(LexerTest, IdentifyForEach) {
+    Lexer lexer("forEach");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::FOR_EACH);
+    EXPECT_EQ(tokenPtr->size, 7);
+    EXPECT_EQ(tokenPtr->value, "forEach");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::FOR_EACH");
+    EXPECT_EQ(tokenPtr->desc, "Iterate over array elements");
+}
+
+TEST(LexerTest, IdentifyIndexOf) {
+    Lexer lexer("indexOf");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::ARRAY);
+    EXPECT_EQ(tokenPtr->type.arrayToken, ArrayToken::INDEX_OF);
+    EXPECT_EQ(tokenPtr->size, 7);
+    EXPECT_EQ(tokenPtr->value, "indexOf");
+    EXPECT_EQ(tokenPtr->plainText, "ArrayToken::INDEX_OF");
+    EXPECT_EQ(tokenPtr->desc, "Find index of an element in an array");
+}
+
 
 /*
  * Data Types
