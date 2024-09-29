@@ -987,6 +987,87 @@ TEST(LexerTest, IdentifyIndexOf) {
     EXPECT_EQ(tokenPtr->desc, "Find index of an element in an array");
 }
 
+/*
+ * Objects
+ */
+TEST(LexerTest, IdentfyEntries) {
+    Lexer lexer("entries");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OBJECT);
+    EXPECT_EQ(tokenPtr->type.objectToken, ObjectToken::ENTRIES);
+    EXPECT_EQ(tokenPtr->size, 7);
+    EXPECT_EQ(tokenPtr->value, "entries");
+    EXPECT_EQ(tokenPtr->plainText, "ObjectToken::ENTRIES");
+    EXPECT_EQ(tokenPtr->desc, "Get key-value pairs of an object");
+}
+
+TEST(LexerTest, IdentfyKeys) {
+    Lexer lexer("keys");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OBJECT);
+    EXPECT_EQ(tokenPtr->type.objectToken, ObjectToken::KEYS);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->value, "keys");
+    EXPECT_EQ(tokenPtr->plainText, "ObjectToken::KEYS");
+    EXPECT_EQ(tokenPtr->desc, "Get keys of an object");
+}
+
+TEST(LexerTest, IdentfyValues) {
+    Lexer lexer("values");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OBJECT);
+    EXPECT_EQ(tokenPtr->type.objectToken, ObjectToken::VALUES);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "values");
+    EXPECT_EQ(tokenPtr->plainText, "ObjectToken::VALUES");
+    EXPECT_EQ(tokenPtr->desc, "Get values of an object");
+}
+
+TEST(LexerTest, IdentifyHasOwnProperty) {
+    Lexer lexer("hasOwnProperty");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OBJECT);
+    EXPECT_EQ(tokenPtr->type.objectToken, ObjectToken::HAS_OWN_PROPERTY);
+    EXPECT_EQ(tokenPtr->size, 14);
+    EXPECT_EQ(tokenPtr->value, "hasOwnProperty");
+    EXPECT_EQ(tokenPtr->plainText, "ObjectToken::HAS_OWN_PROPERTY");
+    EXPECT_EQ(tokenPtr->desc, "Check if an object has a property");
+}
+
+TEST(LexerTest, IdentifyDelete) {
+    Lexer lexer("delete");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OBJECT);
+    EXPECT_EQ(tokenPtr->type.objectToken, ObjectToken::DELETE);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "delete");
+    EXPECT_EQ(tokenPtr->plainText, "ObjectToken::DELETE");
+    EXPECT_EQ(tokenPtr->desc, "Delete a property from an object");
+}
+
+TEST(LexerTest, IdentifyTypeOf) {
+    Lexer lexer("typeof");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OBJECT);
+    EXPECT_EQ(tokenPtr->type.objectToken, ObjectToken::TYPE_OF);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->value, "typeof");
+    EXPECT_EQ(tokenPtr->plainText, "ObjectToken::TYPE_OF");
+    EXPECT_EQ(tokenPtr->desc, "Get the type of an object");
+}
+
 
 /*
  * Data Types

@@ -10,13 +10,14 @@
 #include "keyword_tokens.hpp"
 #include "log_tokens.hpp"
 #include "logical_tokens.hpp"
+#include "object_tokens.hpp"
 #include "operator_tokens.hpp"
 #include "syntax_tokens.hpp"
 
 enum class BasicToken { INIT, TOKEN_EOF, UNKNOWN };
 
 struct Token {
-  enum class TypeTag { ARRAY, BASIC, DATA, ERROR, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;
+  enum class TypeTag { ARRAY, BASIC, DATA, ERROR, KEYWORD, LOG, LOGICAL, OBJECT, OPERATOR, SYNTAX } tag;
 
   union TokenType {
     ArrayToken arrayToken;
@@ -26,6 +27,7 @@ struct Token {
     KeywordToken keywordToken;
     LogToken logToken;
     LogicalToken logicalToken;
+    ObjectToken objectToken;
     OperatorToken operatorToken;
     SyntaxToken syntaxToken;
 
@@ -37,6 +39,7 @@ struct Token {
     TokenType(KeywordToken t) : keywordToken(t) {}
     TokenType(LogToken t) : logToken(t) {}
     TokenType(LogicalToken t) : logicalToken(t) {}
+    TokenType(ObjectToken t) : objectToken(t) {}
     TokenType(OperatorToken t) : operatorToken(t) {}
     TokenType(SyntaxToken t) : syntaxToken(t) {}
   } type;
@@ -91,6 +94,13 @@ struct Token {
   Token(LogicalToken l, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::LOGICAL),
         type(l),
+        size(size),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(ObjectToken o, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+      : tag(TypeTag::OBJECT),
+        type(o),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),
