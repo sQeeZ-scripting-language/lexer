@@ -32,7 +32,7 @@ struct Token {
     SyntaxToken syntaxToken;
 
     TokenType() {}
-    TokenType(ArrayToken t): arrayToken(t) {}
+    TokenType(ArrayToken t) : arrayToken(t) {}
     TokenType(BasicToken t) : basicToken(t) {}
     TokenType(DataToken t) : dataToken(t) {}
     TokenType(ErrorToken t) : errorToken(t) {}

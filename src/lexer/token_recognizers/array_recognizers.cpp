@@ -2,37 +2,43 @@
 
 void recognizeLength(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("length")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::LENGTH, 6, "length", "ArrayToken::LENGTH", "Get the length of an array");
+    tokenPtr =
+        std::make_unique<Token>(ArrayToken::LENGTH, 6, "length", "ArrayToken::LENGTH", "Get the length of an array");
   }
 }
 
 void recognizePush(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("push")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::PUSH, 4, "push", "ArrayToken::PUSH", "Push item to the end of an array");
+    tokenPtr =
+        std::make_unique<Token>(ArrayToken::PUSH, 4, "push", "ArrayToken::PUSH", "Push item to the end of an array");
   }
 }
 
 void recognizePop(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("pop")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::POP, 3, "pop", "ArrayToken::POP", "Pop item from the end of an array");
+    tokenPtr =
+        std::make_unique<Token>(ArrayToken::POP, 3, "pop", "ArrayToken::POP", "Pop item from the end of an array");
   }
 }
 
 void recognizeShift(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("shift")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::SHIFT, 5, "shift", "ArrayToken::SHIFT", "Shift item from the beginning of an array");
+    tokenPtr = std::make_unique<Token>(ArrayToken::SHIFT, 5, "shift", "ArrayToken::SHIFT",
+                                       "Shift item from the beginning of an array");
   }
 }
 
 void recognizeUnshift(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("unshift")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::UNSHIFT, 7, "unshift", "ArrayToken::UNSHIFT", "Unshift item to the beginning of an array");
+    tokenPtr = std::make_unique<Token>(ArrayToken::UNSHIFT, 7, "unshift", "ArrayToken::UNSHIFT",
+                                       "Unshift item to the beginning of an array");
   }
 }
 
 void recognizeSplice(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("splice")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::SPLICE, 6, "splice", "ArrayToken::SPLICE", "Splice items into an array");
+    tokenPtr =
+        std::make_unique<Token>(ArrayToken::SPLICE, 6, "splice", "ArrayToken::SPLICE", "Splice items into an array");
   }
 }
 
@@ -50,13 +56,15 @@ void recognizeConcat(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 
 void recognizeJoin(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("join")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::JOIN, 4, "join", "ArrayToken::JOIN", "Join array elements into a string");
+    tokenPtr =
+        std::make_unique<Token>(ArrayToken::JOIN, 4, "join", "ArrayToken::JOIN", "Join array elements into a string");
   }
 }
 
 void recognizeReverse(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("reverse")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::REVERSE, 7, "reverse", "ArrayToken::REVERSE", "Reverse array elements");
+    tokenPtr =
+        std::make_unique<Token>(ArrayToken::REVERSE, 7, "reverse", "ArrayToken::REVERSE", "Reverse array elements");
   }
 }
 
@@ -86,22 +94,24 @@ void recognizeReduce(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 
 void recognizeIncludes(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("includes")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::INCLUDES, 8, "includes", "ArrayToken::INCLUDES", "Check if an array includes an element");
+    tokenPtr = std::make_unique<Token>(ArrayToken::INCLUDES, 8, "includes", "ArrayToken::INCLUDES",
+                                       "Check if an array includes an element");
   }
 }
 
 void recognizeForEach(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("forEach")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::FOR_EACH, 7, "forEach", "ArrayToken::FOR_EACH", "Iterate over array elements");
+    tokenPtr = std::make_unique<Token>(ArrayToken::FOR_EACH, 7, "forEach", "ArrayToken::FOR_EACH",
+                                       "Iterate over array elements");
   }
 }
 
 void recognizeIndexOf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("indexOf")) {
-    tokenPtr = std::make_unique<Token>(ArrayToken::INDEX_OF, 7, "indexOf", "ArrayToken::INDEX_OF", "Find index of an element in an array");
+    tokenPtr = std::make_unique<Token>(ArrayToken::INDEX_OF, 7, "indexOf", "ArrayToken::INDEX_OF",
+                                       "Find index of an element in an array");
   }
 }
-
 
 void registerArrayRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
   tokenRecognizers["length"] = recognizeLength;

@@ -83,7 +83,8 @@ void recognizePipe(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 
 void recognizePipeOperator(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("|>")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::PIPE_OPERATOR, 2, "|>", "SyntaxToken::PIPE_OPERATOR", "Pipe Operator");
+    tokenPtr =
+        std::make_unique<Token>(SyntaxToken::PIPE_OPERATOR, 2, "|>", "SyntaxToken::PIPE_OPERATOR", "Pipe Operator");
   }
 }
 
