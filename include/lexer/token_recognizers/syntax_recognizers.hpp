@@ -21,8 +21,11 @@ void recognizeOpenBracket(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeCloseBracket(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeOpenBrace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeCloseBrace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizePipe(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizePipeOperator(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeArrow(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeHashtag(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

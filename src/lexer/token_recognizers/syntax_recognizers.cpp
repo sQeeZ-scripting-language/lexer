@@ -75,6 +75,19 @@ void recognizeCloseBrace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
+void recognizePipe(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("|") && !lexer.checkKeyword("|>") && !lexer.checkKeyword("||")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::PIPE, 1, "|", "SyntaxToken::PIPE", "Pipe");
+  }
+}
+
+void recognizePipeOperator(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("|>")) {
+    tokenPtr =
+        std::make_unique<Token>(SyntaxToken::PIPE_OPERATOR, 2, "|>", "SyntaxToken::PIPE_OPERATOR", "Pipe Operator");
+  }
+}
+
 void recognizeArrow(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("->")) {
     tokenPtr = std::make_unique<Token>(SyntaxToken::ARROW, 2, "->", "SyntaxToken::ARROW", "Arrow");
@@ -84,6 +97,12 @@ void recognizeArrow(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 void recognizeHashtag(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("#")) {
     tokenPtr = std::make_unique<Token>(SyntaxToken::HASHTAG, 1, "#", "SyntaxToken::HASHTAG", "Hashtag");
+  }
+}
+
+void recognizeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("@")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::AT, 1, "@", "SyntaxToken::AT", "AT");
   }
 }
 
@@ -100,6 +119,9 @@ void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>&
   tokenRecognizers["]"] = recognizeCloseBracket;
   tokenRecognizers["{"] = recognizeOpenBrace;
   tokenRecognizers["}"] = recognizeCloseBrace;
+  tokenRecognizers["|"] = recognizePipe;
+  tokenRecognizers["|>"] = recognizePipeOperator;
   tokenRecognizers["->"] = recognizeArrow;
   tokenRecognizers["#"] = recognizeHashtag;
+  tokenRecognizers["@"] = recognizeAt;
 }

@@ -14,8 +14,11 @@ enum class SyntaxToken {
   CLOSE_BRACKET,
   OPEN_BRACE,
   CLOSE_BRACE,
+  PIPE,
+  PIPE_OPERATOR,
   ARROW,
-  HASHTAG
+  HASHTAG,
+  AT
 };
 
 #endif

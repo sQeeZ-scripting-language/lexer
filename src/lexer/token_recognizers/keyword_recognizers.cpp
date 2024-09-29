@@ -38,6 +38,18 @@ void recognizeFor(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
+void recognizeWhile(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("while")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::WHILE, 5, "while", "KeywordToken::WHILE", "While loop");
+  }
+}
+
+void recognizeDo(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("do")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::DO, 2, "do", "KeywordToken::DO", "Do While loop");
+  }
+}
+
 void recognizeFunction(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("fn")) {
     tokenPtr =
@@ -51,6 +63,18 @@ void recognizeReturn(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
+void recognizeIn(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("in")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::IN, 2, "in", "KeywordToken::IN", "In keyword");
+  }
+}
+
+void recognizeOf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("of")) {
+    tokenPtr = std::make_unique<Token>(KeywordToken::OF, 2, "of", "KeywordToken::OF", "Of keyword");
+  }
+}
+
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
   tokenRecognizers["var"] = recognizeVariable;
   tokenRecognizers["const"] = recognizeConstant;
@@ -58,6 +82,10 @@ void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>
   tokenRecognizers["else"] = recognizeElse;
   tokenRecognizers["elif"] = recognizeElseIf;
   tokenRecognizers["for"] = recognizeFor;
+  tokenRecognizers["while"] = recognizeWhile;
+  tokenRecognizers["do"] = recognizeDo;
   tokenRecognizers["fn"] = recognizeFunction;
   tokenRecognizers["return"] = recognizeReturn;
+  tokenRecognizers["in"] = recognizeIn;
+  tokenRecognizers["of"] = recognizeOf;
 }
