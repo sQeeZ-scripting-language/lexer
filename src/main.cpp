@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
   std::string code;
   std::string line;
   while (std::getline(file, line)) {
-    code += line + "\\n\n";
+    code += line + "\n";
   }
 
   if (devMode) {

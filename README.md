@@ -243,7 +243,6 @@ This enum class categorizes various syntax tokens used in the sQeeZ language. Th
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
-| `LINE_BREAK` | 1 | \\n | The Line Break, used to indicate the end of a line |
 | `SEMICOLON` | 1| ; | The Semicolon, used to terminate statements |
 | `COMMA` | 1| , | The Comma, used to separate elements in lists or parameters |
 | `DOT` | 1| . | The Dot, typically, used for accessing members or methods |

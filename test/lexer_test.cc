@@ -6,19 +6,6 @@
  * SYNTAX
  */
 
-TEST(LexerTest, IdentifyLineBreak) {
-    Lexer lexer("\\n");
-    std::unique_ptr<Token> tokenPtr;
-    lexer.getNextToken(tokenPtr);
-
-    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
-    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::LINE_BREAK);
-    EXPECT_EQ(tokenPtr->size, 2);
-    EXPECT_EQ(tokenPtr->value, "\\n");
-    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::LINE_BREAK");
-    EXPECT_EQ(tokenPtr->desc, "Line Break");
-}
-
 TEST(LexerTest, IdentifySemicolon) {
     Lexer lexer(";");
     std::unique_ptr<Token> tokenPtr;
@@ -1107,6 +1094,25 @@ TEST(LexerTest, IdentifyDoubleLiteral) {
     EXPECT_EQ(tokens[1].value, "123.45");
     EXPECT_EQ(tokens[1].plainText, "DataToken::DOUBLE_LITERAL");
     EXPECT_EQ(tokens[1].desc, "Double Literal");
+}
+
+TEST(LexerTest, IdentifyCommentLiteral) {
+    Lexer lexer("// This is a comment");
+    std::vector<Token> tokens = lexer.lex(false);
+
+    EXPECT_EQ(tokens[1].tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokens[1].type.syntaxToken, SyntaxToken::INLINE_COMMENT);
+    EXPECT_EQ(tokens[1].size, 2);
+    EXPECT_EQ(tokens[1].value, "//");
+    EXPECT_EQ(tokens[1].plainText, "SyntaxToken::INLINE_COMMENT");
+    EXPECT_EQ(tokens[1].desc, "Inline Comment");
+
+    EXPECT_EQ(tokens[2].tag, Token::TypeTag::DATA);
+    EXPECT_EQ(tokens[2].type.dataToken, DataToken::COMMENT_LITERAL);
+    EXPECT_EQ(tokens[2].size, 17);
+    EXPECT_EQ(tokens[2].value, "This is a comment");
+    EXPECT_EQ(tokens[2].plainText, "DataToken::COMMENT_LITERAL");
+    EXPECT_EQ(tokens[2].desc, "Comment Literal");
 }
 
 TEST(LexerTest, IdentifyStringLiteral) {

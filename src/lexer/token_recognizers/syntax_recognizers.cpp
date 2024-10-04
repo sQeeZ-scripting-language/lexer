@@ -1,11 +1,5 @@
 #include "lexer/token_recognizers/syntax_recognizers.hpp"
 
-void recognizeLineBreak(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("\\n")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::LINE_BREAK, 2, "\\n", "SyntaxToken::LINE_BREAK", "Line Break");
-  }
-}
-
 void recognizeSemicolon(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword(";")) {
     tokenPtr = std::make_unique<Token>(SyntaxToken::SEMICOLON, 1, ";", "SyntaxToken::SEMICOLON", "Semicolon");
@@ -119,7 +113,6 @@ void recognizeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 }
 
 void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
-  tokenRecognizers["\\n"] = recognizeLineBreak;
   tokenRecognizers[";"] = recognizeSemicolon;
   tokenRecognizers[","] = recognizeComma;
   tokenRecognizers["."] = recognizeDot;
