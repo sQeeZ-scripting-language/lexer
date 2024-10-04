@@ -162,6 +162,19 @@ TEST(LexerTest, IdentifyCloseBrace) {
     EXPECT_EQ(tokenPtr->desc, "Close Brace");
 }
 
+TEST(LexerTest, IdentifyInlineComment) {
+    Lexer lexer("//");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::INLINE_COMMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "//");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::INLINE_COMMENT");
+    EXPECT_EQ(tokenPtr->desc, "Inline Comment");
+}
+
 TEST(LexerTest, IdentifyPipe) {
     Lexer lexer("|");
     std::unique_ptr<Token> tokenPtr;

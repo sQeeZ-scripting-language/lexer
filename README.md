@@ -255,6 +255,7 @@ This enum class categorizes various syntax tokens used in the sQeeZ language. Th
 | `CLOSE_BRACKET` | 1 | ] | The Closing Bracket, used for array or list indexing |
 | `OPEN_BRACE` | 1 | { | The Opening brace, used to define blocks of code or object literals |
 | `CLOSE_BRACE` | 1 | } | The Closing brace, used to define blocks of code or object literals |
+| `INLINE_COMMENT` | 2 | // | The Inline Comment, used for single-line comments in the code |
 | `PIPE` | 1 | \| | Pipe |
 | `PIPE_OPERATOR` | 2 | \|> | Pipe Operator |
 | `ARROW` | 2 | ->| The Arrow Operator, used in lambda expressions |
