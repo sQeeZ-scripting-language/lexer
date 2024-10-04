@@ -6,6 +6,19 @@
  * SYNTAX
  */
 
+TEST(LexerTest, IdentifyLineBreak) {
+    Lexer lexer("\\n");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::LINE_BREAK);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "\\n");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::LINE_BREAK");
+    EXPECT_EQ(tokenPtr->desc, "Line Break");
+}
+
 TEST(LexerTest, IdentifySemicolon) {
     Lexer lexer(";");
     std::unique_ptr<Token> tokenPtr;

@@ -9,6 +9,7 @@
 
 using TokenRecognizer = std::function<void(Lexer&, std::unique_ptr<Token>&)>;
 
+void recognizeLineBreak(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeSemicolon(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeComma(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeDot(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);

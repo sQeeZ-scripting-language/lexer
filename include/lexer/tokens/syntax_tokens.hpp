@@ -2,6 +2,7 @@
 #define SYNTAX_TOKEN_HPP
 
 enum class SyntaxToken {
+  LINE_BREAK,
   SEMICOLON,
   COMMA,
   DOT,
