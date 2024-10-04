@@ -255,6 +255,7 @@ This enum class categorizes various syntax tokens used in the sQeeZ language. Th
 | `CLOSE_BRACKET` | 1 | ] | The Closing Bracket, used for array or list indexing |
 | `OPEN_BRACE` | 1 | { | The Opening brace, used to define blocks of code or object literals |
 | `CLOSE_BRACE` | 1 | } | The Closing brace, used to define blocks of code or object literals |
+| `INLINE_COMMENT` | 2 | // | The Inline Comment, used for single-line comments in the code |
 | `PIPE` | 1 | \| | Pipe |
 | `PIPE_OPERATOR` | 2 | \|> | Pipe Operator |
 | `ARROW` | 2 | ->| The Arrow Operator, used in lambda expressions |
@@ -280,7 +281,7 @@ This enum class categorizes the reserved keywords used in the sQeeZ language. Th
 | `OF` | 2 | of | Of keyword |
 
 ## Operator Tokens
-This enum class categorizes various operators used in the sQeeZ language for mathematical operations and assignments. These tokens represent both basic arithmetic operations and their compound assignment counterparts, along with special operators like increment, decrement, floor division and potentation.
+This enum class categorizes various operators used in the sQeeZ language for mathematical operations and assignments. These tokens represent both basic arithmetic operations and their compound assignment counterparts, along with special operators like increment, decrement and potentation.
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
@@ -298,7 +299,6 @@ This enum class categorizes various operators used in the sQeeZ language for mat
 | `INCREMENT` | 2 | ++ | Increment operator (Increases value by 1) |
 | `DECREMENT` | 2 | -- | Decrement operator (Decreases value by 1) |
 | `POTENTIATION` | 2 | ** | Potentiation operator (Exponentiation) |
-| `FLOOR_DIVISION` | 2| // | Floor Division operator (Division with Rounding Down) |
 
 ## Logical Tokens
 This enum class categorizes logical operators used in conditional expressions within the sQeeZ language. These tokens facilitate the creation of complex logical conditions by providing various operators for equality checks, comparisons, and logical operations.
@@ -336,6 +336,7 @@ This enum class categorizes identifiers and values used in data-related operatio
 | `USE_FUNCTION_IDENTIFIER` | Size of the Function Identifier | The Function Identifier | Refers to a previously defined Function |
 | `USE_VARIABLE_IDENTIFIER` | Size of the Variable Identifier | The Variable Identifier | Refers to a previously defined Variable |
 | `USE_CONSTANT_IDENTIFIER` | Size of the Constant Identifier | The Constant Identifier | Refers to a previously defined Constant |
+| `COMMENT_LITERAL` | Length of the Comment Literal | The Comment Literal | Represents a Comment Literal |
 | `STRING_LITERAL` | Length of the String Literal | The String Literal | Represents a String Literal |
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |

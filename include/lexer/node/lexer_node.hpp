@@ -21,7 +21,7 @@ public:
   explicit LexerNode(const Napi::CallbackInfo &args);
 
   Napi::String pingInstance(const Napi::CallbackInfo &args);
-  Napi::Array lex(const Napi::CallbackInfo &args);
+  Napi::Array tokenize(const Napi::CallbackInfo &args);
 
   static Napi::Function GetClass(Napi::Env);
 };

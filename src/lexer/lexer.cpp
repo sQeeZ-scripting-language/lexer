@@ -32,7 +32,7 @@ void Lexer::log(Token token, bool devMode) {
   }
 }
 
-std::vector<Token> Lexer::lex(bool devMode) {
+std::vector<Token> Lexer::tokenize(bool devMode) {
   DataRecognizer dataRecognizer;
   Token previousToken = {BasicToken::INIT, 0, "\0", "BasicToken::INIT", "Initialize Lexer"};
   tokens.push_back(previousToken);
@@ -77,6 +77,10 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
         break;
     }
   }
+  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::INLINE_COMMENT) {
+    extractCommentLiteral(tokenPtr);
+    return;
+  }
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
       !lexerState["insideString"]) {
     lexerState["insideString"] = true;
@@ -101,6 +105,23 @@ void Lexer::getNextToken(std::unique_ptr<Token>& tokenPtr) {
     recognizer.second(*this, tokenPtr);
     if (tokenPtr) return;
   }
+}
+
+void Lexer::extractCommentLiteral(std::unique_ptr<Token>& tokenPtr) {
+  std::vector<char> charList;
+  bool isClosed = false;
+  int position = pos;
+  while (position < code.size()) {
+    if (code[position] == '\n') {
+      isClosed = true;
+      break;
+    }
+    charList.push_back(code[position]);
+    ++position;
+  }
+  std::string literal(charList.begin(), charList.end());
+  tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, static_cast<int>(charList.size()), literal,
+                                     "DataToken::COMMENT_LITERAL", "Comment Literal");
 }
 
 void Lexer::extractStringLiteral(std::unique_ptr<Token>& tokenPtr) {

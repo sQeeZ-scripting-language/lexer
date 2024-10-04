@@ -91,13 +91,6 @@ void recognizePotentiation(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
-void recognizeFloorDivision(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("//")) {
-    tokenPtr = std::make_unique<Token>(OperatorToken::FLOOR_DIVISION, 2, "//", "OperatorToken::FLOOR_DIVISION",
-                                       "Floor Division");
-  }
-}
-
 void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
   tokenRecognizers["="] = recognizeAssign;
   tokenRecognizers["+"] = recognizeAddition;
@@ -113,5 +106,4 @@ void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer
   tokenRecognizers["++"] = recognizeIncrement;
   tokenRecognizers["--"] = recognizeDecrement;
   tokenRecognizers["**"] = recognizePotentiation;
-  tokenRecognizers["//"] = recognizeFloorDivision;
 }

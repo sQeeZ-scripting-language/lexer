@@ -23,7 +23,6 @@ void recognizeModulusAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeIncrement(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeDecrement(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizePotentiation(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
-void recognizeFloorDivision(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

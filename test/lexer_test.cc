@@ -162,6 +162,19 @@ TEST(LexerTest, IdentifyCloseBrace) {
     EXPECT_EQ(tokenPtr->desc, "Close Brace");
 }
 
+TEST(LexerTest, IdentifyInlineComment) {
+    Lexer lexer("//");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::INLINE_COMMENT);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->value, "//");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::INLINE_COMMENT");
+    EXPECT_EQ(tokenPtr->desc, "Inline Comment");
+}
+
 TEST(LexerTest, IdentifyPipe) {
     Lexer lexer("|");
     std::unique_ptr<Token> tokenPtr;
@@ -571,19 +584,6 @@ TEST(LexerTest, IdentifyPotentiation) {
     EXPECT_EQ(tokenPtr->value, "**");
     EXPECT_EQ(tokenPtr->plainText, "OperatorToken::POTENTIATION");
     EXPECT_EQ(tokenPtr->desc, "Potentiation");
-}
-
-TEST(LexerTest, IdentifyFloorDivision) {
-    Lexer lexer("//");
-    std::unique_ptr<Token> tokenPtr;
-    lexer.getNextToken(tokenPtr);
-
-    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::FLOOR_DIVISION);
-    EXPECT_EQ(tokenPtr->size, 2);
-    EXPECT_EQ(tokenPtr->value, "//");
-    EXPECT_EQ(tokenPtr->plainText, "OperatorToken::FLOOR_DIVISION");
-    EXPECT_EQ(tokenPtr->desc, "Floor Division");
 }
 
 /*
@@ -1074,7 +1074,7 @@ TEST(LexerTest, IdentifyTypeOf) {
  */
 TEST(LexerTest, IdentifyIntegerLiteral) {
     Lexer lexer("12345");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[1].tag, Token::TypeTag::DATA);
     EXPECT_EQ(tokens[1].type.dataToken, DataToken::INTEGER_LITERAL);
@@ -1086,7 +1086,7 @@ TEST(LexerTest, IdentifyIntegerLiteral) {
 
 TEST(LexerTest, IdentifyDoubleLiteral) {
     Lexer lexer("123.45");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[1].tag, Token::TypeTag::DATA);
     EXPECT_EQ(tokens[1].type.dataToken, DataToken::DOUBLE_LITERAL);
@@ -1096,9 +1096,28 @@ TEST(LexerTest, IdentifyDoubleLiteral) {
     EXPECT_EQ(tokens[1].desc, "Double Literal");
 }
 
+TEST(LexerTest, IdentifyCommentLiteral) {
+    Lexer lexer("// This is a comment");
+    std::vector<Token> tokens = lexer.tokenize(false);
+
+    EXPECT_EQ(tokens[1].tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokens[1].type.syntaxToken, SyntaxToken::INLINE_COMMENT);
+    EXPECT_EQ(tokens[1].size, 2);
+    EXPECT_EQ(tokens[1].value, "//");
+    EXPECT_EQ(tokens[1].plainText, "SyntaxToken::INLINE_COMMENT");
+    EXPECT_EQ(tokens[1].desc, "Inline Comment");
+
+    EXPECT_EQ(tokens[2].tag, Token::TypeTag::DATA);
+    EXPECT_EQ(tokens[2].type.dataToken, DataToken::COMMENT_LITERAL);
+    EXPECT_EQ(tokens[2].size, 17);
+    EXPECT_EQ(tokens[2].value, "This is a comment");
+    EXPECT_EQ(tokens[2].plainText, "DataToken::COMMENT_LITERAL");
+    EXPECT_EQ(tokens[2].desc, "Comment Literal");
+}
+
 TEST(LexerTest, IdentifyStringLiteral) {
     Lexer lexer("\"Hello, World!\"");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[1].tag, Token::TypeTag::SYNTAX);
     EXPECT_EQ(tokens[1].type.syntaxToken, SyntaxToken::DOUBLE_QUOTE);
@@ -1128,7 +1147,7 @@ TEST(LexerTest, IdentifyStringLiteral) {
 
 TEST(LexerTest, StoreFunctionIdentifier) {
     Lexer lexer("fn name");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[2].tag, Token::TypeTag::DATA);
     EXPECT_EQ(tokens[2].type.dataToken, DataToken::SET_FUNCTION_IDENTIFIER);
@@ -1140,7 +1159,7 @@ TEST(LexerTest, StoreFunctionIdentifier) {
 
 TEST(LexerTest, StoreVariableIdentifier) {
     Lexer lexer("var name");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[2].tag, Token::TypeTag::DATA);
     EXPECT_EQ(tokens[2].type.dataToken, DataToken::SET_VARIABLE_IDENTIFIER);
@@ -1152,7 +1171,7 @@ TEST(LexerTest, StoreVariableIdentifier) {
 
 TEST(LexerTest, StoreConstantIdentifier) {
     Lexer lexer("const name");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[2].tag, Token::TypeTag::DATA);
     EXPECT_EQ(tokens[2].type.dataToken, DataToken::SET_CONSTANT_IDENTIFIER);
@@ -1168,7 +1187,7 @@ TEST(LexerTest, StoreConstantIdentifier) {
 
 TEST(LexerTest, AccessFunctionIdentifier) {
     Lexer lexer("fn name; name");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[4].tag, Token::TypeTag::DATA);
     EXPECT_EQ(tokens[4].type.dataToken, DataToken::USE_FUNCTION_IDENTIFIER);
@@ -1180,7 +1199,7 @@ TEST(LexerTest, AccessFunctionIdentifier) {
 
 TEST(LexerTest, AccessVariableIdentifier) {
     Lexer lexer("var name; name");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[4].tag, Token::TypeTag::DATA);
     EXPECT_EQ(tokens[4].type.dataToken, DataToken::USE_VARIABLE_IDENTIFIER);
@@ -1192,7 +1211,7 @@ TEST(LexerTest, AccessVariableIdentifier) {
 
 TEST(LexerTest, AccessConstantIdentifier) {
     Lexer lexer("const name; name");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
 
     EXPECT_EQ(tokens[4].tag, Token::TypeTag::DATA);
     EXPECT_EQ(tokens[4].type.dataToken, DataToken::USE_CONSTANT_IDENTIFIER);
@@ -1208,7 +1227,7 @@ TEST(LexerTest, AccessConstantIdentifier) {
 
 TEST(LexerTest, InvalidIdentifierFormat) {
     Lexer lexer("fn 1");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
     EXPECT_EQ(tokens[2].tag, Token::TypeTag::ERROR);
     EXPECT_EQ(tokens[2].type.errorToken, ErrorToken::IDENTIFIER_INVALID_FORMAT);
     EXPECT_EQ(tokens[2].size, 1);
@@ -1219,7 +1238,7 @@ TEST(LexerTest, InvalidIdentifierFormat) {
 
 TEST(LexerTest, ReservedKeyword) {
     Lexer lexer("fn var");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
     EXPECT_EQ(tokens[2].tag, Token::TypeTag::ERROR);
     EXPECT_EQ(tokens[2].type.errorToken, ErrorToken::IDENTIFIER_RESERVED_KEYWORD);
     EXPECT_EQ(tokens[2].size, 3);
@@ -1230,7 +1249,7 @@ TEST(LexerTest, ReservedKeyword) {
 
 TEST(LexerTest, IdentifierAlreadyExists) {
     Lexer lexer("fn name; fn name");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
     EXPECT_EQ(tokens[5].tag, Token::TypeTag::ERROR);
     EXPECT_EQ(tokens[5].type.errorToken, ErrorToken::IDENTIFIER_ALREADY_EXISTS);
     EXPECT_EQ(tokens[5].size, 4);
@@ -1241,7 +1260,7 @@ TEST(LexerTest, IdentifierAlreadyExists) {
 
 TEST(LexerTest, InvalidIdentifier) {
     Lexer lexer("fn name; name2");
-    std::vector<Token> tokens = lexer.lex(false);
+    std::vector<Token> tokens = lexer.tokenize(false);
     EXPECT_EQ(tokens[4].tag, Token::TypeTag::ERROR);
     EXPECT_EQ(tokens[4].type.errorToken, ErrorToken::IDENTIFIER_NOT_FOUND);
     EXPECT_EQ(tokens[4].size, 5);
