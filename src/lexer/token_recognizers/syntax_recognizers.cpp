@@ -77,7 +77,8 @@ void recognizeCloseBrace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 
 void recognizeInlineComment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("//")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::INLINE_COMMENT, 2, "//", "SyntaxToken::INLINE_COMMENT", "Inline Comment");
+    tokenPtr =
+        std::make_unique<Token>(SyntaxToken::INLINE_COMMENT, 2, "//", "SyntaxToken::INLINE_COMMENT", "Inline Comment");
   }
 }
 

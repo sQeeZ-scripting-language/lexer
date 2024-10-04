@@ -121,7 +121,7 @@ void Lexer::extractCommentLiteral(std::unique_ptr<Token>& tokenPtr) {
   }
   std::string literal(charList.begin(), charList.end());
   tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, static_cast<int>(charList.size()), literal,
-                                    "DataToken::COMMENT_LITERAL", "Comment Literal");
+                                     "DataToken::COMMENT_LITERAL", "Comment Literal");
 }
 
 void Lexer::extractStringLiteral(std::unique_ptr<Token>& tokenPtr) {
