@@ -47,7 +47,7 @@ int main(int argc, char* argv[]) {
   }
 
   Lexer lexer(code);
-  lexer.lex(devMode);
+  lexer.tokenize(devMode);
 
   return 0;
 }

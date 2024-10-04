@@ -15,7 +15,7 @@
 class Lexer {
 public:
   Lexer(const std::string& code);
-  std::vector<Token> lex(bool devMode);
+  std::vector<Token> tokenize(bool devMode);
   void lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, std::unique_ptr<Token>& tokenPtr);
   void getNextToken(std::unique_ptr<Token>& tokenPtr);
   void extractCommentLiteral(std::unique_ptr<Token>& tokenPtr);

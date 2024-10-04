@@ -32,7 +32,7 @@ void Lexer::log(Token token, bool devMode) {
   }
 }
 
-std::vector<Token> Lexer::lex(bool devMode) {
+std::vector<Token> Lexer::tokenize(bool devMode) {
   DataRecognizer dataRecognizer;
   Token previousToken = {BasicToken::INIT, 0, "\0", "BasicToken::INIT", "Initialize Lexer"};
   tokens.push_back(previousToken);

@@ -17,7 +17,7 @@ Napi::String LexerNode::pingInstance(const Napi::CallbackInfo &args) {
   return Napi::String::New(this->_env, "Node instance of the sQeeZ-Lexer is working!");
 }
 
-Napi::Array LexerNode::lex(const Napi::CallbackInfo &args) {
+Napi::Array LexerNode::tokenize(const Napi::CallbackInfo &args) {
   if (args.Length() < 1 || !args[0].IsString()) {
     Napi::TypeError::New(this->_env, "Code expected!").ThrowAsJavaScriptException();
   }
@@ -28,14 +28,14 @@ Napi::Array LexerNode::lex(const Napi::CallbackInfo &args) {
     devMode = args[1].As<Napi::Boolean>().Value();
   }
   Lexer lexer(code);
-  return vectorToJSArray(env, lexer.lex(devMode));
+  return vectorToJSArray(env, lexer.tokenize(devMode));
 }
 
 Napi::Function LexerNode::GetClass(Napi::Env env) {
   return DefineClass(
       env, "LexerNode",
       {LexerNode::InstanceMethod("pingInstance", reinterpret_cast<InstanceMethodCallback>(&LexerNode::pingInstance)),
-       LexerNode::InstanceMethod("lex", reinterpret_cast<InstanceMethodCallback>(&LexerNode::lex))});
+       LexerNode::InstanceMethod("tokenize", reinterpret_cast<InstanceMethodCallback>(&LexerNode::tokenize))});
 }
 
 Napi::String pingLexer(const Napi::CallbackInfo &args) {
@@ -54,7 +54,7 @@ Napi::String info(const Napi::CallbackInfo &args) {
 
     - Instance Methods:
       1. ping: Pings the lexer instance.
-      2. lex: Processes and lexes a provided code snippet.
+      2. tokenize: Processes and tokenizes a provided code snippet.
     )";
   return Napi::String::New(env, info);
 }
