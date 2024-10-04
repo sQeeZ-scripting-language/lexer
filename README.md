@@ -336,6 +336,7 @@ This enum class categorizes identifiers and values used in data-related operatio
 | `USE_FUNCTION_IDENTIFIER` | Size of the Function Identifier | The Function Identifier | Refers to a previously defined Function |
 | `USE_VARIABLE_IDENTIFIER` | Size of the Variable Identifier | The Variable Identifier | Refers to a previously defined Variable |
 | `USE_CONSTANT_IDENTIFIER` | Size of the Constant Identifier | The Constant Identifier | Refers to a previously defined Constant |
+| `COMMENT_LITERAL` | Length of the Comment Literal | The Comment Literal | Represents a Comment Literal |
 | `STRING_LITERAL` | Length of the String Literal | The String Literal | Represents a String Literal |
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |
