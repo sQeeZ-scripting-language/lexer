@@ -280,7 +280,7 @@ This enum class categorizes the reserved keywords used in the sQeeZ language. Th
 | `OF` | 2 | of | Of keyword |
 
 ## Operator Tokens
-This enum class categorizes various operators used in the sQeeZ language for mathematical operations and assignments. These tokens represent both basic arithmetic operations and their compound assignment counterparts, along with special operators like increment, decrement, floor division and potentation.
+This enum class categorizes various operators used in the sQeeZ language for mathematical operations and assignments. These tokens represent both basic arithmetic operations and their compound assignment counterparts, along with special operators like increment, decrement and potentation.
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
@@ -298,7 +298,6 @@ This enum class categorizes various operators used in the sQeeZ language for mat
 | `INCREMENT` | 2 | ++ | Increment operator (Increases value by 1) |
 | `DECREMENT` | 2 | -- | Decrement operator (Decreases value by 1) |
 | `POTENTIATION` | 2 | ** | Potentiation operator (Exponentiation) |
-| `FLOOR_DIVISION` | 2| // | Floor Division operator (Division with Rounding Down) |
 
 ## Logical Tokens
 This enum class categorizes logical operators used in conditional expressions within the sQeeZ language. These tokens facilitate the creation of complex logical conditions by providing various operators for equality checks, comparisons, and logical operations.

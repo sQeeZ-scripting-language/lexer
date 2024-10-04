@@ -15,8 +15,7 @@ enum class OperatorToken {
   MODULUS_ASSIGNMENT,
   INCREMENT,
   DECREMENT,
-  POTENTIATION,
-  FLOOR_DIVISION
+  POTENTIATION
 };
 
 #endif

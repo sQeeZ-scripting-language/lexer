@@ -573,19 +573,6 @@ TEST(LexerTest, IdentifyPotentiation) {
     EXPECT_EQ(tokenPtr->desc, "Potentiation");
 }
 
-TEST(LexerTest, IdentifyFloorDivision) {
-    Lexer lexer("//");
-    std::unique_ptr<Token> tokenPtr;
-    lexer.getNextToken(tokenPtr);
-
-    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::FLOOR_DIVISION);
-    EXPECT_EQ(tokenPtr->size, 2);
-    EXPECT_EQ(tokenPtr->value, "//");
-    EXPECT_EQ(tokenPtr->plainText, "OperatorToken::FLOOR_DIVISION");
-    EXPECT_EQ(tokenPtr->desc, "Floor Division");
-}
-
 /*
  * LOGICAL OPERATORS
  */
