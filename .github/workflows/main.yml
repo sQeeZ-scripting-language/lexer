@@ -145,11 +145,11 @@ jobs:
 
       - name: Create release artifact
         run: |
-          mkdir -p release
-          zip -r release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-ubuntu
-          zip -r release/sQeeZ-Lexer-macos-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-macos
-        
-
+          mkdir -p release/include/lexer
+          cp -r include/lexer/* release/include/lexer/
+          zip -r release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-ubuntu release/include
+          zip -r release/sQeeZ-Lexer-macos-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-macos release/include
+          
       - name: Create or Update Tag
         run: |
           TAG="v${{ steps.determine_version.outputs.VERSION }}"
