@@ -145,6 +145,7 @@ jobs:
 
       - name: Create release artifact
         run: |
+          mkdir -p release
           mkdir -p lexer
           cp -r include/lexer/* lexer/
           zip -r release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-ubuntu lexer
