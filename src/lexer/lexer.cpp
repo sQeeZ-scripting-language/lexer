@@ -13,6 +13,7 @@ std::unordered_map<std::string, bool> lexerState;
 
 Lexer::Lexer(const std::string& code) : code(code), pos(0) {
   lexerState["insideString"] = false;
+  lexerState["endOfString"] = false;
   registerTokenRecognizers();
 }
 
@@ -28,7 +29,7 @@ void Lexer::registerTokenRecognizers() {
 
 void Lexer::log(Token token, bool devMode) {
   if (devMode) {
-    std::cout << token.toString() << std::endl;
+    std::cout << token.toString(pos) << std::endl;
   }
 }
 
@@ -83,6 +84,10 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
   }
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
       !lexerState["insideString"]) {
+    if (lexerState["endOfString"]) {
+      lexerState["endOfString"] = false;
+      return;
+    }
     lexerState["insideString"] = true;
     extractStringLiteral(tokenPtr);
     return;
@@ -90,6 +95,7 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
   if (previousToken.tag == Token::TypeTag::DATA && previousToken.type.dataToken == DataToken::STRING_LITERAL &&
       lexerState["insideString"]) {
     lexerState["insideString"] = false;
+    lexerState["endOfString"] = true;
     tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, "\"", "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
     return;
   }

@@ -120,7 +120,7 @@ struct Token {
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
 
-  std::string toString() const;
+  std::string toString(int pos) const;
   std::string getTagString() const;
   std::string getTypeString() const;
 };

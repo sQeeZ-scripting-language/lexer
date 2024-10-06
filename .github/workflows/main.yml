@@ -96,6 +96,7 @@ jobs:
           build/*.dylib
           build/*.exe
           build/Release/*.node
+          build/sQeeZ-Lexer-Exe
 
   release:
     if: github.event_name == 'push' || github.event_name == 'release'

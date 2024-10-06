@@ -1,10 +1,10 @@
 #include "lexer/tokens/token.hpp"
 
-std::string Token::toString() const {
+std::string Token::toString(int pos) const {
   std::ostringstream oss;
   oss << "###Token###"
       << ",\nTag: " << getTagString() << ",\nType: " << getTypeString() << ",\nSize: " << size << ",\nValue: \""
-      << value << "\",\nPlainText: \"" << plainText << "\",\nDesc: \"" << desc << "\n";
+      << value << "\",\nPlainText: \"" << plainText << "\",\nDesc: \"" << desc << ",\nPos: " << pos << "\n";
   return oss.str();
 }
 
