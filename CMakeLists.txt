@@ -23,6 +23,13 @@ else()
   add_definitions(-D_SQEEZ_LINUX)
 endif()
 
+# Print the compiler information
+message(STATUS "Operating System: ${CMAKE_SYSTEM_NAME}")
+message(STATUS "C Compiler: ${CMAKE_C_COMPILER}")
+message(STATUS "C Compiler Version: ${CMAKE_C_COMPILER_VERSION}")
+message(STATUS "C++ Compiler: ${CMAKE_CXX_COMPILER}")
+message(STATUS "C++ Compiler Version: ${CMAKE_CXX_COMPILER_VERSION}")
+
 # Include the header directory
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
