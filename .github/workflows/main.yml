@@ -131,6 +131,12 @@ jobs:
           name: build-output-macos-latest
           path: ./build-output-macos
 
+      - name: Download build artifacts (Windows)
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output-windows-latest
+          path: ./build-output-windows
+
       - name: Get the latest tag or fallback to 0.0.1
         id: get_version
         run: |
@@ -163,6 +169,7 @@ jobs:
           cp -r include/lexer/* lexer/
           zip -r release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-ubuntu lexer
           zip -r release/sQeeZ-Lexer-macos-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-macos lexer
+          zip -r release/sQeeZ-Lexer-windows-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-windows lexer
           
       - name: Create or Update Tag
         run: |
@@ -178,3 +185,4 @@ jobs:
           artifacts: |
             release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip,
             release/sQeeZ-Lexer-macos-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip,
+            release/sQeeZ-Lexer-windows-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip
