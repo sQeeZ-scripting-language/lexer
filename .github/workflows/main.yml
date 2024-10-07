@@ -32,7 +32,9 @@ jobs:
 
     - name: Install dependencies (Windows)
       if: matrix.os == 'windows-latest'
-      run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+      run: |
+        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' -y
+        choco install mingw -y
 
     - name: Install Node.js dependencies
       shell: bash
@@ -81,7 +83,7 @@ jobs:
 
     - name: Build (Windows)
       if: matrix.os == 'windows-latest'
-      shell: bash
+      shell: cmd
       run: |
         rmdir /s /q build
         mkdir build
