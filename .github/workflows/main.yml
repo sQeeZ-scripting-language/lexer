@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest,macos-latest]
+        os: [ubuntu-latest,macos-latest, 'windows-latest']
 
     steps:
     - name: Checkout repository
@@ -32,7 +32,9 @@ jobs:
 
     - name: Install dependencies (Windows)
       if: matrix.os == 'windows-latest'
-      run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System'
+      run: |
+        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' -y
+        choco install mingw -y
 
     - name: Install Node.js dependencies
       shell: bash
@@ -67,14 +69,26 @@ jobs:
         fi
 
     - name: Build Node
+      if: matrix.os != 'windows-latest'
       shell: bash
       run: npx cmake-js compile --CDNODE=true
 
     - name: Build
+      if: matrix.os != 'windows-latest'
       shell: bash
       run: |
         cd build
         cmake ..
+        cmake --build .
+
+    - name: Build (Windows)
+      if: matrix.os == 'windows-latest'
+      shell: cmd
+      run: |
+        rmdir /s /q build
+        mkdir build
+        cd build
+        cmake -G "MinGW Makefiles" ..
         cmake --build .
 
     - name: Run tests
@@ -119,6 +133,12 @@ jobs:
           name: build-output-macos-latest
           path: ./build-output-macos
 
+      - name: Download build artifacts (Windows)
+        uses: actions/download-artifact@v3
+        with:
+          name: build-output-windows-latest
+          path: ./build-output-windows
+
       - name: Get the latest tag or fallback to 0.0.1
         id: get_version
         run: |
@@ -151,6 +171,7 @@ jobs:
           cp -r include/lexer/* lexer/
           zip -r release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-ubuntu lexer
           zip -r release/sQeeZ-Lexer-macos-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-macos lexer
+          zip -r release/sQeeZ-Lexer-windows-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip ./build-output-windows lexer
           
       - name: Create or Update Tag
         run: |
@@ -166,3 +187,4 @@ jobs:
           artifacts: |
             release/sQeeZ-Lexer-linux-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip,
             release/sQeeZ-Lexer-macos-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip,
+            release/sQeeZ-Lexer-windows-${{ github.run_number }}-${{ steps.determine_version.outputs.VERSION }}.zip
