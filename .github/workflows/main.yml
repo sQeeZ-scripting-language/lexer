@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest,macos-latest]
+        os: [ubuntu-latest,macos-latest, 'windows-latest']
 
     steps:
     - name: Checkout repository
@@ -67,14 +67,26 @@ jobs:
         fi
 
     - name: Build Node
+      if: matrix.os != 'windows-latest'
       shell: bash
       run: npx cmake-js compile --CDNODE=true
 
     - name: Build
+      if: matrix.os != 'windows-latest'
       shell: bash
       run: |
         cd build
         cmake ..
+        cmake --build .
+
+    - name: Build (Windows)
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        rmdir /s /q build
+        mkdir build
+        cd build
+        cmake -G "MinGW Makefiles" -DCMAKE_C_COMPILER=C:/ProgramData/mingw64/mingw64/bin/gcc.exe -DCMAKE_CXX_COMPILER=C:/ProgramData/mingw64/mingw64/bin/g++.exe ..
         cmake --build .
 
     - name: Run tests
