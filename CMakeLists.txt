@@ -2,12 +2,17 @@
 cmake_minimum_required(VERSION 3.16)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED True)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Set the project name
 project(sQeeZ-Lexer)
 
 # OS specific configurations
 if(MSVC)
+  message(FATAL_ERROR "MSVC is not supported")
+elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
   add_definitions(-D_SQEEZ_WIN)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 elseif(APPLE)
