@@ -4,26 +4,29 @@
 
 #include "lexer/lexer.hpp"
 
-void DataRecognizer::recognizeIdentifier(std::string identifier, std::unique_ptr<Token>& tokenPtr) {
-  if (isValidIdentifier(identifier)) {
-    tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(identifier.length()), identifier,
-                                       "DataToken::IDENTIFIER", "Identifier");
+void DataRecognizer::getNextToken(std::string nextToken, std::unique_ptr<Token>& tokenPtr) {
+  if (isInteger(nextToken)) {
+    tokenPtr = std::make_unique<Token>(DataToken::INTEGER_LITERAL, static_cast<int>(nextToken.length()), nextToken, "DataToken::INTEGER_LITERAL", "Integer Literal");
+  } else if (isDouble(nextToken)) {
+    tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(nextToken.length()), nextToken, "DataToken::DOUBLE_LITERAL", "Double Literal");
+  } else if (isValidIdentifier(nextToken)) {
+    tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(nextToken.length()), nextToken, "DataToken::IDENTIFIER", "Identifier");
+  } else {
+    tokenPtr = std::make_unique<Token>(BasicToken::UNKNOWN, static_cast<int>(nextToken.length()), nextToken, "BasicToken::UNKNOWN", "Unknown Token");
   }
 }
 
-void DataRecognizer::recognizeNumericLiteral(std::string number, std::unique_ptr<Token>& tokenPtr) {
-  std::regex integerPattern(R"(^\d+$)");
-  std::regex doublePattern(R"(^\d*\.?\d+$)");
-  if (std::regex_match(number, integerPattern)) {
-    tokenPtr = std::make_unique<Token>(DataToken::INTEGER_LITERAL, static_cast<int>(number.length()), number,
-                                       "DataToken::INTEGER_LITERAL", "Integer Literal");
-  } else if (std::regex_match(number, doublePattern)) {
-    tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(number.length()), number,
-                                       "DataToken::DOUBLE_LITERAL", "Double Literal");
-  }
+bool DataRecognizer::isInteger(std::string value) {
+  std::regex pattern(R"(^\d+$)");
+  return std::regex_match(value, pattern);
 }
 
-bool DataRecognizer::isValidIdentifier(std::string identifier) {
-  std::regex regexPattern("^[a-zA-Z_][a-zA-Z0-9_]*$");
-  return std::regex_match(identifier, regexPattern);
+bool DataRecognizer::isDouble(std::string value) {
+  std::regex pattern(R"(^\d*\.?\d+$)");
+  return std::regex_match(value, pattern);
+}
+
+bool DataRecognizer::isValidIdentifier(std::string value) {
+  std::regex pattern("^[a-zA-Z_][a-zA-Z0-9_]*$");
+  return std::regex_match(value, pattern);
 }

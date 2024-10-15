@@ -12,11 +12,12 @@
 
 class DataRecognizer {
 public:
-  void recognizeIdentifier(std::string identifier, std::unique_ptr<Token>& tokenPtr);
-  void recognizeNumericLiteral(std::string number, std::unique_ptr<Token>& tokenPtr);
+  void getNextToken(std::string nextToken, std::unique_ptr<Token>& tokenPtr);
 
 private:
-  bool isValidIdentifier(std::string identifier);
+  bool isInteger(std::string value);
+  bool isDouble(std::string value);
+  bool isValidIdentifier(std::string value);
 };
 
 #endif

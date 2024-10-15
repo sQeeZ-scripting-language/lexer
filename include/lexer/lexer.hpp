@@ -20,7 +20,7 @@ public:
   void getNextToken(std::unique_ptr<Token>& tokenPtr);
   void extractCommentLiteral(std::unique_ptr<Token>& tokenPtr);
   void extractStringLiteral(std::unique_ptr<Token>& tokenPtr);
-  std::string extractToken();
+  std::string extractNextToken();
   bool checkKeyword(const std::string& keyword);
   void skip(size_t size);
   void skipWhitespace();

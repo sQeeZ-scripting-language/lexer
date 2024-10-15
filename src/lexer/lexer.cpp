@@ -38,19 +38,12 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
   do {
     skipWhitespace();
     std::unique_ptr<Token> tokenPtr;
-    if (isEOF()) tokenPtr =
-        std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
+    if (isEOF()) tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
     if (tokenPtr == nullptr) lexSpecialCases(previousToken, dataRecognizer, tokenPtr);
     if (tokenPtr == nullptr) getNextToken(tokenPtr);
-    if (tokenPtr == nullptr) dataRecognizer.recognizeNumericLiteral(extractToken(), tokenPtr);
-    if (tokenPtr == nullptr) dataRecognizer.recognizeIdentifier(extractToken(), tokenPtr);
-    if (tokenPtr != nullptr) {
-      tokens.push_back(std::move(*tokenPtr));
-      skip(tokenPtr->size);
-    } else {
-      tokens.push_back({BasicToken::UNKNOWN, 1, std::string(1, peek()), "BasicToken::UNKNOWN", "Unknown Token"});
-      advance();
-    }
+    if (tokenPtr == nullptr) dataRecognizer.getNextToken(extractNextToken(), tokenPtr);
+    tokens.push_back(std::move(*tokenPtr));
+    skip(tokenPtr->size);
     previousToken = tokens.back();
     log(previousToken, devMode);
   } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
@@ -127,7 +120,7 @@ void Lexer::extractStringLiteral(std::unique_ptr<Token>& tokenPtr) {
                                      "DataToken::STRING_LITERAL", "String Literal");
 }
 
-std::string Lexer::extractToken() {
+std::string Lexer::extractNextToken() {
   skipWhitespace();
   if (isEOF()) return "";
   size_t start = pos;
@@ -147,7 +140,9 @@ std::string Lexer::extractToken() {
       }
     }
   } else {
-    ++position;
+    while (position < code.size() && !std::isspace(code[position])) {
+      ++position;
+    }
   }
   return code.substr(start, position - start);
 }
