@@ -1,26 +1,22 @@
 #include "main.hpp"
 
 int main(int argc, char* argv[]) {
-  bool devMode = false;
+  bool dev = false;
+  bool output = false;
   std::string filename;
 
   if (argc < 2 || argc > 3) {
-    std::cerr << "Usage: " << argv[0] << " <filename>.sqz [--dev]" << std::endl;
+    std::cerr << "Usage: " << argv[0] << " <filename>.sqz [--help]" << std::endl;
     return 1;
   }
 
-  if (argc == 2) {
-    filename = argv[1];
-  } else if (argc == 3) {
-    if (std::string(argv[2]) == "--dev") {
-      devMode = true;
-      filename = argv[1];
-    } else if (std::string(argv[1]) == "--dev") {
-      devMode = true;
-      filename = argv[2];
-    } else {
-      std::cerr << "Error: Unrecognized argument: " << argv[2] << std::endl;
-      return 1;
+  filename = argv[1];
+
+  for (int i = 1; i < argc; ++i) {
+    if (std::strcmp(argv[i], "--dev") == 0) {
+      dev = true;
+    } else if (std::strcmp(argv[i], "--output") == 0) {
+      output = true;
     }
   }
 
@@ -42,12 +38,21 @@ int main(int argc, char* argv[]) {
     code += line + "\n";
   }
 
-  if (devMode) {
-    std::cout << "Developer mode activated!\n" << std::endl;
-  }
-
   Lexer lexer(code);
-  lexer.tokenize(devMode);
+  std::vector<Token> tokens = lexer.tokenize(dev);
+
+  if (output) {
+    std::ofstream outputFile("output.log");
+    if (outputFile.is_open()) {
+        for (const auto& token : tokens) {
+            outputFile << token.toString(0) << std::endl;
+        }
+        outputFile.close();
+        std::cout << "Tokens exported to output.log" << std::endl;
+    } else {
+        std::cerr << "Unable to open file: output.log" << std::endl;
+    }
+  }
 
   return 0;
 }
