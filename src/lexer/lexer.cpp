@@ -38,7 +38,9 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
   do {
     skipWhitespace();
     std::unique_ptr<Token> tokenPtr;
-    if (isEOF()) tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
+    if (isEOF())
+      tokenPtr =
+          std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
     if (tokenPtr == nullptr) lexSpecialCases(previousToken, dataRecognizer, tokenPtr);
     if (tokenPtr == nullptr) getNextToken(tokenPtr);
     if (tokenPtr == nullptr) dataRecognizer.getNextToken(extractNextToken(), tokenPtr);
