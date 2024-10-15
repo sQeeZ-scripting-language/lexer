@@ -6,7 +6,6 @@
 
 #include "array_tokens.hpp"
 #include "data_tokens.hpp"
-#include "error_tokens.hpp"
 #include "keyword_tokens.hpp"
 #include "log_tokens.hpp"
 #include "logical_tokens.hpp"
@@ -23,7 +22,6 @@ struct Token {
     ArrayToken arrayToken;
     BasicToken basicToken;
     DataToken dataToken;
-    ErrorToken errorToken;
     KeywordToken keywordToken;
     LogToken logToken;
     LogicalToken logicalToken;
@@ -35,7 +33,6 @@ struct Token {
     TokenType(ArrayToken t) : arrayToken(t) {}
     TokenType(BasicToken t) : basicToken(t) {}
     TokenType(DataToken t) : dataToken(t) {}
-    TokenType(ErrorToken t) : errorToken(t) {}
     TokenType(KeywordToken t) : keywordToken(t) {}
     TokenType(LogToken t) : logToken(t) {}
     TokenType(LogicalToken t) : logicalToken(t) {}
@@ -66,13 +63,6 @@ struct Token {
   Token(DataToken d, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::DATA),
         type(d),
-        size(size),
-        value(std::move(value)),
-        plainText(std::move(plainText)),
-        desc(std::move(desc)) {}
-  Token(ErrorToken e, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
-      : tag(TypeTag::ERROR),
-        type(e),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),

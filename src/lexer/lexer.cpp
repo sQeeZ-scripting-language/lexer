@@ -1,10 +1,8 @@
 #include "lexer/lexer.hpp"
 
-#include "lexer/token_recognizers/array_recognizers.hpp"
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 #include "lexer/token_recognizers/log_recognizers.hpp"
 #include "lexer/token_recognizers/logical_recognizers.hpp"
-#include "lexer/token_recognizers/object_recognizers.hpp"
 #include "lexer/token_recognizers/operator_recognizers.hpp"
 #include "lexer/token_recognizers/syntax_recognizers.hpp"
 #include "lexer/tokens/token.hpp"
@@ -22,8 +20,6 @@ void Lexer::registerTokenRecognizers() {
   registerKeywordRecognizers(tokenRecognizers);
   registerOperatorRecognizers(tokenRecognizers);
   registerLogicalRecognizers(tokenRecognizers);
-  registerArrayRecognizers(tokenRecognizers);
-  registerObjectRecognizers(tokenRecognizers);
   registerLogRecognizers(tokenRecognizers);
 }
 
@@ -42,9 +38,8 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
   do {
     skipWhitespace();
     std::unique_ptr<Token> tokenPtr;
-    if (isEOF())
-      tokenPtr =
-          std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
+    if (isEOF()) tokenPtr =
+        std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
     if (tokenPtr == nullptr) lexSpecialCases(previousToken, dataRecognizer, tokenPtr);
     if (tokenPtr == nullptr) getNextToken(tokenPtr);
     if (tokenPtr == nullptr) dataRecognizer.recognizeNumericLiteral(extractToken(), tokenPtr);
@@ -63,21 +58,6 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
 }
 
 void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, std::unique_ptr<Token>& tokenPtr) {
-  if (previousToken.tag == Token::TypeTag::KEYWORD) {
-    switch (previousToken.type.keywordToken) {
-      case KeywordToken::FUNCTION:
-        dataRecognizer.storeIdentifier(extractToken(), 'F', tokenPtr);
-        return;
-      case KeywordToken::VARIABLE:
-        dataRecognizer.storeIdentifier(extractToken(), 'V', tokenPtr);
-        return;
-      case KeywordToken::CONSTANT:
-        dataRecognizer.storeIdentifier(extractToken(), 'C', tokenPtr);
-        return;
-      default:
-        break;
-    }
-  }
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::INLINE_COMMENT) {
     extractCommentLiteral(tokenPtr);
     return;
