@@ -17,9 +17,6 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
   - [Logical Tokens](#logical-tokens)
   - [Log Tokens](#log-tokens)
   - [Data Tokens](#data-tokens)
-  - [Array Tokens](#array-tokens)
-  - [Object Tokens](#object-tokens)
-  - [Error Tokens](#error-tokens)
 
 # How to Use
 > **Note:**
@@ -120,29 +117,23 @@ The lexer identifies several token types that reflect the compact nature of the 
 ## Token Structure
 ```cpp
 struct Token {
-  enum class TypeTag { ARRAY, BASIC, DATA, ERROR, KEYWORD, LOG, LOGICAL, OBJECT, OPERATOR, SYNTAX } tag;
+  enum class TypeTag { BASIC, DATA, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;
 
   union TokenType {
-    ArrayToken arrayToken;
     BasicToken basicToken;
     DataToken dataToken;
-    ErrorToken errorToken;
     KeywordToken keywordToken;
     LogToken logToken;
     LogicalToken logicalToken;
-    ObjectToken objectToken;
     OperatorToken operatorToken;
     SyntaxToken syntaxToken;
 
     TokenType() {}
-    TokenType(ArrayToken t): arrayToken(t) {}
     TokenType(BasicToken t) : basicToken(t) {}
     TokenType(DataToken t) : dataToken(t) {}
-    TokenType(ErrorToken t) : errorToken(t) {}
     TokenType(KeywordToken t) : keywordToken(t) {}
     TokenType(LogToken t) : logToken(t) {}
     TokenType(LogicalToken t) : logicalToken(t) {}
-    TokenType(ObjectToken t) : objectToken(t) {}
     TokenType(OperatorToken t) : operatorToken(t) {}
     TokenType(SyntaxToken t) : syntaxToken(t) {}
   } type;
@@ -152,72 +143,51 @@ struct Token {
   std::string plainText;
   std::string desc;
 
-  Token(ArrayToken a, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
-      : tag(TypeTag::ARRAY),
-        type(a),
-        size(size),
-        value(std::move(value)),
-        plainText(std::move(plainText)),
-        desc(std::move(desc)) {}
-  Token(BasicToken b, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(BasicToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::BASIC),
-        type(b),
+        type(token),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(DataToken d, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(DataToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::DATA),
-        type(d),
+        type(token),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(ErrorToken e, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
-      : tag(TypeTag::ERROR),
-        type(e),
-        size(size),
-        value(std::move(value)),
-        plainText(std::move(plainText)),
-        desc(std::move(desc)) {}
-  Token(KeywordToken k, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(KeywordToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::KEYWORD),
-        type(k),
+        type(token),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(LogToken l, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(LogToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::LOG),
-        type(l),
+        type(token),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(LogicalToken l, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(LogicalToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::LOGICAL),
-        type(l),
+        type(token),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(ObjectToken o, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
-      : tag(TypeTag::OBJECT),
-        type(o),
-        size(size),
-        value(std::move(value)),
-        plainText(std::move(plainText)),
-        desc(std::move(desc)) {}
-  Token(OperatorToken o, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(OperatorToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::OPERATOR),
-        type(o),
+        type(token),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(SyntaxToken s, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(SyntaxToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
       : tag(TypeTag::SYNTAX),
-        type(s),
+        type(token),
         size(size),
         value(std::move(value)),
         plainText(std::move(plainText)),
@@ -326,62 +296,14 @@ This enum class categorizes various types of log tokens used in the sQeeZ langua
 | `ERROR` | 5 | error | Error Log Output indicating a Critical Issue that needs attention |
 
 ## Data Tokens
-This enum class categorizes identifiers and values used in data-related operations, allowing the lexer to handle both definitions and usages of variables, constants, and functions, as well as different literal types.
+This enum class categorizes various types of data tokens used in the sQeeZ language. These tokens represent different literal types and identifiers, enabling the recognition and handling of various data structures within the language.
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
-| `SET_FUNCTION_IDENTIFIER` | Size of the Function Identifier | The Function Identifier | Defines a Function Identifier |
-| `SET_VARIABLE_IDENTIFIER` | Size of the Variable Identifier | The Variable Identifier | Defines a Variable Identifier |
-| `SET_CONSTANT_IDENTIFIER` | Size of the Constant Identifier | The Constant Identifier | Defines a Constant Identifier |
-| `USE_FUNCTION_IDENTIFIER` | Size of the Function Identifier | The Function Identifier | Refers to a previously defined Function |
-| `USE_VARIABLE_IDENTIFIER` | Size of the Variable Identifier | The Variable Identifier | Refers to a previously defined Variable |
-| `USE_CONSTANT_IDENTIFIER` | Size of the Constant Identifier | The Constant Identifier | Refers to a previously defined Constant |
 | `COMMENT_LITERAL` | Length of the Comment Literal | The Comment Literal | Represents a Comment Literal |
 | `STRING_LITERAL` | Length of the String Literal | The String Literal | Represents a String Literal |
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |
-
-## Array Tokens
-This enum class categorizes array manipulation methods used in the sQeeZ language. These tokens allow for various operations on arrays, such as adding, removing, and modifying elements, as well as performing advanced operations like slicing, splicing, and concatenation.
-
-| **Token** | **Size** | **Value** | **Description** |
-| --- | --- | --- | --- |
-| `LENGTH` | 6 | length | Get the length of an array |
-| `PUSH` | 4 | push | Push an item to the end of an array |
-| `POP` | 3 | pop | Pop an item from the end of an array |
-| `SHIFT` | 5 | shift | Shift an item from the beginning of an array |
-| `UNSHIFT` | 7 | unshift | Unshift an item to the beginning of an array |
-| `SPLICE` | 6 | splice | Splice items into an array |
-| `SLICE` | 5 | slice | Slice items from an array |
-| `CONCAT` | 6 | concat | Concatenate arrays |
-| `JOIN` | 4 | join | Join array elements into a string |
-| `REVERSE` | 7 | reverse | Reverse array elements |
-| `SORT` | 4 | sort | Sort array elements |
-| `MAP` | 3 | map | Map array elements |
-| `FILTER` | 6 | filter | Filter array elements |
-| `REDUCE` | 6 | reduce | Reduce array elements |
-
-## Object Tokens
-This enum class categorizes object manipulation methods used in the sQeeZ language. These tokens enable operations on objects, such as retrieving key-value pairs, accessing keys and values, and checking for property existence. Additionally, they provide functionality for deleting properties and determining the type of an object.
-
-| **Token** | **Size** | **Value** | **Description** |
-| --- | --- | --- | --- |
-| `ENTRIES` | 7 | entries | Get key-value pairs of an object |
-| `KEYS` | 4 | keys | Get keys of an object |
-| `VALUES` | 6 | values | Get values of an object |
-| `HAS_OWN_PROPERTY` | 14 | hasOwnProperty | Check if an object has a property |
-| `DELETE` | 6 | delete | Delete a property from an object |
-| `TYPE_OF` | 6 | typeof | Get the type of an object |
-
-## Error Tokens
-This enum class categorizes various error conditions encountered by the lexer during tokenization. These tokens help diagnose problems such as undefined identifiers, reserved keyword misuse, and format issues. Each error token pinpoints the exact nature of the problem, facilitating easier debugging and code correction.
-
-| **Token** | **Size** | **Value** | **Description** |
-| --- | --- | --- | --- |
-| `IDENTIFIER_NOT_FOUND` | Size of the Identifier | The Identifier | Raised when an Identifier is used before Definition |
-| `IDENTIFIER_RESERVED_KEYWORD` | Size of the Identifier | The Identifier | Raised when an Identifier is a Reserved Keyword|
-| `IDENTIFIER_ALREADY_EXISTS` | Size of the Identifier | The Identifier | Raised when attempting to define an Identifier that already exists |
-| `IDENTIFIER_INVALID_FORMAT` | Size of the Identifier | The Identifier | Raised when an Identifier does not meet the required Naming Conventions |
-| `IDENTIFIER_INVALID_TYPE` | Size of the Identifier | The Identifier | Raised when an Identifier is used with an unexpected Type |
+| `IDENTIFIER` | Size of the Identifier | The Identifier | Marks an Identifier |
 
 [Back to Top](#sqeez-lexer)
