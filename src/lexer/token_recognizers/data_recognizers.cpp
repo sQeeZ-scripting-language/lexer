@@ -4,6 +4,40 @@
 
 #include "lexer/lexer.hpp"
 
+void DataRecognizer::extractStringLiteral(int pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
+  std::vector<char> charList;
+  bool isClosed = false;
+  int position = pos;
+  while (position < code.size()) {
+    if (code[position] == '"' && (charList.empty() || charList.back() != '\\')) {
+      isClosed = true;
+      break;
+    }
+    charList.push_back(code[position]);
+    ++position;
+  }
+  std::string literal(charList.begin(), charList.end());
+  tokenPtr = std::make_unique<Token>(DataToken::STRING_LITERAL, static_cast<int>(charList.size()), literal,
+                                     "DataToken::STRING_LITERAL", "String Literal");
+}
+
+void DataRecognizer::extractCommentLiteral(int pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
+  std::vector<char> charList;
+  bool isClosed = false;
+  int position = pos;
+  while (position < code.size()) {
+    if (code[position] == '\n') {
+      isClosed = true;
+      break;
+    }
+    charList.push_back(code[position]);
+    ++position;
+  }
+  std::string literal(charList.begin(), charList.end());
+  tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, static_cast<int>(charList.size()), literal,
+                                     "DataToken::COMMENT_LITERAL", "Comment Literal");
+}
+
 void DataRecognizer::getNextToken(std::string nextToken, std::unique_ptr<Token>& tokenPtr) {
   if (isInteger(nextToken)) {
     tokenPtr = std::make_unique<Token>(DataToken::INTEGER_LITERAL, static_cast<int>(nextToken.length()), nextToken, "DataToken::INTEGER_LITERAL", "Integer Literal");

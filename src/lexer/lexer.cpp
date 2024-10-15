@@ -52,7 +52,7 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
 
 void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, std::unique_ptr<Token>& tokenPtr) {
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::INLINE_COMMENT) {
-    extractCommentLiteral(tokenPtr);
+    dataRecognizer.extractCommentLiteral(pos, code, tokenPtr);
     return;
   }
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
@@ -62,7 +62,7 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
       return;
     }
     lexerState["insideString"] = true;
-    extractStringLiteral(tokenPtr);
+    dataRecognizer.extractStringLiteral(pos, code, tokenPtr);
     return;
   }
   if (previousToken.tag == Token::TypeTag::DATA && previousToken.type.dataToken == DataToken::STRING_LITERAL &&
@@ -84,40 +84,6 @@ void Lexer::getNextToken(std::unique_ptr<Token>& tokenPtr) {
     recognizer.second(*this, tokenPtr);
     if (tokenPtr) return;
   }
-}
-
-void Lexer::extractCommentLiteral(std::unique_ptr<Token>& tokenPtr) {
-  std::vector<char> charList;
-  bool isClosed = false;
-  int position = pos;
-  while (position < code.size()) {
-    if (code[position] == '\n') {
-      isClosed = true;
-      break;
-    }
-    charList.push_back(code[position]);
-    ++position;
-  }
-  std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, static_cast<int>(charList.size()), literal,
-                                     "DataToken::COMMENT_LITERAL", "Comment Literal");
-}
-
-void Lexer::extractStringLiteral(std::unique_ptr<Token>& tokenPtr) {
-  std::vector<char> charList;
-  bool isClosed = false;
-  int position = pos;
-  while (position < code.size()) {
-    if (code[position] == '"' && (charList.empty() || charList.back() != '\\')) {
-      isClosed = true;
-      break;
-    }
-    charList.push_back(code[position]);
-    ++position;
-  }
-  std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::STRING_LITERAL, static_cast<int>(charList.size()), literal,
-                                     "DataToken::STRING_LITERAL", "String Literal");
 }
 
 std::string Lexer::extractNextToken() {
