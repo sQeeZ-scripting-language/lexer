@@ -6,20 +6,26 @@ int main(int argc, char* argv[]) {
   std::string filename;
 
   if (argc < 2 || argc > 3) {
-    std::cerr << "Usage: " << argv[0] << " <filename>.sqz [--help]" << std::endl;
+    std::cerr << "Run \"" << argv[0] << " <filename>.sqz --help\" for more information" << std::endl;
     return 1;
   }
 
-  filename = argv[1];
-
   for (int i = 1; i < argc; ++i) {
-    if (std::strcmp(argv[i], "--dev") == 0) {
+    if (std::strcmp(argv[i], "--help") == 0) {
+      std::cout << "Usage: " << argv[0] << " <filename>.sqz [--flag]" << std::endl;
+      std::cout << "Flags:" << std::endl;
+      std::cout << "  --help: Display this information" << std::endl;
+      std::cout << "  --dev: Enable developer mode" << std::endl;
+      std::cout << "  --output: Export tokens to output.log" << std::endl;
+      return 0;
+    } else if (std::strcmp(argv[i], "--dev") == 0) {
       dev = true;
     } else if (std::strcmp(argv[i], "--output") == 0) {
       output = true;
     }
   }
 
+  filename = argv[1];
   std::size_t index = filename.find_last_of(".");
   if (index == std::string::npos || filename.substr(index + 1) != "sqz") {
     std::cerr << "Error: File must have a .sqz extension" << std::endl;
