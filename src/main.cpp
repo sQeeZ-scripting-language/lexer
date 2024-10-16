@@ -45,7 +45,7 @@ int main(int argc, char* argv[]) {
     std::ofstream outputFile("output.log");
     if (outputFile.is_open()) {
       for (const auto& token : tokens) {
-        outputFile << token.toString(0) << std::endl;
+        outputFile << token.toString() << std::endl;
       }
       outputFile.close();
       std::cout << "Tokens exported to output.log" << std::endl;

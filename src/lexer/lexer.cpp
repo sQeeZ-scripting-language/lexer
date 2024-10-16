@@ -25,7 +25,7 @@ void Lexer::registerTokenRecognizers() {
 
 void Lexer::log(Token token, bool devMode) {
   if (devMode) {
-    std::cout << token.toString(pos) << std::endl;
+    std::cout << token.toString() << std::endl;
   }
 }
 
