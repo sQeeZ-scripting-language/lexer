@@ -12,16 +12,14 @@
 
 class DataRecognizer {
 public:
-  void storeIdentifier(std::string identifier, char type, std::unique_ptr<Token>& tokenPtr);
-  void recognizeIdentifier(std::string identifier, std::unique_ptr<Token>& tokenPtr);
-  void recognizeNumericLiteral(std::string number, std::unique_ptr<Token>& tokenPtr);
-
-  std::unordered_map<std::string, char> identifiers;
+  void extractStringLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr);
+  void extractCommentLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr);
+  void getNextToken(size_t pos, std::string nextToken, std::unique_ptr<Token>& tokenPtr);
 
 private:
-  bool isValidIdentifier(std::string identifier);
-  bool isReservedKeyword(std::string identifier);
-  char getType(std::string identifier);
+  bool isInteger(std::string value);
+  bool isDouble(std::string value);
+  bool isValidIdentifier(std::string value);
 };
 
 #endif

@@ -1,10 +1,8 @@
 #include "lexer/lexer.hpp"
 
-#include "lexer/token_recognizers/array_recognizers.hpp"
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 #include "lexer/token_recognizers/log_recognizers.hpp"
 #include "lexer/token_recognizers/logical_recognizers.hpp"
-#include "lexer/token_recognizers/object_recognizers.hpp"
 #include "lexer/token_recognizers/operator_recognizers.hpp"
 #include "lexer/token_recognizers/syntax_recognizers.hpp"
 #include "lexer/tokens/token.hpp"
@@ -22,20 +20,18 @@ void Lexer::registerTokenRecognizers() {
   registerKeywordRecognizers(tokenRecognizers);
   registerOperatorRecognizers(tokenRecognizers);
   registerLogicalRecognizers(tokenRecognizers);
-  registerArrayRecognizers(tokenRecognizers);
-  registerObjectRecognizers(tokenRecognizers);
   registerLogRecognizers(tokenRecognizers);
 }
 
 void Lexer::log(Token token, bool devMode) {
   if (devMode) {
-    std::cout << token.toString(pos) << std::endl;
+    std::cout << token.toString() << std::endl;
   }
 }
 
 std::vector<Token> Lexer::tokenize(bool devMode) {
   DataRecognizer dataRecognizer;
-  Token previousToken = {BasicToken::INIT, 0, "\0", "BasicToken::INIT", "Initialize Lexer"};
+  Token previousToken = {BasicToken::INIT, 0, static_cast<int>(pos), "\0", "BasicToken::INIT", "Initialize Lexer"};
   tokens.push_back(previousToken);
   log(previousToken, devMode);
 
@@ -43,19 +39,13 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
     skipWhitespace();
     std::unique_ptr<Token> tokenPtr;
     if (isEOF())
-      tokenPtr =
-          std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
+      tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, static_cast<int>(pos), "EOF",
+                                         "BasicToken::TOKEN_EOF", "The end of the file");
     if (tokenPtr == nullptr) lexSpecialCases(previousToken, dataRecognizer, tokenPtr);
     if (tokenPtr == nullptr) getNextToken(tokenPtr);
-    if (tokenPtr == nullptr) dataRecognizer.recognizeNumericLiteral(extractToken(), tokenPtr);
-    if (tokenPtr == nullptr) dataRecognizer.recognizeIdentifier(extractToken(), tokenPtr);
-    if (tokenPtr != nullptr) {
-      tokens.push_back(std::move(*tokenPtr));
-      skip(tokenPtr->size);
-    } else {
-      tokens.push_back({BasicToken::UNKNOWN, 1, std::string(1, peek()), "BasicToken::UNKNOWN", "Unknown Token"});
-      advance();
-    }
+    if (tokenPtr == nullptr) dataRecognizer.getNextToken(pos, extractNextToken(), tokenPtr);
+    tokens.push_back(std::move(*tokenPtr));
+    skip(tokenPtr->size);
     previousToken = tokens.back();
     log(previousToken, devMode);
   } while (!(previousToken.tag == Token::TypeTag::BASIC && previousToken.type.basicToken == BasicToken::TOKEN_EOF));
@@ -63,23 +53,8 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
 }
 
 void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer, std::unique_ptr<Token>& tokenPtr) {
-  if (previousToken.tag == Token::TypeTag::KEYWORD) {
-    switch (previousToken.type.keywordToken) {
-      case KeywordToken::FUNCTION:
-        dataRecognizer.storeIdentifier(extractToken(), 'F', tokenPtr);
-        return;
-      case KeywordToken::VARIABLE:
-        dataRecognizer.storeIdentifier(extractToken(), 'V', tokenPtr);
-        return;
-      case KeywordToken::CONSTANT:
-        dataRecognizer.storeIdentifier(extractToken(), 'C', tokenPtr);
-        return;
-      default:
-        break;
-    }
-  }
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::INLINE_COMMENT) {
-    extractCommentLiteral(tokenPtr);
+    dataRecognizer.extractCommentLiteral(pos, code, tokenPtr);
     return;
   }
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::DOUBLE_QUOTE &&
@@ -89,14 +64,15 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
       return;
     }
     lexerState["insideString"] = true;
-    extractStringLiteral(tokenPtr);
+    dataRecognizer.extractStringLiteral(pos, code, tokenPtr);
     return;
   }
   if (previousToken.tag == Token::TypeTag::DATA && previousToken.type.dataToken == DataToken::STRING_LITERAL &&
       lexerState["insideString"]) {
     lexerState["insideString"] = false;
     lexerState["endOfString"] = true;
-    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, "\"", "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, static_cast<int>(pos), "\"",
+                                       "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
     return;
   }
 }
@@ -104,7 +80,8 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
 void Lexer::getNextToken(std::unique_ptr<Token>& tokenPtr) {
   skipWhitespace();
   if (isEOF()) {
-    tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
+    tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, static_cast<int>(pos), "EOF", "BasicToken::TOKEN_EOF",
+                                       "The end of the file");
     return;
   }
   for (const auto& recognizer : tokenRecognizers) {
@@ -113,41 +90,7 @@ void Lexer::getNextToken(std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
-void Lexer::extractCommentLiteral(std::unique_ptr<Token>& tokenPtr) {
-  std::vector<char> charList;
-  bool isClosed = false;
-  int position = pos;
-  while (position < code.size()) {
-    if (code[position] == '\n') {
-      isClosed = true;
-      break;
-    }
-    charList.push_back(code[position]);
-    ++position;
-  }
-  std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, static_cast<int>(charList.size()), literal,
-                                     "DataToken::COMMENT_LITERAL", "Comment Literal");
-}
-
-void Lexer::extractStringLiteral(std::unique_ptr<Token>& tokenPtr) {
-  std::vector<char> charList;
-  bool isClosed = false;
-  int position = pos;
-  while (position < code.size()) {
-    if (code[position] == '"' && (charList.empty() || charList.back() != '\\')) {
-      isClosed = true;
-      break;
-    }
-    charList.push_back(code[position]);
-    ++position;
-  }
-  std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::STRING_LITERAL, static_cast<int>(charList.size()), literal,
-                                     "DataToken::STRING_LITERAL", "String Literal");
-}
-
-std::string Lexer::extractToken() {
+std::string Lexer::extractNextToken() {
   skipWhitespace();
   if (isEOF()) return "";
   size_t start = pos;
@@ -167,7 +110,9 @@ std::string Lexer::extractToken() {
       }
     }
   } else {
-    ++position;
+    while (position < code.size() && !std::isspace(code[position])) {
+      ++position;
+    }
   }
   return code.substr(start, position - start);
 }

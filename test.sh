@@ -1,2 +1,2 @@
 cd build
-./lexer_test
+ctest --output-on-failure
