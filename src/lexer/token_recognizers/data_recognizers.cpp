@@ -4,7 +4,7 @@
 
 #include "lexer/lexer.hpp"
 
-void DataRecognizer::extractStringLiteral(int pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
+void DataRecognizer::extractStringLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
   std::vector<char> charList;
   bool isClosed = false;
   int position = pos;
@@ -17,11 +17,11 @@ void DataRecognizer::extractStringLiteral(int pos, const std::string& code, std:
     ++position;
   }
   std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::STRING_LITERAL, static_cast<int>(charList.size()), literal,
-                                     "DataToken::STRING_LITERAL", "String Literal");
+  tokenPtr = std::make_unique<Token>(DataToken::STRING_LITERAL, static_cast<int>(charList.size()),
+                                     static_cast<int>(pos), literal, "DataToken::STRING_LITERAL", "String Literal");
 }
 
-void DataRecognizer::extractCommentLiteral(int pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
+void DataRecognizer::extractCommentLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
   std::vector<char> charList;
   bool isClosed = false;
   int position = pos;
@@ -34,23 +34,24 @@ void DataRecognizer::extractCommentLiteral(int pos, const std::string& code, std
     ++position;
   }
   std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, static_cast<int>(charList.size()), literal,
-                                     "DataToken::COMMENT_LITERAL", "Comment Literal");
+  tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, static_cast<int>(charList.size()),
+                                     static_cast<int>(pos), literal, "DataToken::COMMENT_LITERAL", "Comment Literal");
 }
 
-void DataRecognizer::getNextToken(std::string nextToken, std::unique_ptr<Token>& tokenPtr) {
+void DataRecognizer::getNextToken(size_t pos, std::string nextToken, std::unique_ptr<Token>& tokenPtr) {
   if (isInteger(nextToken)) {
-    tokenPtr = std::make_unique<Token>(DataToken::INTEGER_LITERAL, static_cast<int>(nextToken.length()), nextToken,
-                                       "DataToken::INTEGER_LITERAL", "Integer Literal");
+    tokenPtr =
+        std::make_unique<Token>(DataToken::INTEGER_LITERAL, static_cast<int>(nextToken.length()), static_cast<int>(pos),
+                                nextToken, "DataToken::INTEGER_LITERAL", "Integer Literal");
   } else if (isDouble(nextToken)) {
-    tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(nextToken.length()), nextToken,
-                                       "DataToken::DOUBLE_LITERAL", "Double Literal");
+    tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(nextToken.length()),
+                                       static_cast<int>(pos), nextToken, "DataToken::DOUBLE_LITERAL", "Double Literal");
   } else if (isValidIdentifier(nextToken)) {
-    tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(nextToken.length()), nextToken,
-                                       "DataToken::IDENTIFIER", "Identifier");
+    tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(nextToken.length()),
+                                       static_cast<int>(pos), nextToken, "DataToken::IDENTIFIER", "Identifier");
   } else {
-    tokenPtr = std::make_unique<Token>(BasicToken::UNKNOWN, static_cast<int>(nextToken.length()), nextToken,
-                                       "BasicToken::UNKNOWN", "Unknown Token");
+    tokenPtr = std::make_unique<Token>(BasicToken::UNKNOWN, static_cast<int>(nextToken.length()), static_cast<int>(pos),
+                                       nextToken, "BasicToken::UNKNOWN", "Unknown Token");
   }
 }
 

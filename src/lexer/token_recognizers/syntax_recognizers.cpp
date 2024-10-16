@@ -2,114 +2,120 @@
 
 void recognizeSemicolon(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword(";")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::SEMICOLON, 1, ";", "SyntaxToken::SEMICOLON", "Semicolon");
+    tokenPtr =
+        std::make_unique<Token>(SyntaxToken::SEMICOLON, 1, lexer.pos, ";", "SyntaxToken::SEMICOLON", "Semicolon");
   }
 }
 
 void recognizeComma(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword(",")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::COMMA, 1, ",", "SyntaxToken::COMMA", "Comma");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::COMMA, 1, lexer.pos, ",", "SyntaxToken::COMMA", "Comma");
   }
 }
 
 void recognizeDot(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword(".")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::DOT, 1, ".", "SyntaxToken::DOT", "Dot");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::DOT, 1, lexer.pos, ".", "SyntaxToken::DOT", "Dot");
   }
 }
 
 void recognizeColon(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword(":")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::COLON, 1, ":", "SyntaxToken::COLON", "Colon");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::COLON, 1, lexer.pos, ":", "SyntaxToken::COLON", "Colon");
   }
 }
 
 void recognizeSingleQuote(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("'")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::SINGLE_QUOTE, 1, "'", "SyntaxToken::SINGLE_QUOTE", "Single Quote");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::SINGLE_QUOTE, 1, lexer.pos, "'", "SyntaxToken::SINGLE_QUOTE",
+                                       "Single Quote");
   }
 }
 
 void recognizeDoubleQuote(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("\"")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, "\"", "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, lexer.pos, "\"", "SyntaxToken::DOUBLE_QUOTE",
+                                       "Double Quote");
   }
 }
 
 void recognizeOpenParenthesis(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("(")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::OPEN_PARENTHESIS, 1, "(", "SyntaxToken::OPEN_PARENTHESIS",
-                                       "Open Parenthesis");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::OPEN_PARENTHESIS, 1, lexer.pos, "(",
+                                       "SyntaxToken::OPEN_PARENTHESIS", "Open Parenthesis");
   }
 }
 
 void recognizeCloseParenthesis(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword(")")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::CLOSE_PARENTHESIS, 1, ")", "SyntaxToken::CLOSE_PARENTHESIS",
-                                       "Close Parenthesis");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::CLOSE_PARENTHESIS, 1, lexer.pos, ")",
+                                       "SyntaxToken::CLOSE_PARENTHESIS", "Close Parenthesis");
   }
 }
 
 void recognizeOpenBracket(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("[")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::OPEN_BRACKET, 1, "[", "SyntaxToken::OPEN_BRACKET", "Open Bracket");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::OPEN_BRACKET, 1, lexer.pos, "[", "SyntaxToken::OPEN_BRACKET",
+                                       "Open Bracket");
   }
 }
 
 void recognizeCloseBracket(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("]")) {
-    tokenPtr =
-        std::make_unique<Token>(SyntaxToken::CLOSE_BRACKET, 1, "]", "SyntaxToken::CLOSE_BRACKET", "Close Bracket");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::CLOSE_BRACKET, 1, lexer.pos, "]", "SyntaxToken::CLOSE_BRACKET",
+                                       "Close Bracket");
   }
 }
 
 void recognizeOpenBrace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("{")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::OPEN_BRACE, 1, "{", "SyntaxToken::OPEN_BRACE", "Open Brace");
+    tokenPtr =
+        std::make_unique<Token>(SyntaxToken::OPEN_BRACE, 1, lexer.pos, "{", "SyntaxToken::OPEN_BRACE", "Open Brace");
   }
 }
 
 void recognizeCloseBrace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("}")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::CLOSE_BRACE, 1, "}", "SyntaxToken::CLOSE_BRACE", "Close Brace");
+    tokenPtr =
+        std::make_unique<Token>(SyntaxToken::CLOSE_BRACE, 1, lexer.pos, "}", "SyntaxToken::CLOSE_BRACE", "Close Brace");
   }
 }
 
 void recognizeInlineComment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("//")) {
-    tokenPtr =
-        std::make_unique<Token>(SyntaxToken::INLINE_COMMENT, 2, "//", "SyntaxToken::INLINE_COMMENT", "Inline Comment");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::INLINE_COMMENT, 2, lexer.pos, "//", "SyntaxToken::INLINE_COMMENT",
+                                       "Inline Comment");
   }
 }
 
 void recognizePipe(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("|") && !lexer.checkKeyword("|>") && !lexer.checkKeyword("||")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::PIPE, 1, "|", "SyntaxToken::PIPE", "Pipe");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::PIPE, 1, lexer.pos, "|", "SyntaxToken::PIPE", "Pipe");
   }
 }
 
 void recognizePipeOperator(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("|>")) {
-    tokenPtr =
-        std::make_unique<Token>(SyntaxToken::PIPE_OPERATOR, 2, "|>", "SyntaxToken::PIPE_OPERATOR", "Pipe Operator");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::PIPE_OPERATOR, 2, lexer.pos, "|>", "SyntaxToken::PIPE_OPERATOR",
+                                       "Pipe Operator");
   }
 }
 
 void recognizeArrow(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("->")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::ARROW, 2, "->", "SyntaxToken::ARROW", "Arrow");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::ARROW, 2, lexer.pos, "->", "SyntaxToken::ARROW", "Arrow");
   }
 }
 
 void recognizeHashtag(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("#")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::HASHTAG, 1, "#", "SyntaxToken::HASHTAG", "Hashtag");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::HASHTAG, 1, lexer.pos, "#", "SyntaxToken::HASHTAG", "Hashtag");
   }
 }
 
 void recognizeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("@")) {
-    tokenPtr = std::make_unique<Token>(SyntaxToken::AT, 1, "@", "SyntaxToken::AT", "AT");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::AT, 1, lexer.pos, "@", "SyntaxToken::AT", "AT");
   }
 }
 

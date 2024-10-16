@@ -31,7 +31,7 @@ void Lexer::log(Token token, bool devMode) {
 
 std::vector<Token> Lexer::tokenize(bool devMode) {
   DataRecognizer dataRecognizer;
-  Token previousToken = {BasicToken::INIT, 0, "\0", "BasicToken::INIT", "Initialize Lexer"};
+  Token previousToken = {BasicToken::INIT, 0, static_cast<int>(pos), "\0", "BasicToken::INIT", "Initialize Lexer"};
   tokens.push_back(previousToken);
   log(previousToken, devMode);
 
@@ -39,11 +39,11 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
     skipWhitespace();
     std::unique_ptr<Token> tokenPtr;
     if (isEOF())
-      tokenPtr =
-          std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
+      tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, static_cast<int>(pos), "EOF",
+                                         "BasicToken::TOKEN_EOF", "The end of the file");
     if (tokenPtr == nullptr) lexSpecialCases(previousToken, dataRecognizer, tokenPtr);
     if (tokenPtr == nullptr) getNextToken(tokenPtr);
-    if (tokenPtr == nullptr) dataRecognizer.getNextToken(extractNextToken(), tokenPtr);
+    if (tokenPtr == nullptr) dataRecognizer.getNextToken(pos, extractNextToken(), tokenPtr);
     tokens.push_back(std::move(*tokenPtr));
     skip(tokenPtr->size);
     previousToken = tokens.back();
@@ -71,7 +71,8 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
       lexerState["insideString"]) {
     lexerState["insideString"] = false;
     lexerState["endOfString"] = true;
-    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, "\"", "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
+    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, static_cast<int>(pos), "\"",
+                                       "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
     return;
   }
 }
@@ -79,7 +80,8 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
 void Lexer::getNextToken(std::unique_ptr<Token>& tokenPtr) {
   skipWhitespace();
   if (isEOF()) {
-    tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, "EOF", "BasicToken::TOKEN_EOF", "The end of the file");
+    tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, static_cast<int>(pos), "EOF", "BasicToken::TOKEN_EOF",
+                                       "The end of the file");
     return;
   }
   for (const auto& recognizer : tokenRecognizers) {

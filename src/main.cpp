@@ -44,13 +44,13 @@ int main(int argc, char* argv[]) {
   if (output) {
     std::ofstream outputFile("output.log");
     if (outputFile.is_open()) {
-        for (const auto& token : tokens) {
-            outputFile << token.toString(0) << std::endl;
-        }
-        outputFile.close();
-        std::cout << "Tokens exported to output.log" << std::endl;
+      for (const auto& token : tokens) {
+        outputFile << token.toString(0) << std::endl;
+      }
+      outputFile.close();
+      std::cout << "Tokens exported to output.log" << std::endl;
     } else {
-        std::cerr << "Unable to open file: output.log" << std::endl;
+      std::cerr << "Unable to open file: output.log" << std::endl;
     }
   }
 

@@ -36,56 +36,71 @@ struct Token {
   } type;
 
   int size;
+  int pos;
   std::string value;
   std::string plainText;
   std::string desc;
 
-  Token(BasicToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(BasicToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
       : tag(TypeTag::BASIC),
         type(token),
         size(size),
+        pos(pos),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(DataToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(DataToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
       : tag(TypeTag::DATA),
         type(token),
         size(size),
+        pos(pos),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(KeywordToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(KeywordToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
       : tag(TypeTag::KEYWORD),
         type(token),
         size(size),
+        pos(pos),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(LogToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(LogToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
       : tag(TypeTag::LOG),
         type(token),
         size(size),
+        pos(pos),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(LogicalToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(LogicalToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
       : tag(TypeTag::LOGICAL),
         type(token),
         size(size),
+        pos(pos),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(OperatorToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(OperatorToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
       : tag(TypeTag::OPERATOR),
         type(token),
         size(size),
+        pos(pos),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(SyntaxToken token, int size = 0, std::string value = "", std::string plainText = "", std::string desc = "")
+  Token(SyntaxToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
       : tag(TypeTag::SYNTAX),
         type(token),
         size(size),
+        pos(pos),
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
