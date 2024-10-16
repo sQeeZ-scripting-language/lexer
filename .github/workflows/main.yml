@@ -14,7 +14,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest,macos-latest, 'windows-latest']
+        os: [ubuntu-latest,macos-latest,windows-latest]
 
     steps:
     - name: Checkout repository
@@ -49,7 +49,7 @@ jobs:
           local replacements=$(echo "$result" | grep -o "<replacement " | wc -l)
           if [ "$replacements" -ne 0 ]; then
             echo "Code style issues found in file: $file"
-            clang-format -style=file "$file" | diff "$file" - | colordiff
+            clang-format -style=file "$file" | diff "$file" - || true
             echo "Number of replacements: $replacements"
             return 1
           fi
