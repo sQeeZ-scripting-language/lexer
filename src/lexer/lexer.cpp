@@ -119,6 +119,11 @@ std::string Lexer::extractNextToken() {
 
 bool Lexer::checkKeyword(const std::string& keyword) { return code.substr(pos, keyword.size()) == keyword; }
 
+bool Lexer::followedByAlpha(const std::string& keyword) {
+  if (pos + keyword.size() >= code.size()) return false;
+  return std::isalpha(code[pos + keyword.size()]);
+}
+
 void Lexer::skip(size_t size) { pos += size; }
 
 void Lexer::skipWhitespace() {

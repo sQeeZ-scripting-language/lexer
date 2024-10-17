@@ -1,80 +1,80 @@
 #include "lexer/token_recognizers/keyword_recognizers.hpp"
 
 void recognizeVariable(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("var")) {
+  if (lexer.checkKeyword("var") && !lexer.followedByAlpha("var")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::VARIABLE, 3, lexer.pos, "var", "KeywordToken::VARIABLE",
                                        "Variable declaration");
   }
 }
 
 void recognizeConstant(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("const")) {
+  if (lexer.checkKeyword("const") && !lexer.followedByAlpha("const")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::CONSTANT, 5, lexer.pos, "const", "KeywordToken::CONSTANT",
                                        "Constant declaration");
   }
 }
 
 void recognizeIf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("if")) {
+  if (lexer.checkKeyword("if") && !lexer.followedByAlpha("if")) {
     tokenPtr =
         std::make_unique<Token>(KeywordToken::IF, 2, lexer.pos, "if", "KeywordToken::IF", "Conditional statement");
   }
 }
 
 void recognizeElse(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("else")) {
+  if (lexer.checkKeyword("else") && !lexer.followedByAlpha("else")) {
     tokenPtr =
         std::make_unique<Token>(KeywordToken::ELSE, 4, lexer.pos, "else", "KeywordToken::ELSE", "Else statement");
   }
 }
 
 void recognizeElseIf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("elif")) {
+  if (lexer.checkKeyword("elif") && !lexer.followedByAlpha("elif")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::ELSE_IF, 4, lexer.pos, "elif", "KeywordToken::ELSE_IF",
                                        "Else if statement");
   }
 }
 
 void recognizeFor(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("for")) {
+  if (lexer.checkKeyword("for") && !lexer.followedByAlpha("for")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::FOR, 3, lexer.pos, "for", "KeywordToken::FOR", "For loop");
   }
 }
 
 void recognizeWhile(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("while")) {
+  if (lexer.checkKeyword("while") && !lexer.followedByAlpha("while")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::WHILE, 5, lexer.pos, "while", "KeywordToken::WHILE", "While loop");
   }
 }
 
 void recognizeDo(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("do")) {
+  if (lexer.checkKeyword("do") && !lexer.followedByAlpha("do")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::DO, 2, lexer.pos, "do", "KeywordToken::DO", "Do While loop");
   }
 }
 
 void recognizeFunction(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("fn")) {
+  if (lexer.checkKeyword("fn") && !lexer.followedByAlpha("fn")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::FUNCTION, 2, lexer.pos, "fn", "KeywordToken::FUNCTION",
                                        "Function declaration");
   }
 }
 
 void recognizeReturn(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("return")) {
+  if (lexer.checkKeyword("return") && !lexer.followedByAlpha("return")) {
     tokenPtr =
         std::make_unique<Token>(KeywordToken::RETURN, 6, lexer.pos, "return", "KeywordToken::RETURN", "Return keyword");
   }
 }
 
 void recognizeIn(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("in")) {
+  if (lexer.checkKeyword("in") && !lexer.followedByAlpha("in")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::IN, 2, lexer.pos, "in", "KeywordToken::IN", "In keyword");
   }
 }
 
 void recognizeOf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("of")) {
+  if (lexer.checkKeyword("of") && !lexer.followedByAlpha("of")) {
     tokenPtr = std::make_unique<Token>(KeywordToken::OF, 2, lexer.pos, "of", "KeywordToken::OF", "Of keyword");
   }
 }
