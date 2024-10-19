@@ -75,6 +75,10 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
                                        "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
     return;
   }
+  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::HASHTAG) {
+    dataRecognizer.extractHexCodeLiteral(extractNextToken(), pos, code, tokenPtr);
+    return;
+  }
 }
 
 void Lexer::getNextToken(std::unique_ptr<Token>& tokenPtr) {

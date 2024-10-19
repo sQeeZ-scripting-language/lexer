@@ -14,6 +14,8 @@ class DataRecognizer {
 public:
   void extractStringLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr);
   void extractCommentLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr);
+  void extractHexCodeLiteral(std::string nextToken, size_t pos, const std::string& code,
+                             std::unique_ptr<Token>& tokenPtr);
   void getNextToken(size_t pos, std::string nextToken, std::unique_ptr<Token>& tokenPtr);
 
 private:

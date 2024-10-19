@@ -911,3 +911,24 @@ TEST(LexerTest, IdentifyStringLiteral) {
     EXPECT_EQ(tokens[3].plainText, "SyntaxToken::DOUBLE_QUOTE");
     EXPECT_EQ(tokens[3].desc, "Double Quote");
 }
+
+TEST(LexerTest, IdentifyHexCodeLiteral) {
+    Lexer lexer("#ffffff");
+    std::vector<Token> tokens = lexer.tokenize(false);
+
+    EXPECT_EQ(tokens[1].tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokens[1].type.syntaxToken, SyntaxToken::HASHTAG);
+    EXPECT_EQ(tokens[1].size, 1);
+    EXPECT_EQ(tokens[1].pos, 0);
+    EXPECT_EQ(tokens[1].value, "#");
+    EXPECT_EQ(tokens[1].plainText, "SyntaxToken::HASHTAG");
+    EXPECT_EQ(tokens[1].desc, "Hashtag");
+
+    EXPECT_EQ(tokens[2].tag, Token::TypeTag::DATA);
+    EXPECT_EQ(tokens[2].type.dataToken, DataToken::HEX_CODE_LITERAL);
+    EXPECT_EQ(tokens[2].size, 6);
+    EXPECT_EQ(tokens[2].pos, 1);
+    EXPECT_EQ(tokens[2].value, "ffffff");
+    EXPECT_EQ(tokens[2].plainText, "DataToken::HEX_CODE_LITERAL");
+    EXPECT_EQ(tokens[2].desc, "Hex Code Literal");
+}
