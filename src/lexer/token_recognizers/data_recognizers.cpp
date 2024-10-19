@@ -38,6 +38,16 @@ void DataRecognizer::extractCommentLiteral(size_t pos, const std::string& code, 
                                      static_cast<int>(pos), literal, "DataToken::COMMENT_LITERAL", "Comment Literal");
 }
 
+void DataRecognizer::extractHexCodeLiteral(std::string nextToken, size_t pos, const std::string& code,
+                                           std::unique_ptr<Token>& tokenPtr) {
+  std::regex pattern(R"(^(?:[0-9a-fA-F]{3}){1,2}$)");
+  if (std::regex_match(nextToken, pattern)) {
+    tokenPtr =
+        std::make_unique<Token>(DataToken::HEX_CODE_LITERAL, static_cast<int>(nextToken.length()),
+                                static_cast<int>(pos), nextToken, "DataToken::HEX_CODE_LITERAL", "Hex Code Literal");
+  }
+}
+
 void DataRecognizer::getNextToken(size_t pos, std::string nextToken, std::unique_ptr<Token>& tokenPtr) {
   if (isInteger(nextToken)) {
     tokenPtr =
