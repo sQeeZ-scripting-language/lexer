@@ -9,12 +9,13 @@
 #include "log_tokens.hpp"
 #include "logical_tokens.hpp"
 #include "operator_tokens.hpp"
+#include "short_notation_tokens.hpp"
 #include "syntax_tokens.hpp"
 
 enum class BasicToken { INIT, TOKEN_EOF, UNKNOWN };
 
 struct Token {
-  enum class TypeTag { BASIC, DATA, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;
+  enum class TypeTag { BASIC, DATA, KEYWORD, LOG, LOGICAL, OPERATOR, SHORT_NOTATION, SYNTAX } tag;
 
   union TokenType {
     BasicToken basicToken;
@@ -23,6 +24,7 @@ struct Token {
     LogToken logToken;
     LogicalToken logicalToken;
     OperatorToken operatorToken;
+    ShortNotationToken shortNotationToken;
     SyntaxToken syntaxToken;
 
     TokenType() {}
@@ -32,6 +34,7 @@ struct Token {
     TokenType(LogToken t) : logToken(t) {}
     TokenType(LogicalToken t) : logicalToken(t) {}
     TokenType(OperatorToken t) : operatorToken(t) {}
+    TokenType(ShortNotationToken t) : shortNotationToken(t) {}
     TokenType(SyntaxToken t) : syntaxToken(t) {}
   } type;
 
@@ -89,6 +92,15 @@ struct Token {
   Token(OperatorToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::OPERATOR),
+        type(token),
+        size(size),
+        pos(pos),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
+  Token(ShortNotationToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
+      : tag(TypeTag::SHORT_NOTATION),
         type(token),
         size(size),
         pos(pos),
