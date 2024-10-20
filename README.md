@@ -334,7 +334,7 @@ This enum class categorizes various types of data tokens used in the sQeeZ langu
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |
 | `CHAR_LITERAL` | Length of the Character Literal | The Character Literal | Represents a Character Literal |
-| `BOOLEAN_LITERAL` | 4 | true or false | Represents a Boolean Literal |
+| `BOOLEAN_LITERAL` | Length of the Boolean Literal | true or false | Represents a Boolean Literal |
 | `NULL_LITERAL` | 4 | null | Represents the absence of a value |
 | `IDENTIFIER` | Size of the Identifier | The Identifier | Marks an Identifier |
 
