@@ -34,8 +34,8 @@ void DataRecognizer::extractCharLiteral(size_t pos, const std::string& code, std
     ++position;
   }
   std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::CHAR_LITERAL, static_cast<int>(charList.size()),
-                                     static_cast<int>(pos), literal, "DataToken::CHAR_LITERAL", "Character Literal");
+  tokenPtr = std::make_unique<Token>(DataToken::CHAR_LITERAL, static_cast<int>(charList.size()), static_cast<int>(pos),
+                                     literal, "DataToken::CHAR_LITERAL", "Character Literal");
 }
 
 void DataRecognizer::extractCommentLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
@@ -74,8 +74,9 @@ void DataRecognizer::getNextToken(size_t pos, std::string nextToken, std::unique
     tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(nextToken.length()),
                                        static_cast<int>(pos), nextToken, "DataToken::DOUBLE_LITERAL", "Double Literal");
   } else if (isBoolean(nextToken)) {
-    tokenPtr = std::make_unique<Token>(DataToken::BOOLEAN_LITERAL, static_cast<int>(nextToken.length()),
-                                       static_cast<int>(pos), nextToken, "DataToken::BOOLEAN_LITERAL", "Boolean Literal");
+    tokenPtr =
+        std::make_unique<Token>(DataToken::BOOLEAN_LITERAL, static_cast<int>(nextToken.length()), static_cast<int>(pos),
+                                nextToken, "DataToken::BOOLEAN_LITERAL", "Boolean Literal");
   } else if (isValidIdentifier(nextToken)) {
     tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(nextToken.length()),
                                        static_cast<int>(pos), nextToken, "DataToken::IDENTIFIER", "Identifier");

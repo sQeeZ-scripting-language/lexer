@@ -775,6 +775,52 @@ TEST(LexerTest, IdentifyNot) {
 }
 
 /*
+ * Short Notation
+ */
+
+TEST(LexerTest, IdentifyMap) {
+    Lexer lexer("map");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::MAP);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "map");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::MAP");
+    EXPECT_EQ(tokenPtr->desc, "Map function");
+}
+
+TEST(LexerTest, IdentifyFilter) {
+    Lexer lexer("filter");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::FILTER);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "filter");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::FILTER");
+    EXPECT_EQ(tokenPtr->desc, "Filter function");
+}
+
+TEST(LexerTest, IdentifyReduce) {
+    Lexer lexer("reduce");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::REDUCE);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "reduce");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::REDUCE");
+    EXPECT_EQ(tokenPtr->desc, "Reduce function");
+}
+
+/*
  * Loggers
  */
 
