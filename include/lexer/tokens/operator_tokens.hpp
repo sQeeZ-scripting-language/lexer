@@ -18,4 +18,4 @@ enum class OperatorToken {
   POTENTIATION
 };
 
-#endif // OPERATOR_TOKEN_HPP
+#endif  // OPERATOR_TOKEN_HPP

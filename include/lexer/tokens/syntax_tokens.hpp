@@ -23,4 +23,4 @@ enum class SyntaxToken {
   AT
 };
 
-#endif // SYNTAX_TOKEN
+#endif  // SYNTAX_TOKEN

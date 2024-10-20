@@ -37,4 +37,4 @@ private:
   std::vector<Token> tokens;
 };
 
-#endif // LEXER_HPP
+#endif  // LEXER_HPP

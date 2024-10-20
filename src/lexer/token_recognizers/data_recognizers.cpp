@@ -78,8 +78,8 @@ void DataRecognizer::getNextToken(size_t pos, std::string nextToken, std::unique
         std::make_unique<Token>(DataToken::BOOLEAN_LITERAL, static_cast<int>(nextToken.length()), static_cast<int>(pos),
                                 nextToken, "DataToken::BOOLEAN_LITERAL", "Boolean Literal");
   } else if (isNull(nextToken)) {
-    tokenPtr = std::make_unique<Token>(DataToken::NULL_LITERAL, static_cast<int>(nextToken.length()), static_cast<int>(pos),
-                                       nextToken, "DataToken::NULL_LITERAL", "Null Literal");
+    tokenPtr = std::make_unique<Token>(DataToken::NULL_LITERAL, static_cast<int>(nextToken.length()),
+                                       static_cast<int>(pos), nextToken, "DataToken::NULL_LITERAL", "Null Literal");
   } else if (isValidIdentifier(nextToken)) {
     tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(nextToken.length()),
                                        static_cast<int>(pos), nextToken, "DataToken::IDENTIFIER", "Identifier");

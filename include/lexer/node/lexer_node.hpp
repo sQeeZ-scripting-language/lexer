@@ -26,4 +26,4 @@ public:
   static Napi::Function GetClass(Napi::Env);
 };
 
-#endif // LEXER_NODE_HPP
+#endif  // LEXER_NODE_HPP

@@ -24,4 +24,4 @@ void recognizeOf(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerKeywordRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
-#endif // KEYWORD_RECOGNIZERS_HPP
+#endif  // KEYWORD_RECOGNIZERS_HPP
