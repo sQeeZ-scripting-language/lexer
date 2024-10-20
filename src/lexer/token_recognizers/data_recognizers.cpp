@@ -56,6 +56,9 @@ void DataRecognizer::getNextToken(size_t pos, std::string nextToken, std::unique
   } else if (isDouble(nextToken)) {
     tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(nextToken.length()),
                                        static_cast<int>(pos), nextToken, "DataToken::DOUBLE_LITERAL", "Double Literal");
+  } else if (isBoolean(nextToken)) {
+    tokenPtr = std::make_unique<Token>(DataToken::BOOLEAN_LITERAL, static_cast<int>(nextToken.length()),
+                                       static_cast<int>(pos), nextToken, "DataToken::BOOLEAN_LITERAL", "Boolean Literal");
   } else if (isValidIdentifier(nextToken)) {
     tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(nextToken.length()),
                                        static_cast<int>(pos), nextToken, "DataToken::IDENTIFIER", "Identifier");
@@ -72,6 +75,11 @@ bool DataRecognizer::isInteger(std::string value) {
 
 bool DataRecognizer::isDouble(std::string value) {
   std::regex pattern(R"(^\d*\.?\d+$)");
+  return std::regex_match(value, pattern);
+}
+
+bool DataRecognizer::isBoolean(std::string value) {
+  std::regex pattern(R"(^true|false$)");
   return std::regex_match(value, pattern);
 }
 

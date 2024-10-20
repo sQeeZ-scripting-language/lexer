@@ -21,6 +21,7 @@ public:
 private:
   bool isInteger(std::string value);
   bool isDouble(std::string value);
+  bool isBoolean(std::string value);
   bool isValidIdentifier(std::string value);
 };
 

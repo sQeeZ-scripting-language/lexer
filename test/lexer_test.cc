@@ -862,6 +862,19 @@ TEST(LexerTest, IdentifyDoubleLiteral) {
     EXPECT_EQ(tokens[1].desc, "Double Literal");
 }
 
+TEST(LexerTest, IdentifyBooleanLiteral) {
+    Lexer lexer("true");
+    std::vector<Token> tokens = lexer.tokenize(false);
+
+    EXPECT_EQ(tokens[1].tag, Token::TypeTag::DATA);
+    EXPECT_EQ(tokens[1].type.dataToken, DataToken::BOOLEAN_LITERAL);
+    EXPECT_EQ(tokens[1].size, 4);
+    EXPECT_EQ(tokens[1].pos, 0);
+    EXPECT_EQ(tokens[1].value, "true");
+    EXPECT_EQ(tokens[1].plainText, "DataToken::BOOLEAN_LITERAL");
+    EXPECT_EQ(tokens[1].desc, "Boolean Literal");
+}
+
 TEST(LexerTest, IdentifyCommentLiteral) {
     Lexer lexer("// This is a comment");
     std::vector<Token> tokens = lexer.tokenize(false);
