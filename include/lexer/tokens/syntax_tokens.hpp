@@ -15,6 +15,7 @@ enum class SyntaxToken {
   OPEN_BRACE,
   CLOSE_BRACE,
   INLINE_COMMENT,
+  QUESTION_MARK,
   PIPE,
   PIPE_OPERATOR,
   ARROW,

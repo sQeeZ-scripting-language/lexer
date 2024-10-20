@@ -188,6 +188,20 @@ TEST(LexerTest, IdentifyInlineComment) {
     EXPECT_EQ(tokenPtr->desc, "Inline Comment");
 }
 
+TEST(LexerTest, IdentifyQuestionMark) {
+    Lexer lexer("?");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::QUESTION_MARK);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "?");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::QUESTION_MARK");
+    EXPECT_EQ(tokenPtr->desc, "Question Mark");
+}
+
 TEST(LexerTest, IdentifyPipe) {
     Lexer lexer("|");
     std::unique_ptr<Token> tokenPtr;
