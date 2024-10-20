@@ -343,15 +343,15 @@ This enum class provides predefined function tokens that represent commonly used
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
-| `MAP` | 3 | map | Applies a function to every element in a list and returns a new list with the results. |
-| `FILTER` | 6 | filter | Returns a new list with elements that pass a condition from the provided function. |
-| `REDUCE` | 6 | reduce | Applies a function to each element and accumulates the result into a single value. |
-| `CONCAT` | 6 | concat | Combines multiple lists into a single list by appending one after the other. |
-| `ZIP` | 3 | zip | Combines two or more lists into a list of tuples. |
-| `JOIN` | 4 | join | Combines elements of a list into a single string with a separator. |
-| `FIND` | 4 | find | Returns the first element in a list that matches a condition. |
-| `COUNT` | 5 | count | Returns the number of elements in a list that satisfy a condition. |
-| `SORT` | 4 | sort | Returns a new list with elements sorted according to a provided comparator function. |
-| `REVERSE` | 7 | reverse | Returns a new list with the elements in reverse order. |
+| `MAP` | 3 | MAP | Applies a function to every element in a list and returns a new list with the results. |
+| `FILTER` | 6 | FILTER | Returns a new list with elements that pass a condition from the provided function. |
+| `REDUCE` | 6 | REDUCE | Applies a function to each element and accumulates the result into a single value. |
+| `CONCAT` | 6 | CONCAT | Combines multiple lists into a single list by appending one after the other. |
+| `ZIP` | 3 | ZIP | Combines two or more lists into a list of tuples. |
+| `JOIN` | 4 | JOIN | Combines elements of a list into a single string with a separator. |
+| `FIND` | 4 | FIND | Returns the first element in a list that matches a condition. |
+| `COUNT` | 5 | COUNT | Returns the number of elements in a list that satisfy a condition. |
+| `SORT` | 4 | SORT | Returns a new list with elements sorted according to a provided comparator function. |
+| `REVERSE` | 7 | REVERSE | Returns a new list with the elements in reverse order. |
 
 [Back to Top](#sqeez-lexer)
