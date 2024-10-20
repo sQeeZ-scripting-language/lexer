@@ -17,6 +17,7 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
   - [Logical Tokens](#logical-tokens)
   - [Log Tokens](#log-tokens)
   - [Data Tokens](#data-tokens)
+  - [Short Notation Tokens](#short-notation-tokens)
 
 # How to Use
 > **Note:**
@@ -117,7 +118,7 @@ The lexer identifies several token types that reflect the compact nature of the 
 ## Token Structure
 ```cpp
 struct Token {
-  enum class TypeTag { BASIC, DATA, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;
+  enum class TypeTag { BASIC, DATA, KEYWORD, LOG, LOGICAL, OPERATOR, SHORT_NOTATION, SYNTAX } tag;
 
   union TokenType {
     BasicToken basicToken;
@@ -126,6 +127,7 @@ struct Token {
     LogToken logToken;
     LogicalToken logicalToken;
     OperatorToken operatorToken;
+    ShortNotationToken shortNotationToken;
     SyntaxToken syntaxToken;
 
     TokenType() {}
@@ -135,6 +137,7 @@ struct Token {
     TokenType(LogToken t) : logToken(t) {}
     TokenType(LogicalToken t) : logicalToken(t) {}
     TokenType(OperatorToken t) : operatorToken(t) {}
+    TokenType(ShortNotationToken t) : shortNotationToken(t) {}
     TokenType(SyntaxToken t) : syntaxToken(t) {}
   } type;
 
@@ -198,6 +201,15 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
+  Token(ShortNotationToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
+      : tag(TypeTag::SHORT_NOTATION),
+        type(token),
+        size(size),
+        pos(pos),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
   Token(SyntaxToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::SYNTAX),
@@ -243,6 +255,7 @@ This enum class categorizes various syntax tokens used in the sQeeZ language. Th
 | `INLINE_COMMENT` | 2 | // | The Inline Comment, used for single-line comments in the code |
 | `PIPE` | 1 | \| | Pipe |
 | `PIPE_OPERATOR` | 2 | \|> | Pipe Operator |
+| `QUESTION_MARK` | 1 | ? | The Question Mark, used in Lambda Expressions |
 | `ARROW` | 2 | ->| The Arrow Operator, used in lambda expressions |
 | `HASHTAG` | 1 | # | The Hashtag, used for Hex-Codes |
 | `AT` | 1 | @ | AT |
@@ -317,8 +330,22 @@ This enum class categorizes various types of data tokens used in the sQeeZ langu
 | --- | --- | --- | --- |
 | `COMMENT_LITERAL` | Length of the Comment Literal | The Comment Literal | Represents a Comment Literal |
 | `STRING_LITERAL` | Length of the String Literal | The String Literal | Represents a String Literal |
+| `CHAR_LITERAL` | Length of the Character Literal | The Character Literal | Represents a Character Literal |
+| `BOOLEAN_LITERAL` | 4 | true or false | Represents a Boolean Literal |
+| `HEX_CODE_LITERAL` | The Length of the Hex Code Literal | The Hex Code Literal | Represents a Hex Code Literal |
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |
 | `IDENTIFIER` | Size of the Identifier | The Identifier | Marks an Identifier |
+
+## Short Notation Tokens
+This enum class provides predefined function tokens that represent commonly used operations such as map, filter, reduce, and others designed for concise and efficient functional programming. These short notations streamline the syntax, allowing for faster implementation and interpretation while improving code readability.
+
+| **Token** | **Size** | **Value** | **Description** |
+| --- | --- | --- | --- |
+| `MAP` | 3 | map | Applies a function to each element in a collection |
+| `FILTER` | 6 | filter | Filters elements of a collection that meet a condition |
+| `REDUCE` | 6 | reduce | Reduces a collection to a single value using a function and an initial value |
+| `ZIP` | 3 | zip | Combines multiple collections element-wise |
+| `FIND` | 4 | find | Returns the first element in a collection that meets a condition |
 
 [Back to Top](#sqeez-lexer)
