@@ -9,6 +9,7 @@ enum class DataToken {
   HEX_CODE_LITERAL,
   INTEGER_LITERAL,
   DOUBLE_LITERAL,
+  NULL_LITERAL,
   IDENTIFIER
 };
 

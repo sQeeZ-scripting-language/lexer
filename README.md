@@ -330,11 +330,12 @@ This enum class categorizes various types of data tokens used in the sQeeZ langu
 | --- | --- | --- | --- |
 | `COMMENT_LITERAL` | Length of the Comment Literal | The Comment Literal | Represents a Comment Literal |
 | `STRING_LITERAL` | Length of the String Literal | The String Literal | Represents a String Literal |
-| `CHAR_LITERAL` | Length of the Character Literal | The Character Literal | Represents a Character Literal |
-| `BOOLEAN_LITERAL` | 4 | true or false | Represents a Boolean Literal |
 | `HEX_CODE_LITERAL` | The Length of the Hex Code Literal | The Hex Code Literal | Represents a Hex Code Literal |
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |
+| `CHAR_LITERAL` | Length of the Character Literal | The Character Literal | Represents a Character Literal |
+| `BOOLEAN_LITERAL` | 4 | true or false | Represents a Boolean Literal |
+| `NULL_LITERAL` | 4 | null | Represents the absence of a value |
 | `IDENTIFIER` | Size of the Identifier | The Identifier | Marks an Identifier |
 
 ## Short Notation Tokens
