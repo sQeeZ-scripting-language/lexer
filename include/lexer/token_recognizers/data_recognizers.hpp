@@ -13,6 +13,7 @@
 class DataRecognizer {
 public:
   void extractStringLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr);
+  void extractCharLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr);
   void extractCommentLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr);
   void extractHexCodeLiteral(std::string nextToken, size_t pos, const std::string& code,
                              std::unique_ptr<Token>& tokenPtr);
@@ -21,7 +22,9 @@ public:
 private:
   bool isInteger(std::string value);
   bool isDouble(std::string value);
+  bool isBoolean(std::string value);
+  bool isNull(std::string value);
   bool isValidIdentifier(std::string value);
 };
 
-#endif
+#endif  // DATA_RECOGNIZERS_HPP

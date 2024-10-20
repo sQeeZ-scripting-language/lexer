@@ -188,6 +188,20 @@ TEST(LexerTest, IdentifyInlineComment) {
     EXPECT_EQ(tokenPtr->desc, "Inline Comment");
 }
 
+TEST(LexerTest, IdentifyQuestionMark) {
+    Lexer lexer("?");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::QUESTION_MARK);
+    EXPECT_EQ(tokenPtr->size, 1);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "?");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::QUESTION_MARK");
+    EXPECT_EQ(tokenPtr->desc, "Question Mark");
+}
+
 TEST(LexerTest, IdentifyPipe) {
     Lexer lexer("|");
     std::unique_ptr<Token> tokenPtr;
@@ -761,6 +775,150 @@ TEST(LexerTest, IdentifyNot) {
 }
 
 /*
+ * Short Notation
+ */
+
+TEST(LexerTest, IdentifyMap) {
+    Lexer lexer("map");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::MAP);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "map");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::MAP");
+    EXPECT_EQ(tokenPtr->desc, "Map function");
+}
+
+TEST(LexerTest, IdentifyFilter) {
+    Lexer lexer("filter");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::FILTER);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "filter");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::FILTER");
+    EXPECT_EQ(tokenPtr->desc, "Filter function");
+}
+
+TEST(LexerTest, IdentifyReduce) {
+    Lexer lexer("reduce");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::REDUCE);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "reduce");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::REDUCE");
+    EXPECT_EQ(tokenPtr->desc, "Reduce function");
+}
+
+TEST(LexerTest, IdentifyConcat) {
+    Lexer lexer("concat");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::CONCAT);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "concat");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::CONCAT");
+    EXPECT_EQ(tokenPtr->desc, "Concat function");
+}
+
+TEST(LexerTest, IdentifyZip) {
+    Lexer lexer("zip");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::ZIP);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "zip");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::ZIP");
+    EXPECT_EQ(tokenPtr->desc, "Zip function");
+}
+
+TEST(LexerTest, IdentifyJoin) {
+    Lexer lexer("join");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::JOIN);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "join");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::JOIN");
+    EXPECT_EQ(tokenPtr->desc, "Join function");
+}
+
+TEST(LexerTest, IdentifyFind) {
+    Lexer lexer("find");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::FIND);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "find");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::FIND");
+    EXPECT_EQ(tokenPtr->desc, "Find function");
+}
+
+TEST(LexerTest, IdentifyCount) {
+    Lexer lexer("count");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::COUNT);
+    EXPECT_EQ(tokenPtr->size, 5);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "count");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::COUNT");
+    EXPECT_EQ(tokenPtr->desc, "Count function");
+}
+
+TEST(LexerTest, IdentifySort) {
+    Lexer lexer("sort");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::SORT);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "sort");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::SORT");
+    EXPECT_EQ(tokenPtr->desc, "Sort function");
+}
+
+TEST(LexerTest, IdentifyReverse) {
+    Lexer lexer("reverse");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::REVERSE);
+    EXPECT_EQ(tokenPtr->size, 7);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "reverse");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::REVERSE");
+    EXPECT_EQ(tokenPtr->desc, "Reverse function");
+}
+
+/*
  * Loggers
  */
 
@@ -862,6 +1020,32 @@ TEST(LexerTest, IdentifyDoubleLiteral) {
     EXPECT_EQ(tokens[1].desc, "Double Literal");
 }
 
+TEST(LexerTest, IdentifyBooleanLiteral) {
+    Lexer lexer("true");
+    std::vector<Token> tokens = lexer.tokenize(false);
+
+    EXPECT_EQ(tokens[1].tag, Token::TypeTag::DATA);
+    EXPECT_EQ(tokens[1].type.dataToken, DataToken::BOOLEAN_LITERAL);
+    EXPECT_EQ(tokens[1].size, 4);
+    EXPECT_EQ(tokens[1].pos, 0);
+    EXPECT_EQ(tokens[1].value, "true");
+    EXPECT_EQ(tokens[1].plainText, "DataToken::BOOLEAN_LITERAL");
+    EXPECT_EQ(tokens[1].desc, "Boolean Literal");
+}
+
+TEST(LexerTest, IdentifyNullLiteral) {
+    Lexer lexer("null");
+    std::vector<Token> tokens = lexer.tokenize(false);
+
+    EXPECT_EQ(tokens[1].tag, Token::TypeTag::DATA);
+    EXPECT_EQ(tokens[1].type.dataToken, DataToken::NULL_LITERAL);
+    EXPECT_EQ(tokens[1].size, 4);
+    EXPECT_EQ(tokens[1].pos, 0);
+    EXPECT_EQ(tokens[1].value, "null");
+    EXPECT_EQ(tokens[1].plainText, "DataToken::NULL_LITERAL");
+    EXPECT_EQ(tokens[1].desc, "Null Literal");
+}
+
 TEST(LexerTest, IdentifyCommentLiteral) {
     Lexer lexer("// This is a comment");
     std::vector<Token> tokens = lexer.tokenize(false);
@@ -910,6 +1094,35 @@ TEST(LexerTest, IdentifyStringLiteral) {
     EXPECT_EQ(tokens[3].value, "\"");
     EXPECT_EQ(tokens[3].plainText, "SyntaxToken::DOUBLE_QUOTE");
     EXPECT_EQ(tokens[3].desc, "Double Quote");
+}
+
+TEST(LexerTest, IdentifyCharLiteral) {
+    Lexer lexer("'A'");
+    std::vector<Token> tokens = lexer.tokenize(false);
+
+    EXPECT_EQ(tokens[1].tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokens[1].type.syntaxToken, SyntaxToken::SINGLE_QUOTE);
+    EXPECT_EQ(tokens[1].size, 1);
+    EXPECT_EQ(tokens[1].pos, 0);
+    EXPECT_EQ(tokens[1].value, "'");
+    EXPECT_EQ(tokens[1].plainText, "SyntaxToken::SINGLE_QUOTE");
+    EXPECT_EQ(tokens[1].desc, "Single Quote");
+
+    EXPECT_EQ(tokens[2].tag, Token::TypeTag::DATA);
+    EXPECT_EQ(tokens[2].type.dataToken, DataToken::CHAR_LITERAL);
+    EXPECT_EQ(tokens[2].size, 1);
+    EXPECT_EQ(tokens[2].pos, 1);
+    EXPECT_EQ(tokens[2].value, "A");
+    EXPECT_EQ(tokens[2].plainText, "DataToken::CHAR_LITERAL");
+    EXPECT_EQ(tokens[2].desc, "Character Literal");
+
+    EXPECT_EQ(tokens[3].tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokens[3].type.syntaxToken, SyntaxToken::SINGLE_QUOTE);
+    EXPECT_EQ(tokens[3].size, 1);
+    EXPECT_EQ(tokens[3].pos, 2);
+    EXPECT_EQ(tokens[3].value, "'");
+    EXPECT_EQ(tokens[3].plainText, "SyntaxToken::SINGLE_QUOTE");
+    EXPECT_EQ(tokens[3].desc, "Single Quote");
 }
 
 TEST(LexerTest, IdentifyHexCodeLiteral) {

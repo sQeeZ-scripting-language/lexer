@@ -17,6 +17,7 @@ The **sQeeZ Lexer** is designed to break down the source code of the sQeeZ scrip
   - [Logical Tokens](#logical-tokens)
   - [Log Tokens](#log-tokens)
   - [Data Tokens](#data-tokens)
+  - [Short Notation Tokens](#short-notation-tokens)
 
 # How to Use
 > **Note:**
@@ -117,7 +118,7 @@ The lexer identifies several token types that reflect the compact nature of the 
 ## Token Structure
 ```cpp
 struct Token {
-  enum class TypeTag { BASIC, DATA, KEYWORD, LOG, LOGICAL, OPERATOR, SYNTAX } tag;
+  enum class TypeTag { BASIC, DATA, KEYWORD, LOG, LOGICAL, OPERATOR, SHORT_NOTATION, SYNTAX } tag;
 
   union TokenType {
     BasicToken basicToken;
@@ -126,6 +127,7 @@ struct Token {
     LogToken logToken;
     LogicalToken logicalToken;
     OperatorToken operatorToken;
+    ShortNotationToken shortNotationToken;
     SyntaxToken syntaxToken;
 
     TokenType() {}
@@ -135,6 +137,7 @@ struct Token {
     TokenType(LogToken t) : logToken(t) {}
     TokenType(LogicalToken t) : logicalToken(t) {}
     TokenType(OperatorToken t) : operatorToken(t) {}
+    TokenType(ShortNotationToken t) : shortNotationToken(t) {}
     TokenType(SyntaxToken t) : syntaxToken(t) {}
   } type;
 
@@ -198,6 +201,15 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
+  Token(ShortNotationToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+        std::string desc = "")
+      : tag(TypeTag::SHORT_NOTATION),
+        type(token),
+        size(size),
+        pos(pos),
+        value(std::move(value)),
+        plainText(std::move(plainText)),
+        desc(std::move(desc)) {}
   Token(SyntaxToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::SYNTAX),
@@ -243,6 +255,7 @@ This enum class categorizes various syntax tokens used in the sQeeZ language. Th
 | `INLINE_COMMENT` | 2 | // | The Inline Comment, used for single-line comments in the code |
 | `PIPE` | 1 | \| | Pipe |
 | `PIPE_OPERATOR` | 2 | \|> | Pipe Operator |
+| `QUESTION_MARK` | 1 | ? | The Question Mark, used in Lambda Expressions |
 | `ARROW` | 2 | ->| The Arrow Operator, used in lambda expressions |
 | `HASHTAG` | 1 | # | The Hashtag, used for Hex-Codes |
 | `AT` | 1 | @ | AT |
@@ -317,8 +330,28 @@ This enum class categorizes various types of data tokens used in the sQeeZ langu
 | --- | --- | --- | --- |
 | `COMMENT_LITERAL` | Length of the Comment Literal | The Comment Literal | Represents a Comment Literal |
 | `STRING_LITERAL` | Length of the String Literal | The String Literal | Represents a String Literal |
+| `HEX_CODE_LITERAL` | The Length of the Hex Code Literal | The Hex Code Literal | Represents a Hex Code Literal |
 | `INTEGER_LITERAL` | Length of the Integer Literal | The Integer literal | Represents an Integer Literal |
 | `DOUBLE_LITERAL` | Length of the Double Literal | The Double literal | Represents a Double Literal |
+| `CHAR_LITERAL` | Length of the Character Literal | The Character Literal | Represents a Character Literal |
+| `BOOLEAN_LITERAL` | 4 | true or false | Represents a Boolean Literal |
+| `NULL_LITERAL` | 4 | null | Represents the absence of a value |
 | `IDENTIFIER` | Size of the Identifier | The Identifier | Marks an Identifier |
+
+## Short Notation Tokens
+This enum class provides predefined function tokens that represent commonly used operations such as map, filter, reduce, and others designed for concise and efficient functional programming. These short notations streamline the syntax, allowing for faster implementation and interpretation while improving code readability.
+
+| **Token** | **Size** | **Value** | **Description** |
+| --- | --- | --- | --- |
+| `MAP` | 3 | map | Applies a function to every element in a list and returns a new list with the results. |
+| `FILTER` | 6 | filter | Returns a new list with elements that pass a condition from the provided function. |
+| `REDUCE` | 6 | reduce | Applies a function to each element and accumulates the result into a single value. |
+| `CONCAT` | 6 | concat | Combines multiple lists into a single list by appending one after the other. |
+| `ZIP` | 3 | zip | Combines two or more lists into a list of tuples. |
+| `JOIN` | 4 | join | Combines elements of a list into a single string with a separator. |
+| `FIND` | 4 | find | Returns the first element in a list that matches a condition. |
+| `COUNT` | 5 | count | Returns the number of elements in a list that satisfy a condition. |
+| `SORT` | 4 | sort | Returns a new list with elements sorted according to a provided comparator function. |
+| `REVERSE` | 7 | reverse | Returns a new list with the elements in reverse order. |
 
 [Back to Top](#sqeez-lexer)

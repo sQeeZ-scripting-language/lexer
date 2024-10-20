@@ -3,4 +3,4 @@
 
 enum class LogicalToken { EQUAL, NOT_EQUAL, GREATER, LESS, GREATER_EQUAL, LESS_EQUAL, AND, OR, NOT };
 
-#endif
+#endif  // LOGICAL_TOKEN_HPP

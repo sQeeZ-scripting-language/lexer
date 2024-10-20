@@ -101,6 +101,13 @@ void recognizePipeOperator(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
+void recognizeQuestionMark(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("?")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::QUESTION_MARK, 1, lexer.pos, "?", "SyntaxToken::QUESTION_MARK",
+                                       "Question Mark");
+  }
+}
+
 void recognizeArrow(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("->")) {
     tokenPtr = std::make_unique<Token>(SyntaxToken::ARROW, 2, lexer.pos, "->", "SyntaxToken::ARROW", "Arrow");
@@ -135,6 +142,7 @@ void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>&
   tokenRecognizers["//"] = recognizeInlineComment;
   tokenRecognizers["|"] = recognizePipe;
   tokenRecognizers["|>"] = recognizePipeOperator;
+  tokenRecognizers["?"] = recognizeQuestionMark;
   tokenRecognizers["->"] = recognizeArrow;
   tokenRecognizers["#"] = recognizeHashtag;
   tokenRecognizers["@"] = recognizeAt;

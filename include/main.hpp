@@ -10,4 +10,4 @@
 #include "lexer/lexer.hpp"
 #include "lexer/token_recognizers/data_recognizers.hpp"
 
-#endif
+#endif  // MAIN_HPP

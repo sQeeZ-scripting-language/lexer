@@ -2,9 +2,8 @@
 
 std::string Token::toString() const {
   std::ostringstream oss;
-  oss << "###Token###"
-      << ",\nTag: " << getTagString() << ",\nType: " << getTypeString() << ",\nSize: " << size << ",\nPos: " << pos
-      << ",\nValue: \"" << value << "\",\nPlainText: \"" << plainText << "\",\nDesc: \"" << desc << "\n";
+  oss << "Tag: " << getTagString() << ",\nType: " << getTypeString() << ",\nSize: " << size << ",\nPos: " << pos
+      << ",\nValue: " << value << ",\nPlainText: " << plainText << ",\nDesc: " << desc << "\n--------------------";
   return oss.str();
 }
 

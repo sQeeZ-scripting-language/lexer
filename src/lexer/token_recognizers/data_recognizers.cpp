@@ -21,6 +21,23 @@ void DataRecognizer::extractStringLiteral(size_t pos, const std::string& code, s
                                      static_cast<int>(pos), literal, "DataToken::STRING_LITERAL", "String Literal");
 }
 
+void DataRecognizer::extractCharLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
+  std::vector<char> charList;
+  bool isClosed = false;
+  int position = pos;
+  while (position < code.size()) {
+    if (code[position] == '\'' && (charList.empty() || charList.back() != '\\')) {
+      isClosed = true;
+      break;
+    }
+    charList.push_back(code[position]);
+    ++position;
+  }
+  std::string literal(charList.begin(), charList.end());
+  tokenPtr = std::make_unique<Token>(DataToken::CHAR_LITERAL, static_cast<int>(charList.size()), static_cast<int>(pos),
+                                     literal, "DataToken::CHAR_LITERAL", "Character Literal");
+}
+
 void DataRecognizer::extractCommentLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
   std::vector<char> charList;
   bool isClosed = false;
@@ -56,6 +73,13 @@ void DataRecognizer::getNextToken(size_t pos, std::string nextToken, std::unique
   } else if (isDouble(nextToken)) {
     tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(nextToken.length()),
                                        static_cast<int>(pos), nextToken, "DataToken::DOUBLE_LITERAL", "Double Literal");
+  } else if (isBoolean(nextToken)) {
+    tokenPtr =
+        std::make_unique<Token>(DataToken::BOOLEAN_LITERAL, static_cast<int>(nextToken.length()), static_cast<int>(pos),
+                                nextToken, "DataToken::BOOLEAN_LITERAL", "Boolean Literal");
+  } else if (isNull(nextToken)) {
+    tokenPtr = std::make_unique<Token>(DataToken::NULL_LITERAL, static_cast<int>(nextToken.length()),
+                                       static_cast<int>(pos), nextToken, "DataToken::NULL_LITERAL", "Null Literal");
   } else if (isValidIdentifier(nextToken)) {
     tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(nextToken.length()),
                                        static_cast<int>(pos), nextToken, "DataToken::IDENTIFIER", "Identifier");
@@ -72,6 +96,16 @@ bool DataRecognizer::isInteger(std::string value) {
 
 bool DataRecognizer::isDouble(std::string value) {
   std::regex pattern(R"(^\d*\.?\d+$)");
+  return std::regex_match(value, pattern);
+}
+
+bool DataRecognizer::isBoolean(std::string value) {
+  std::regex pattern(R"(^true|false$)");
+  return std::regex_match(value, pattern);
+}
+
+bool DataRecognizer::isNull(std::string value) {
+  std::regex pattern(R"(^null$)");
   return std::regex_match(value, pattern);
 }
 

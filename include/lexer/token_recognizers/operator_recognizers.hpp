@@ -26,4 +26,4 @@ void recognizePotentiation(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
-#endif
+#endif  // OPERATOR_RECOGNIZERS_HPP

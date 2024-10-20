@@ -17,9 +17,10 @@ enum class SyntaxToken {
   INLINE_COMMENT,
   PIPE,
   PIPE_OPERATOR,
+  QUESTION_MARK,
   ARROW,
   HASHTAG,
   AT
 };
 
-#endif
+#endif  // SYNTAX_TOKEN
