@@ -21,6 +21,23 @@ void DataRecognizer::extractStringLiteral(size_t pos, const std::string& code, s
                                      static_cast<int>(pos), literal, "DataToken::STRING_LITERAL", "String Literal");
 }
 
+void DataRecognizer::extractCharLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
+  std::vector<char> charList;
+  bool isClosed = false;
+  int position = pos;
+  while (position < code.size()) {
+    if (code[position] == '\'' && (charList.empty() || charList.back() != '\\')) {
+      isClosed = true;
+      break;
+    }
+    charList.push_back(code[position]);
+    ++position;
+  }
+  std::string literal(charList.begin(), charList.end());
+  tokenPtr = std::make_unique<Token>(DataToken::CHAR_LITERAL, static_cast<int>(charList.size()),
+                                     static_cast<int>(pos), literal, "DataToken::CHAR_LITERAL", "Character Literal");
+}
+
 void DataRecognizer::extractCommentLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
   std::vector<char> charList;
   bool isClosed = false;

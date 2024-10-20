@@ -12,6 +12,8 @@ std::unordered_map<std::string, bool> lexerState;
 Lexer::Lexer(const std::string& code) : code(code), pos(0) {
   lexerState["insideString"] = false;
   lexerState["endOfString"] = false;
+  lexerState["insideChar"] = false;
+  lexerState["endOfChar"] = false;
   registerTokenRecognizers();
 }
 
@@ -73,6 +75,24 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
     lexerState["endOfString"] = true;
     tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, static_cast<int>(pos), "\"",
                                        "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
+    return;
+  }
+  if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::SINGLE_QUOTE &&
+      !lexerState["insideChar"]) {
+    if (lexerState["endOfChar"]) {
+      lexerState["endOfChar"] = false;
+      return;
+    }
+    lexerState["insideChar"] = true;
+    dataRecognizer.extractCharLiteral(pos, code, tokenPtr);
+    return;
+  }
+  if (previousToken.tag == Token::TypeTag::DATA && previousToken.type.dataToken == DataToken::CHAR_LITERAL &&
+      lexerState["insideChar"]) {
+    lexerState["insideChar"] = false;
+    lexerState["endOfChar"] = true;
+    tokenPtr = std::make_unique<Token>(SyntaxToken::SINGLE_QUOTE, 1, static_cast<int>(pos), "'",
+                                       "SyntaxToken::SINGLE_QUOTE", "Single Quote");
     return;
   }
   if (previousToken.tag == Token::TypeTag::SYNTAX && previousToken.type.syntaxToken == SyntaxToken::HASHTAG) {
