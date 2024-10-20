@@ -31,4 +31,4 @@ void recognizeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
-#endif
+#endif // SYNTAX_RECOGNIZERS_HPP

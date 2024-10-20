@@ -12,4 +12,4 @@ enum class DataToken {
   IDENTIFIER
 };
 
-#endif
+#endif // DATA_TOKEN_HPP

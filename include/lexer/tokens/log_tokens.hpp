@@ -3,4 +3,4 @@
 
 enum class LogToken { BASIC, COLORED, WARN, ERROR };
 
-#endif
+#endif // LOG_TOKEN_HPP

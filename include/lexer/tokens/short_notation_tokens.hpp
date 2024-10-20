@@ -3,4 +3,4 @@
 
 enum class ShortNotationToken { MAP, FILTER, REDUCE, CONCAT, ZIP, JOIN, FIND, COUNT, SORT, REVERSE };
 
-#endif
+#endif // SHORT_NOTATION_TOKEN_HPP

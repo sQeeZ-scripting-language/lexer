@@ -26,4 +26,4 @@ private:
   bool isValidIdentifier(std::string value);
 };
 
-#endif
+#endif // DATA_RECOGNIZERS_HPP

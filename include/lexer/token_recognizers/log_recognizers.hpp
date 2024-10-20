@@ -17,4 +17,4 @@ void recognizeWarnLog(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerLogRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
-#endif
+#endif // LOG_RECOGNIZERS_HPP

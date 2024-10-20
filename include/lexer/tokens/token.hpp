@@ -122,4 +122,4 @@ struct Token {
   std::string getTypeString() const;
 };
 
-#endif
+#endif // TOKEN_HPP

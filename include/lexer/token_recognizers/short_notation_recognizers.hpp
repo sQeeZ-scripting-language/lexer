@@ -22,4 +22,4 @@ void recognizeReverse(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerShortNotationRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
-#endif
+#endif // SHORT_NOTATION_RECOGNIZERS_HPP

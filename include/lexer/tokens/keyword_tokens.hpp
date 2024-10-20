@@ -3,4 +3,4 @@
 
 enum class KeywordToken { VARIABLE, CONSTANT, IF, ELSE, ELSE_IF, FOR, WHILE, DO, FUNCTION, RETURN, IN, OF };
 
-#endif
+#endif // KEYWORD

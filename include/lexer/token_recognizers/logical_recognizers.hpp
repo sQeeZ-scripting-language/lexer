@@ -21,4 +21,4 @@ void recognizeNot(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerLogicalRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 
-#endif
+#endif // LOGICAL_RECOGNIZERS_HPP
