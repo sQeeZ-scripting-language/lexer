@@ -1,6 +1,6 @@
 #ifndef SHORT_NOTATION_TOKEN_HPP
 #define SHORT_NOTATION_TOKEN_HPP
 
-enum class ShortNotationToken { MAP, FILTER, REDUCE };
+enum class ShortNotationToken { MAP, FILTER, REDUCE, CONCAT, ZIP, JOIN, FIND, COUNT, SORT, REVERSE };
 
 #endif

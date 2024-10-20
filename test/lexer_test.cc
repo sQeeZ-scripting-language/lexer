@@ -820,6 +820,104 @@ TEST(LexerTest, IdentifyReduce) {
     EXPECT_EQ(tokenPtr->desc, "Reduce function");
 }
 
+TEST(LexerTest, IdentifyConcat) {
+    Lexer lexer("concat");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::CONCAT);
+    EXPECT_EQ(tokenPtr->size, 6);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "concat");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::CONCAT");
+    EXPECT_EQ(tokenPtr->desc, "Concat function");
+}
+
+TEST(LexerTest, IdentifyZip) {
+    Lexer lexer("zip");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::ZIP);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "zip");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::ZIP");
+    EXPECT_EQ(tokenPtr->desc, "Zip function");
+}
+
+TEST(LexerTest, IdentifyJoin) {
+    Lexer lexer("join");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::JOIN);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "join");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::JOIN");
+    EXPECT_EQ(tokenPtr->desc, "Join function");
+}
+
+TEST(LexerTest, IdentifyFind) {
+    Lexer lexer("find");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::FIND);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "find");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::FIND");
+    EXPECT_EQ(tokenPtr->desc, "Find function");
+}
+
+TEST(LexerTest, IdentifyCount) {
+    Lexer lexer("count");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::COUNT);
+    EXPECT_EQ(tokenPtr->size, 5);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "count");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::COUNT");
+    EXPECT_EQ(tokenPtr->desc, "Count function");
+}
+
+TEST(LexerTest, IdentifySort) {
+    Lexer lexer("sort");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::SORT);
+    EXPECT_EQ(tokenPtr->size, 4);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "sort");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::SORT");
+    EXPECT_EQ(tokenPtr->desc, "Sort function");
+}
+
+TEST(LexerTest, IdentifyReverse) {
+    Lexer lexer("reverse");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::REVERSE);
+    EXPECT_EQ(tokenPtr->size, 7);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "reverse");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::REVERSE");
+    EXPECT_EQ(tokenPtr->desc, "Reverse function");
+}
+
 /*
  * Loggers
  */
