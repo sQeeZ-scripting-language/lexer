@@ -34,7 +34,6 @@ jobs:
       if: matrix.os == 'windows-latest'
       run: |
         choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' -y
-        choco install mingw -y
 
     - name: Install Node.js dependencies
       shell: bash
@@ -69,26 +68,14 @@ jobs:
         fi
 
     - name: Build Node
-      if: matrix.os != 'windows-latest'
       shell: bash
       run: npx cmake-js compile --CDNODE=true
 
     - name: Build
-      if: matrix.os != 'windows-latest'
       shell: bash
       run: |
         cd build
         cmake ..
-        cmake --build .
-
-    - name: Build (Windows)
-      if: matrix.os == 'windows-latest'
-      shell: cmd
-      run: |
-        rmdir /s /q build
-        mkdir build
-        cd build
-        cmake -G "MinGW Makefiles" ..
         cmake --build .
 
     - name: Run tests
@@ -108,9 +95,25 @@ jobs:
           build/*.lib
           build/*.a
           build/*.dylib
-          build/Release/*.node
+          build/*.node
           build/sQeeZ-Lexer-Exe
           build/sQeeZ-Lexer-Exe.exe
+          build/Debug/*.so
+          build/Debug/*.dll
+          build/Debug/*.lib
+          build/Debug/*.a
+          build/Debug/*.dylib
+          build/Debug/*.node
+          build/Debug/sQeeZ-Lexer-Exe
+          build/Debug/sQeeZ-Lexer-Exe.exe
+          build/Release/*.so
+          build/Release/*.dll
+          build/Release/*.lib
+          build/Release/*.a
+          build/Release/*.dylib
+          build/Release/*.node
+          build/Release/sQeeZ-Lexer-Exe
+          build/Release/sQeeZ-Lexer-Exe.exe
 
   release:
     if: github.event_name == 'push' || github.event_name == 'release'
