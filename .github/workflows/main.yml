@@ -90,22 +90,11 @@ jobs:
         name: build-output-${{ matrix.os }} 
         if-no-files-found: error
         path: |
-          build/*.so
-          build/*.dll
-          build/*.lib
-          build/*.a
-          build/*.dylib
-          build/*.node
+          build/libsQeeZ-Lexer-Lib.a
           build/sQeeZ-Lexer-Exe
-          build/sQeeZ-Lexer-Exe.exe
-          build/Release/*.so
-          build/Release/*.dll
-          build/Release/*.lib
-          build/Release/*.a
-          build/Release/*.dylib
-          build/Release/*.node
-          build/Release/sQeeZ-Lexer-Exe
+          build/Release/sQeeZ-Lexer-Lib.lib
           build/Release/sQeeZ-Lexer-Exe.exe
+          build/Release/sQeeZ-Lexer-Node.node
 
   release:
     if: github.event_name == 'push' || github.event_name == 'release'
