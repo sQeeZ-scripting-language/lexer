@@ -92,6 +92,7 @@ jobs:
         path: |
           build/libsQeeZ-Lexer-Lib.a
           build/sQeeZ-Lexer-Exe
+          build/Debug/sQeeZ-Lexer-Lib.lib
           build/Release/sQeeZ-Lexer-Lib.lib
           build/Release/sQeeZ-Lexer-Exe.exe
           build/Release/sQeeZ-Lexer-Node.node
