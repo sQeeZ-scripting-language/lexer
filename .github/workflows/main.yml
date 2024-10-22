@@ -86,13 +86,27 @@ jobs:
         ctest
 
     - name: Move build artifacts to a temporary directory
+      if: matrix.os != 'windows-latest'
       run: |
         mkdir -p temp-artifacts
-        [ -f build-lexer/libsQeeZ-Lexer-Lib.a ] && cp build-lexer/libsQeeZ-Lexer-Lib.a temp-artifacts/
-        [ -f build-lexer/sQeeZ-Lexer-Exe ] && cp build-lexer/sQeeZ-Lexer-Exe temp-artifacts/
-        [ -f build-lexer/Debug/sQeeZ-Lexer-Lib.lib ] && cp build-lexer/Debug/sQeeZ-Lexer-Lib.lib temp-artifacts/
-        [ -f build-lexer/Debug/sQeeZ-Lexer-Exe.exe ] && cp build-lexer/Debug/sQeeZ-Lexer-Exe.exe temp-artifacts/
-        [ -f build/Release/sQeeZ-Lexer-Node.node ] && cp build/Release/sQeeZ-Lexer-Node.node temp-artifacts/
+        cp build-lexer/libsQeeZ-Lexer-Lib.a temp-artifacts/
+        cp build-lexer/sQeeZ-Lexer-Exe temp-artifacts/
+        cp build/Release/sQeeZ-Lexer-Node.node temp-artifacts/
+
+    - name: Move build artifacts to a temporary directory (Windows)
+      if: matrix.os == 'windows-latest'
+      shell: pwsh
+      run: |
+        New-Item -Path temp-artifacts -ItemType Directory -Force
+        if (Test-Path build-lexer/Debug/sQeeZ-Lexer-Lib.lib) {
+          Copy-Item build-lexer/Debug/sQeeZ-Lexer-Lib.lib -Destination temp-artifacts/
+        }
+        if (Test-Path build-lexer/Debug/sQeeZ-Lexer-Exe.exe) {
+          Copy-Item build-lexer/Debug/sQeeZ-Lexer-Exe.exe -Destination temp-artifacts/
+        }
+        if (Test-Path build/Release/sQeeZ-Lexer-Node.node) {
+          Copy-Item build/Release/sQeeZ-Lexer-Node.node -Destination temp-artifacts/
+        }
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
