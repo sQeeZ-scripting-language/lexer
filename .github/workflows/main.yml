@@ -98,14 +98,6 @@ jobs:
           build/*.node
           build/sQeeZ-Lexer-Exe
           build/sQeeZ-Lexer-Exe.exe
-          build/Debug/*.so
-          build/Debug/*.dll
-          build/Debug/*.lib
-          build/Debug/*.a
-          build/Debug/*.dylib
-          build/Debug/*.node
-          build/Debug/sQeeZ-Lexer-Exe
-          build/Debug/sQeeZ-Lexer-Exe.exe
           build/Release/*.so
           build/Release/*.dll
           build/Release/*.lib
