@@ -2,6 +2,7 @@
 #define LEXER_HPP
 
 #include <cctype>
+#include <functional>
 #include <iostream>
 #include <memory>
 #include <optional>
