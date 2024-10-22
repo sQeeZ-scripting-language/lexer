@@ -88,11 +88,11 @@ jobs:
     - name: Move build artifacts to a temporary directory
       run: |
         mkdir -p temp-artifacts
-        cp build-lexer/libsQeeZ-Lexer-Lib.a temp-artifacts/
-        cp build-lexer/sQeeZ-Lexer-Exe temp-artifacts/
-        cp build-lexer/Debug/sQeeZ-Lexer-Lib.lib temp-artifacts/
-        cp build-lexer/Debug/sQeeZ-Lexer-Exe.exe temp-artifacts/
-        cp build/Release/sQeeZ-Lexer-Node.node temp-artifacts/
+        [ -f build-lexer/libsQeeZ-Lexer-Lib.a ] && cp build-lexer/libsQeeZ-Lexer-Lib.a temp-artifacts/
+        [ -f build-lexer/sQeeZ-Lexer-Exe ] && cp build-lexer/sQeeZ-Lexer-Exe temp-artifacts/
+        [ -f build-lexer/Debug/sQeeZ-Lexer-Lib.lib ] && cp build-lexer/Debug/sQeeZ-Lexer-Lib.lib temp-artifacts/
+        [ -f build-lexer/Debug/sQeeZ-Lexer-Exe.exe ] && cp build-lexer/Debug/sQeeZ-Lexer-Exe.exe temp-artifacts/
+        [ -f build/Release/sQeeZ-Lexer-Node.node ] && cp build/Release/sQeeZ-Lexer-Node.node temp-artifacts/
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
