@@ -5,7 +5,7 @@ int main(int argc, char* argv[]) {
   bool output = false;
   std::string filename;
 
-  if (argc < 2 || argc > 3) {
+  if (argc < 2) {
     std::cerr << "Run \"" << argv[0] << " <filename>.sqz --help\" for more information" << std::endl;
     return 1;
   }

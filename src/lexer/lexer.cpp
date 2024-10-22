@@ -35,7 +35,7 @@ void Lexer::log(Token token, bool devMode) {
 
 std::vector<Token> Lexer::tokenize(bool devMode) {
   DataRecognizer dataRecognizer;
-  Token previousToken = {BasicToken::INIT, 0, static_cast<int>(pos), "\0", "BasicToken::INIT", "Initialize Lexer"};
+  Token previousToken = {BasicToken::INIT, 0, pos, "\0", "BasicToken::INIT", "Initialize Lexer"};
   tokens.push_back(previousToken);
   log(previousToken, devMode);
 
@@ -43,7 +43,7 @@ std::vector<Token> Lexer::tokenize(bool devMode) {
     skipWhitespace();
     std::unique_ptr<Token> tokenPtr;
     if (isEOF())
-      tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, static_cast<int>(pos), "EOF",
+      tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, pos, "EOF",
                                          "BasicToken::TOKEN_EOF", "The end of the file");
     if (tokenPtr == nullptr) lexSpecialCases(previousToken, dataRecognizer, tokenPtr);
     if (tokenPtr == nullptr) getNextToken(tokenPtr);
@@ -75,7 +75,7 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
       lexerState["insideString"]) {
     lexerState["insideString"] = false;
     lexerState["endOfString"] = true;
-    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, static_cast<int>(pos), "\"",
+    tokenPtr = std::make_unique<Token>(SyntaxToken::DOUBLE_QUOTE, 1, pos, "\"",
                                        "SyntaxToken::DOUBLE_QUOTE", "Double Quote");
     return;
   }
@@ -93,7 +93,7 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
       lexerState["insideChar"]) {
     lexerState["insideChar"] = false;
     lexerState["endOfChar"] = true;
-    tokenPtr = std::make_unique<Token>(SyntaxToken::SINGLE_QUOTE, 1, static_cast<int>(pos), "'",
+    tokenPtr = std::make_unique<Token>(SyntaxToken::SINGLE_QUOTE, 1, pos, "'",
                                        "SyntaxToken::SINGLE_QUOTE", "Single Quote");
     return;
   }
@@ -106,7 +106,7 @@ void Lexer::lexSpecialCases(Token previousToken, DataRecognizer& dataRecognizer,
 void Lexer::getNextToken(std::unique_ptr<Token>& tokenPtr) {
   skipWhitespace();
   if (isEOF()) {
-    tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, static_cast<int>(pos), "EOF", "BasicToken::TOKEN_EOF",
+    tokenPtr = std::make_unique<Token>(BasicToken::TOKEN_EOF, 0, pos, "EOF", "BasicToken::TOKEN_EOF",
                                        "The end of the file");
     return;
   }

@@ -8,11 +8,11 @@ std::string Token::toString() const {
 }
 
 std::string Token::getTagString() const {
-  std::size_t pos = plainText.find("::");
+  size_t pos = plainText.find("::");
   return pos != std::string::npos ? plainText.substr(0, pos) : "";
 }
 
 std::string Token::getTypeString() const {
-  std::size_t pos = plainText.find("::");
+  size_t pos = plainText.find("::");
   return pos != std::string::npos ? plainText.substr(pos + 2) : "";
 }
