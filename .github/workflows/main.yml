@@ -74,7 +74,8 @@ jobs:
     - name: Build
       shell: bash
       run: |
-        cd build
+        mkdir build-lexer
+        cd build-lexer
         cmake ..
         cmake --build .
 
@@ -84,18 +85,21 @@ jobs:
         cd build
         ctest
 
+    - name: Move build artifacts to a temporary directory
+      run: |
+        mkdir -p temp-artifacts
+        cp build-lexer/libsQeeZ-Lexer-Lib.a temp-artifacts/
+        cp build-lexer/sQeeZ-Lexer-Exe temp-artifacts/
+        cp build-lexer/Debug/sQeeZ-Lexer-Lib.lib temp-artifacts/
+        cp build-lexer/Debug/sQeeZ-Lexer-Exe.exe temp-artifacts/
+        cp build/Release/sQeeZ-Lexer-Node.node temp-artifacts/
+
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: build-output-${{ matrix.os }} 
+        name: build-output-${{ matrix.os }}
         if-no-files-found: error
-        path: |
-          build/libsQeeZ-Lexer-Lib.a
-          build/sQeeZ-Lexer-Exe
-          build/Debug/sQeeZ-Lexer-Lib.lib
-          build/Release/sQeeZ-Lexer-Lib.lib
-          build/Release/sQeeZ-Lexer-Exe.exe
-          build/Release/sQeeZ-Lexer-Node.node
+        path: temp-artifacts/*
 
   release:
     if: github.event_name == 'push' || github.event_name == 'release'
