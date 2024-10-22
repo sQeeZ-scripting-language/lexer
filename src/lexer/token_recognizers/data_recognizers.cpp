@@ -7,7 +7,7 @@
 void DataRecognizer::extractStringLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
   std::vector<char> charList;
   bool isClosed = false;
-  int position = pos;
+  size_t position = pos;
   while (position < code.size()) {
     if (code[position] == '"' && (charList.empty() || charList.back() != '\\')) {
       isClosed = true;
@@ -17,14 +17,14 @@ void DataRecognizer::extractStringLiteral(size_t pos, const std::string& code, s
     ++position;
   }
   std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::STRING_LITERAL, static_cast<int>(charList.size()),
-                                     static_cast<int>(pos), literal, "DataToken::STRING_LITERAL", "String Literal");
+  tokenPtr = std::make_unique<Token>(DataToken::STRING_LITERAL, charList.size(), pos, literal,
+                                     "DataToken::STRING_LITERAL", "String Literal");
 }
 
 void DataRecognizer::extractCharLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
   std::vector<char> charList;
   bool isClosed = false;
-  int position = pos;
+  size_t position = pos;
   while (position < code.size()) {
     if (code[position] == '\'' && (charList.empty() || charList.back() != '\\')) {
       isClosed = true;
@@ -34,14 +34,14 @@ void DataRecognizer::extractCharLiteral(size_t pos, const std::string& code, std
     ++position;
   }
   std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::CHAR_LITERAL, static_cast<int>(charList.size()), static_cast<int>(pos),
-                                     literal, "DataToken::CHAR_LITERAL", "Character Literal");
+  tokenPtr = std::make_unique<Token>(DataToken::CHAR_LITERAL, charList.size(), pos, literal, "DataToken::CHAR_LITERAL",
+                                     "Character Literal");
 }
 
 void DataRecognizer::extractCommentLiteral(size_t pos, const std::string& code, std::unique_ptr<Token>& tokenPtr) {
   std::vector<char> charList;
   bool isClosed = false;
-  int position = pos;
+  size_t position = pos;
   while (position < code.size()) {
     if (code[position] == '\n') {
       isClosed = true;
@@ -51,41 +51,38 @@ void DataRecognizer::extractCommentLiteral(size_t pos, const std::string& code, 
     ++position;
   }
   std::string literal(charList.begin(), charList.end());
-  tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, static_cast<int>(charList.size()),
-                                     static_cast<int>(pos), literal, "DataToken::COMMENT_LITERAL", "Comment Literal");
+  tokenPtr = std::make_unique<Token>(DataToken::COMMENT_LITERAL, charList.size(), pos, literal,
+                                     "DataToken::COMMENT_LITERAL", "Comment Literal");
 }
 
 void DataRecognizer::extractHexCodeLiteral(std::string nextToken, size_t pos, const std::string& code,
                                            std::unique_ptr<Token>& tokenPtr) {
   std::regex pattern(R"(^(?:[0-9a-fA-F]{3}){1,2}$)");
   if (std::regex_match(nextToken, pattern)) {
-    tokenPtr =
-        std::make_unique<Token>(DataToken::HEX_CODE_LITERAL, static_cast<int>(nextToken.length()),
-                                static_cast<int>(pos), nextToken, "DataToken::HEX_CODE_LITERAL", "Hex Code Literal");
+    tokenPtr = std::make_unique<Token>(DataToken::HEX_CODE_LITERAL, nextToken.length(), pos, nextToken,
+                                       "DataToken::HEX_CODE_LITERAL", "Hex Code Literal");
   }
 }
 
 void DataRecognizer::getNextToken(size_t pos, std::string nextToken, std::unique_ptr<Token>& tokenPtr) {
   if (isInteger(nextToken)) {
-    tokenPtr =
-        std::make_unique<Token>(DataToken::INTEGER_LITERAL, static_cast<int>(nextToken.length()), static_cast<int>(pos),
-                                nextToken, "DataToken::INTEGER_LITERAL", "Integer Literal");
+    tokenPtr = std::make_unique<Token>(DataToken::INTEGER_LITERAL, nextToken.length(), pos, nextToken,
+                                       "DataToken::INTEGER_LITERAL", "Integer Literal");
   } else if (isDouble(nextToken)) {
-    tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, static_cast<int>(nextToken.length()),
-                                       static_cast<int>(pos), nextToken, "DataToken::DOUBLE_LITERAL", "Double Literal");
+    tokenPtr = std::make_unique<Token>(DataToken::DOUBLE_LITERAL, nextToken.length(), pos, nextToken,
+                                       "DataToken::DOUBLE_LITERAL", "Double Literal");
   } else if (isBoolean(nextToken)) {
-    tokenPtr =
-        std::make_unique<Token>(DataToken::BOOLEAN_LITERAL, static_cast<int>(nextToken.length()), static_cast<int>(pos),
-                                nextToken, "DataToken::BOOLEAN_LITERAL", "Boolean Literal");
+    tokenPtr = std::make_unique<Token>(DataToken::BOOLEAN_LITERAL, nextToken.length(), pos, nextToken,
+                                       "DataToken::BOOLEAN_LITERAL", "Boolean Literal");
   } else if (isNull(nextToken)) {
-    tokenPtr = std::make_unique<Token>(DataToken::NULL_LITERAL, static_cast<int>(nextToken.length()),
-                                       static_cast<int>(pos), nextToken, "DataToken::NULL_LITERAL", "Null Literal");
+    tokenPtr = std::make_unique<Token>(DataToken::NULL_LITERAL, nextToken.length(), pos, nextToken,
+                                       "DataToken::NULL_LITERAL", "Null Literal");
   } else if (isValidIdentifier(nextToken)) {
-    tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, static_cast<int>(nextToken.length()),
-                                       static_cast<int>(pos), nextToken, "DataToken::IDENTIFIER", "Identifier");
+    tokenPtr = std::make_unique<Token>(DataToken::IDENTIFIER, nextToken.length(), pos, nextToken,
+                                       "DataToken::IDENTIFIER", "Identifier");
   } else {
-    tokenPtr = std::make_unique<Token>(BasicToken::UNKNOWN, static_cast<int>(nextToken.length()), static_cast<int>(pos),
-                                       nextToken, "BasicToken::UNKNOWN", "Unknown Token");
+    tokenPtr = std::make_unique<Token>(BasicToken::UNKNOWN, nextToken.length(), pos, nextToken, "BasicToken::UNKNOWN",
+                                       "Unknown Token");
   }
 }
 

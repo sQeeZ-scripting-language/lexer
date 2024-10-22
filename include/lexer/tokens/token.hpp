@@ -38,13 +38,13 @@ struct Token {
     TokenType(SyntaxToken t) : syntaxToken(t) {}
   } type;
 
-  int size;
-  int pos;
+  size_t size;
+  size_t pos;
   std::string value;
   std::string plainText;
   std::string desc;
 
-  Token(BasicToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+  Token(BasicToken token, size_t size = 0, size_t pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::BASIC),
         type(token),
@@ -53,7 +53,7 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(DataToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+  Token(DataToken token, size_t size = 0, size_t pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::DATA),
         type(token),
@@ -62,7 +62,7 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(KeywordToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+  Token(KeywordToken token, size_t size = 0, size_t pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::KEYWORD),
         type(token),
@@ -71,7 +71,7 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(LogToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+  Token(LogToken token, size_t size = 0, size_t pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::LOG),
         type(token),
@@ -80,7 +80,7 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(LogicalToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+  Token(LogicalToken token, size_t size = 0, size_t pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::LOGICAL),
         type(token),
@@ -89,7 +89,7 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(OperatorToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+  Token(OperatorToken token, size_t size = 0, size_t pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::OPERATOR),
         type(token),
@@ -98,7 +98,7 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(ShortNotationToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+  Token(ShortNotationToken token, size_t size = 0, size_t pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::SHORT_NOTATION),
         type(token),
@@ -107,7 +107,7 @@ struct Token {
         value(std::move(value)),
         plainText(std::move(plainText)),
         desc(std::move(desc)) {}
-  Token(SyntaxToken token, int size = 0, int pos = 0, std::string value = "", std::string plainText = "",
+  Token(SyntaxToken token, size_t size = 0, size_t pos = 0, std::string value = "", std::string plainText = "",
         std::string desc = "")
       : tag(TypeTag::SYNTAX),
         type(token),

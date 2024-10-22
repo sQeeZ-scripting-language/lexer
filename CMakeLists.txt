@@ -12,8 +12,6 @@ project(sQeeZ-Lexer)
 
 # OS specific configurations
 if(MSVC)
-  message(FATAL_ERROR "MSVC is not supported")
-elseif(CMAKE_C_COMPILER_ID STREQUAL "GNU")
   add_definitions(-D_SQEEZ_WIN)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 elseif(APPLE)
