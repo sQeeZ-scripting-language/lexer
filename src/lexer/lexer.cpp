@@ -134,6 +134,10 @@ std::string Lexer::extractNextToken() {
       while (position < code.size() && std::isdigit(code[position])) {
         ++position;
       }
+    } else {
+      while (position < code.size() && std::isalnum(code[position])) {
+        ++position;
+      }
     }
   } else {
     while (position < code.size() && !std::isspace(code[position])) {
