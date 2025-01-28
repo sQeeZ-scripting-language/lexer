@@ -1,7 +1,7 @@
 #include "lexer/token_recognizers/operator_recognizers.hpp"
 
 void recognizeAssign(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("=") && !lexer.checkKeyword("==")) {
+  if (lexer.checkKeyword("=") && !lexer.checkKeyword("==") && !lexer.checkKeyword("=>")) {
     tokenPtr = std::make_unique<Token>(OperatorToken::ASSIGN, 1, lexer.pos, "=", "OperatorToken::ASSIGN", "Assign");
   }
 }

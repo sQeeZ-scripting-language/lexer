@@ -26,6 +26,7 @@ void recognizePipe(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizePipeOperator(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeQuestionMark(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeArrow(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeCallback(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeHashtag(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 

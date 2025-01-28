@@ -19,6 +19,7 @@ enum class SyntaxToken {
   PIPE_OPERATOR,
   QUESTION_MARK,
   ARROW,
+  CALLBACK,
   HASHTAG,
   AT
 };
