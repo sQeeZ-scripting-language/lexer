@@ -114,6 +114,12 @@ void recognizeArrow(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
+void recognizeCallback(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("=>")) {
+    tokenPtr = std::make_unique<Token>(SyntaxToken::CALLBACK, 2, lexer.pos, "=>", "SyntaxToken::CALLBACK", "Callback");
+  }
+}
+
 void recognizeHashtag(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("#")) {
     tokenPtr = std::make_unique<Token>(SyntaxToken::HASHTAG, 1, lexer.pos, "#", "SyntaxToken::HASHTAG", "Hashtag");
@@ -144,6 +150,7 @@ void registerSyntaxRecognizers(std::unordered_map<std::string, TokenRecognizer>&
   tokenRecognizers["|>"] = recognizePipeOperator;
   tokenRecognizers["?"] = recognizeQuestionMark;
   tokenRecognizers["->"] = recognizeArrow;
+  tokenRecognizers["=>"] = recognizeCallback;
   tokenRecognizers["#"] = recognizeHashtag;
   tokenRecognizers["@"] = recognizeAt;
 }

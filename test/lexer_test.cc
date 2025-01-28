@@ -244,6 +244,20 @@ TEST(LexerTest, IdentifyArrow) {
     EXPECT_EQ(tokenPtr->desc, "Arrow");
 }
 
+TEST(LexerTest, IdentifyCallback) {
+    Lexer lexer("=>");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SYNTAX);
+    EXPECT_EQ(tokenPtr->type.syntaxToken, SyntaxToken::CALLBACK);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "=>");
+    EXPECT_EQ(tokenPtr->plainText, "SyntaxToken::CALLBACK");
+    EXPECT_EQ(tokenPtr->desc, "Callback");
+}
+
 TEST(LexerTest, IdentifyHashtag) {
     Lexer lexer("#");
     std::unique_ptr<Token> tokenPtr;
