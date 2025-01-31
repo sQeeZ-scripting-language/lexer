@@ -1,6 +1,61 @@
 #ifndef SHORT_NOTATION_TOKEN_HPP
 #define SHORT_NOTATION_TOKEN_HPP
 
-enum class ShortNotationToken { MAP, FILTER, REDUCE, CONCAT, ZIP, JOIN, FIND, COUNT, SORT, REVERSE };
+enum class ShortNotationToken {
+  // General
+  LENGTH,
+  CONCAT,
+  INCLUDES,
+  INDEX_OF,
+  LAST_INDEX_OF,
+  SLICE,
+  // Array
+  PUSH,
+  POP,
+  SHIFT,
+  UNSHIFT,
+  SPLICE,
+  REVERSE,
+  SORT,
+  FILL,
+  JOIN,
+  EVERY,
+  SOME,
+  FIND,
+  FIND_INDEX,
+  FIND_LAST,
+  FIND_LAST_INDEX,
+  FILTER,
+  MAP,
+  REDUCE,
+  FLAT,
+  FLAT_MAP,
+  FOR_EACH,
+  // Object
+  HAS_KEY,
+  KEYS,
+  VALUES,
+  ENTRIES,
+  GET,
+  // String
+  CHAR_AT,
+  CHAR_CODE_AT,
+  MATCH,
+  MATCH_ALL,
+  PAD_END,
+  PAD_START,
+  REPEAT,
+  REPLACE,
+  REPLACE_ALL,
+  SPLIT,
+  STARTS_WITH,
+  ENDS_WITH,
+  SUBSTRING,
+  LOWERCASE,
+  UPPERCASE,
+  TRIM,
+  TRIM_END,
+  TRIM_START
+};
 
 #endif  // SHORT_NOTATION_TOKEN_HPP
