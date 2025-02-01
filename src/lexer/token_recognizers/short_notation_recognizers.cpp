@@ -171,7 +171,7 @@ void recognizeReduce(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 }
 
 void recognizeFlat(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("FLAT") && !lexer.followedByAlpha("FLAT")) {
+  if (lexer.checkKeyword("FLAT") && !lexer.checkKeyword("FLAT_MAP") && !lexer.followedByAlpha("FLAT")) {
     tokenPtr = std::make_unique<Token>(ShortNotationToken::FLAT, 4, lexer.pos, "FLAT", "ShortNotationToken::FLAT",
                                        "Flat function");
   }
