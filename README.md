@@ -343,15 +343,57 @@ This enum class provides predefined function tokens that represent commonly used
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
-| `MAP` | 3 | MAP | Applies a function to every element in a list and returns a new list with the results. |
-| `FILTER` | 6 | FILTER | Returns a new list with elements that pass a condition from the provided function. |
-| `REDUCE` | 6 | REDUCE | Applies a function to each element and accumulates the result into a single value. |
-| `CONCAT` | 6 | CONCAT | Combines multiple lists into a single list by appending one after the other. |
-| `ZIP` | 3 | ZIP | Combines two or more lists into a list of tuples. |
-| `JOIN` | 4 | JOIN | Combines elements of a list into a single string with a separator. |
-| `FIND` | 4 | FIND | Returns the first element in a list that matches a condition. |
-| `COUNT` | 5 | COUNT | Returns the number of elements in a list that satisfy a condition. |
-| `SORT` | 4 | SORT | Returns a new list with elements sorted according to a provided comparator function. |
-| `REVERSE` | 7 | REVERSE | Returns a new list with the elements in reverse order. |
+| **Token**            | **Size** | **Value**         | **Description**                                      |
+|----------------------|--------|-----------------|--------------------------------------------------|
+| `LENGTH` | 6 | LENGTH | Returns the length of an array or string. |
+| `CONCAT` | 6 | CONCAT | Concatenates multiple arrays or strings together. |
+| `INCLUDES` | 8 | INCLUDES | Checks if an array or string contains a value. |
+| `INDEX_OF` | 8 | INDEX_OF | Finds the first index of a value. |
+| `LAST_INDEX_OF` | 13 | LAST_INDEX_OF | Finds the last index of a value. |
+| `SLICE` | 5 | SLICE | Extracts part of an array or string. |
+| `PUSH` | 4 | PUSH | Adds elements to the end of an array. |
+| `POP` | 3 | POP | Removes the last element from an array. |
+| `SHIFT` | 5 | SHIFT | Removes the first element from an array. |
+| `UNSHIFT` | 7 | UNSHIFT | Adds elements to the beginning of an array. |
+| `SPLICE` | 6 | SPLICE | Adds/removes elements in an array at a position. |
+| `REVERSE` | 7 | REVERSE | Reverses the elements of an array. |
+| `SORT` | 4 | SORT | Sorts the elements of an array. |
+| `FILL` | 4 | FILL | Fills an array with a static value. |
+| `JOIN` | 4 | JOIN | Joins all elements of an array into a string. |
+| `EVERY` | 5 | EVERY | Checks if all elements satisfy a condition. |
+| `SOME` | 4 | SOME | Checks if at least one element satisfies a condition. |
+| `FIND` | 4 | FIND | Returns the first element matching a condition. |
+| `FIND_INDEX` | 10 | FIND_INDEX | Returns the index of the first matching element. |
+| `FIND_LAST` | 9 | FIND_LAST | Returns the last element matching a condition. |
+| `FIND_LAST_INDEX` | 15 | FIND_LAST_INDEX | Returns the index of the last matching element. |
+| `FILTER` | 6 | FILTER | Creates a new array with matching elements. |
+| `MAP` | 3 | MAP | Creates a new array by applying a function. |
+| `REDUCE` | 6 | REDUCE | Reduces an array to a single value. |
+| `FLAT` | 4 | FLAT | Flattens nested arrays into a single array. |
+| `FLAT_MAP` | 8 | FLAT_MAP | Maps and flattens the result into a new array. |
+| `FOR_EACH` | 8 | FOR_EACH | Executes a function for each element. |
+| `HAS_KEY` | 7 | HAS_KEY | Checks if an object has a specific key. |
+| `KEYS` | 4 | KEYS | Returns an array of an object's keys. |
+| `VALUES` | 6 | VALUES | Returns an array of an object's values. |
+| `ENTRIES` | 7 | ENTRIES | Returns key-value pairs of an object. |
+| `GET` | 3 | GET | Retrieves a value from an object. |
+| `CHAR_AT` | 7 | CHAR_AT | Returns a character at a specific position. |
+| `CHAR_CODE_AT` | 12 | CHAR_CODE_AT | Returns the Unicode code of a character. |
+| `MATCH` | 5 | MATCH | Searches a string using a regex pattern. |
+| `MATCH_ALL` | 9 | MATCH_ALL | Returns all matches of a regex in a string. |
+| `PAD_END` | 7 | PAD_END | Pads a string at the end with characters. |
+| `PAD_START` | 9 | PAD_START | Pads a string at the beginning with characters. |
+| `REPEAT` | 6 | REPEAT | Repeats a string multiple times. |
+| `REPLACE` | 7 | REPLACE | Replaces part of a string with another string. |
+| `REPLACE_ALL` | 11 | REPLACE_ALL | Replaces all occurrences of a pattern. |
+| `SPLIT` | 5 | SPLIT | Splits a string into an array. |
+| `STARTS_WITH` | 11 | STARTS_WITH | Checks if a string starts with a substring. |
+| `ENDS_WITH` | 9 | ENDS_WITH | Checks if a string ends with a substring. |
+| `SUBSTRING` | 9 | SUBSTRING | Extracts part of a string. |
+| `LOWERCASE` | 9 | LOWERCASE | Converts a string to lowercase. |
+| `UPPERCASE` | 9 | UPPERCASE | Converts a string to uppercase. |
+| `TRIM` | 4 | TRIM | Removes whitespace from both ends of a string. |
+| `TRIM_END` | 8 | TRIM_END | Removes trailing whitespace from a string. |
+| `TRIM_START` | 10 | TRIM_START | Removes leading whitespace from a string. |
 
 [Back to Top](#sqeez-lexer)
