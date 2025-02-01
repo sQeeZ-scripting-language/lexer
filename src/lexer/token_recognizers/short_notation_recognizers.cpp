@@ -105,6 +105,13 @@ void recognizeJoin(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
+void recognizeCount(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("COUNT") && !lexer.followedByAlpha("COUNT")) {
+    tokenPtr = std::make_unique<Token>(ShortNotationToken::COUNT, 5, lexer.pos, "COUNT", "ShortNotationToken::COUNT",
+                                       "Count function");
+  }
+}
+
 void recognizeEvery(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("EVERY") && !lexer.followedByAlpha("EVERY")) {
     tokenPtr = std::make_unique<Token>(ShortNotationToken::EVERY, 5, lexer.pos, "EVERY", "ShortNotationToken::EVERY",
@@ -369,6 +376,7 @@ void registerShortNotationRecognizers(std::unordered_map<std::string, TokenRecog
   tokenRecognizers["SORT"] = recognizeSort;
   tokenRecognizers["FILL"] = recognizeFill;
   tokenRecognizers["JOIN"] = recognizeJoin;
+  tokenRecognizers["COUNT"] = recognizeCount;
   tokenRecognizers["EVERY"] = recognizeEvery;
   tokenRecognizers["SOME"] = recognizeSome;
   tokenRecognizers["FIND"] = recognizeFind;

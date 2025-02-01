@@ -343,8 +343,6 @@ This enum class provides predefined function tokens that represent commonly used
 
 | **Token** | **Size** | **Value** | **Description** |
 | --- | --- | --- | --- |
-| **Token**            | **Size** | **Value**         | **Description**                                      |
-|----------------------|--------|-----------------|--------------------------------------------------|
 | `LENGTH` | 6 | LENGTH | Returns the length of an array or string. |
 | `CONCAT` | 6 | CONCAT | Concatenates multiple arrays or strings together. |
 | `INCLUDES` | 8 | INCLUDES | Checks if an array or string contains a value. |
@@ -360,6 +358,7 @@ This enum class provides predefined function tokens that represent commonly used
 | `SORT` | 4 | SORT | Sorts the elements of an array. |
 | `FILL` | 4 | FILL | Fills an array with a static value. |
 | `JOIN` | 4 | JOIN | Joins all elements of an array into a string. |
+| `COUNT` | 5 | COUNT | Returns the number of elements matching a condition. |
 | `EVERY` | 5 | EVERY | Checks if all elements satisfy a condition. |
 | `SOME` | 4 | SOME | Checks if at least one element satisfies a condition. |
 | `FIND` | 4 | FIND | Returns the first element matching a condition. |

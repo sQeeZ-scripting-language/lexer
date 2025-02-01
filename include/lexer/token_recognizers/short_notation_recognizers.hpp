@@ -24,6 +24,7 @@ void recognizeReverse(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeSort(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeFill(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeJoin(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizeCount(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeEvery(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeSome(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeFind(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);

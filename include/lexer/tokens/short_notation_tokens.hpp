@@ -19,6 +19,7 @@ enum class ShortNotationToken {
   SORT,
   FILL,
   JOIN,
+  COUNT,
   EVERY,
   SOME,
   FIND,

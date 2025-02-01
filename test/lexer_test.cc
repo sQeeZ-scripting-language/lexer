@@ -1001,6 +1001,20 @@ TEST(LexerTest, IdentifyJoin) {
     EXPECT_EQ(tokenPtr->desc, "Join function");
 }
 
+TEST(LexerTest, IdentifyCount) {
+    Lexer lexer("COUNT");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
+    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::COUNT);
+    EXPECT_EQ(tokenPtr->size, 5);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "COUNT");
+    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::COUNT");
+    EXPECT_EQ(tokenPtr->desc, "Count function");
+}
+
 TEST(LexerTest, IdentifyEvery) {
     Lexer lexer("EVERY");
     std::unique_ptr<Token> tokenPtr;
