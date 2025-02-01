@@ -40,6 +40,13 @@ void recognizeModulus(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
+void recognizePotentiation(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("**") && !lexer.checkKeyword("**=")) {
+    tokenPtr = std::make_unique<Token>(OperatorToken::POTENTIATION, 2, lexer.pos, "**", "OperatorToken::POTENTIATION",
+                                       "Potentiation");
+  }
+}
+
 void recognizeAdditionAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("+=")) {
     tokenPtr = std::make_unique<Token>(OperatorToken::ADDITION_ASSIGNMENT, 2, lexer.pos,
@@ -75,6 +82,13 @@ void recognizeModulusAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) 
   }
 }
 
+void recognizePotentiationAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
+  if (lexer.checkKeyword("**=")) {
+    tokenPtr = std::make_unique<Token>(OperatorToken::POTENTIATION_ASSIGNMENT, 3, lexer.pos,
+                                       "**=", "OperatorToken::POTENTIATION_ASSIGNMENT", "Potentiation Assignment");
+  }
+}
+
 void recognizeIncrement(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("++")) {
     tokenPtr =
@@ -89,13 +103,6 @@ void recognizeDecrement(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
-void recognizePotentiation(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("**")) {
-    tokenPtr = std::make_unique<Token>(OperatorToken::POTENTIATION, 2, lexer.pos, "**", "OperatorToken::POTENTIATION",
-                                       "Potentiation");
-  }
-}
-
 void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers) {
   tokenRecognizers["="] = recognizeAssign;
   tokenRecognizers["+"] = recognizeAddition;
@@ -103,12 +110,13 @@ void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer
   tokenRecognizers["*"] = recognizeMultiplication;
   tokenRecognizers["/"] = recognizeDivision;
   tokenRecognizers["%"] = recognizeModulus;
+  tokenRecognizers["**"] = recognizePotentiation;
   tokenRecognizers["+="] = recognizeAdditionAssignment;
   tokenRecognizers["-="] = recognizeSubtractionAssignment;
   tokenRecognizers["*="] = recognizeMultiplicationAssignment;
   tokenRecognizers["/="] = recognizeDivisionAssignment;
   tokenRecognizers["%="] = recognizeModulusAssignment;
+  tokenRecognizers["**="] = recognizePotentiationAssignment;
   tokenRecognizers["++"] = recognizeIncrement;
   tokenRecognizers["--"] = recognizeDecrement;
-  tokenRecognizers["**"] = recognizePotentiation;
 }

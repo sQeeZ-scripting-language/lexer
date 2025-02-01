@@ -15,14 +15,15 @@ void recognizeSubtraction(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeMultiplication(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeDivision(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeModulus(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizePotentiation(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeAdditionAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeSubtractionAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeMultiplicationAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeDivisionAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeModulusAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
+void recognizePotentiationAssignment(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeIncrement(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeDecrement(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
-void recognizePotentiation(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 
 void registerOperatorRecognizers(std::unordered_map<std::string, TokenRecognizer>& tokenRecognizers);
 

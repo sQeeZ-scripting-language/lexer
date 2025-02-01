@@ -546,6 +546,20 @@ TEST(LexerTest, IdentifyModulus) {
     EXPECT_EQ(tokenPtr->desc, "Modulus");
 }
 
+TEST(LexerTest, IdentifyPotentiation) {
+    Lexer lexer("**");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::POTENTIATION);
+    EXPECT_EQ(tokenPtr->size, 2);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "**");
+    EXPECT_EQ(tokenPtr->plainText, "OperatorToken::POTENTIATION");
+    EXPECT_EQ(tokenPtr->desc, "Potentiation");
+}
+
 TEST(LexerTest, IdentifyAdditionAssignment) {
     Lexer lexer("+=");
     std::unique_ptr<Token> tokenPtr;
@@ -616,6 +630,20 @@ TEST(LexerTest, IdentifyModulusAssignment) {
     EXPECT_EQ(tokenPtr->desc, "Modulus Assignment");
 }
 
+TEST(LexerTest, IdentifyPotentiationAssignment) {
+    Lexer lexer("**=");
+    std::unique_ptr<Token> tokenPtr;
+    lexer.getNextToken(tokenPtr);
+
+    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
+    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::POTENTIATION_ASSIGNMENT);
+    EXPECT_EQ(tokenPtr->size, 3);
+    EXPECT_EQ(tokenPtr->pos, 0);
+    EXPECT_EQ(tokenPtr->value, "**=");
+    EXPECT_EQ(tokenPtr->plainText, "OperatorToken::POTENTIATION_ASSIGNMENT");
+    EXPECT_EQ(tokenPtr->desc, "Potentiation Assignment");
+}
+
 TEST(LexerTest, IdentifyIncrement) {
     Lexer lexer("++");
     std::unique_ptr<Token> tokenPtr;
@@ -642,20 +670,6 @@ TEST(LexerTest, IdentifyDecrement) {
     EXPECT_EQ(tokenPtr->value, "--");
     EXPECT_EQ(tokenPtr->plainText, "OperatorToken::DECREMENT");
     EXPECT_EQ(tokenPtr->desc, "Decrement");
-}
-
-TEST(LexerTest, IdentifyPotentiation) {
-    Lexer lexer("**");
-    std::unique_ptr<Token> tokenPtr;
-    lexer.getNextToken(tokenPtr);
-
-    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::OPERATOR);
-    EXPECT_EQ(tokenPtr->type.operatorToken, OperatorToken::POTENTIATION);
-    EXPECT_EQ(tokenPtr->size, 2);
-    EXPECT_EQ(tokenPtr->pos, 0);
-    EXPECT_EQ(tokenPtr->value, "**");
-    EXPECT_EQ(tokenPtr->plainText, "OperatorToken::POTENTIATION");
-    EXPECT_EQ(tokenPtr->desc, "Potentiation");
 }
 
 /*

@@ -289,14 +289,15 @@ This enum class categorizes various operators used in the sQeeZ language for mat
 | `MULTIPLICATION` | 1 | * | Multiplication operator |
 | `DIVISION` | 1 | / | Division operator |
 | `MODULUS` | 1 | % | Modulus operator |
+| `POTENTIATION` | 2 | ** | Potentiation operator (Exponentiation) |
 | `ADDITION_ASSIGNMENT` | 2 | += | Addition Assignment operator (Adds and Assigns) |
 | `SUBTRACTION_ASSIGNMENT` | 2 | -= | Subtraction Assignment operator (Subtracts and Assigns) |
 | `MULTIPLICATION_ASSIGNMENT` | 2 | *= | Multiplication Assignment operator (Multiplies and Assigns) |
 | `DIVISION_ASSIGNMENT` | 2 | /= | Division Assignment operator (Divides and Assigns) |
 | `MODULUS_ASSIGNMENT` | 2 | %= | Modulus Assignment operator (Modulus and Assigns) |
+| `POTENTIATION_ASSIGNMENT` | 3 | **= | Potentiation Assignment operator (Potentiation and Assigns) |
 | `INCREMENT` | 2 | ++ | Increment operator (Increases value by 1) |
 | `DECREMENT` | 2 | -- | Decrement operator (Decreases value by 1) |
-| `POTENTIATION` | 2 | ** | Potentiation operator (Exponentiation) |
 
 ## Logical Tokens
 This enum class categorizes logical operators used in conditional expressions within the sQeeZ language. These tokens facilitate the creation of complex logical conditions by providing various operators for equality checks, comparisons, and logical operations.
