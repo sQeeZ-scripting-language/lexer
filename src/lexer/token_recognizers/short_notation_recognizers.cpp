@@ -241,7 +241,7 @@ void recognizeCharCodeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 }
 
 void recognizeMatch(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("MATCH") && !lexer.followedByAlpha("MATCH")) {
+  if (lexer.checkKeyword("MATCH") && !lexer.checkKeyword("MATCH_ALL") && !lexer.followedByAlpha("MATCH")) {
     tokenPtr = std::make_unique<Token>(ShortNotationToken::MATCH, 5, lexer.pos, "MATCH", "ShortNotationToken::MATCH",
                                        "Match function");
   }
@@ -276,7 +276,7 @@ void recognizeRepeat(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
 }
 
 void recognizeReplace(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("REPLACE") && !lexer.followedByAlpha("REPLACE")) {
+  if (lexer.checkKeyword("REPLACE") && !lexer.checkKeyword("REPLACE_ALL") && !lexer.followedByAlpha("REPLACE")) {
     tokenPtr = std::make_unique<Token>(ShortNotationToken::REPLACE, 7, lexer.pos, "REPLACE",
                                        "ShortNotationToken::REPLACE", "Replace function");
   }
