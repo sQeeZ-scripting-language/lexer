@@ -17,6 +17,7 @@ if(MSVC)
   set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
   set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
   set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+  set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 elseif(APPLE)
   add_definitions(-D_SQEEZ_MAC)
   set(CMAKE_OSX_ARCHITECTURES "arm64")
@@ -88,6 +89,7 @@ add_library(
   ${HEADERS}
 )
 target_compile_options(sQeeZ-Lexer-Lib PRIVATE -fPIC)
+set_target_properties(sQeeZ-Lexer-Lib PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 # Create the Executable
 add_executable(
