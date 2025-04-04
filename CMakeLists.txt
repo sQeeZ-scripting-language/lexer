@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_STANDARD_REQUIRED True)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=1)
 
 # Set the project name
@@ -86,6 +87,7 @@ add_library(
   ${SOURCES} 
   ${HEADERS}
 )
+target_compile_options(sQeeZ-Lexer-Lib PRIVATE -fPIC)
 
 # Create the Executable
 add_executable(
