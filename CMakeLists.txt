@@ -128,6 +128,8 @@ if(${NODE})
   target_link_libraries(
     sQeeZ-Lexer-Node 
     ${CMAKE_JS_LIB}
-    sQeeZ-Lexer-Lib
   )
+  if(MSVC)
+    set_target_properties(sQeeZ-Lexer-Node PROPERTIES WINDOWS_EXPORT_ALL_SYMBOLS ON)
+  endif()
 endif()
