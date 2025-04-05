@@ -82,32 +82,19 @@ file(GLOB_RECURSE HEADERS
 )
 
 # Create the Library
-add_library(
-  sQeeZ-Lexer-Lib 
-  STATIC 
-  ${SOURCES} 
-  ${HEADERS}
-)
+add_library(sQeeZ-Lexer-Lib STATIC ${SOURCES} ${HEADERS})
 target_compile_options(sQeeZ-Lexer-Lib PRIVATE -fPIC)
 set_target_properties(sQeeZ-Lexer-Lib PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 # Create the Executable
-add_executable(
-  sQeeZ-Lexer-Exe
-  ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp
-)
-target_link_libraries(
-  sQeeZ-Lexer-Exe 
+add_executable(sQeeZ-Lexer-Exe ${CMAKE_CURRENT_SOURCE_DIR}/src/main.cpp)
+target_link_libraries(sQeeZ-Lexer-Exe 
   sQeeZ-Lexer-Lib
 )
 
 # Lexer Test
-add_executable(
-  lexer_test 
-  ${CMAKE_CURRENT_SOURCE_DIR}/test/lexer_test.cc
-)
-target_link_libraries(
-  lexer_test
+add_executable(lexer_test ${CMAKE_CURRENT_SOURCE_DIR}/test/lexer_test.cc)
+target_link_libraries(lexer_test
   GTest::gtest_main
   sQeeZ-Lexer-Lib
 )
@@ -115,18 +102,9 @@ gtest_discover_tests(lexer_test)
 
 # Create the NodeJS module
 if(${NODE})
-  add_library(
-    sQeeZ-Lexer-Node 
-    SHARED 
-    ${SOURCES} 
-    ${HEADERS}
-  )
-  set_target_properties(
-    sQeeZ-Lexer-Node 
-    PROPERTIES PREFIX "" SUFFIX ".node"
-  )
-  target_link_libraries(
-    sQeeZ-Lexer-Node 
+  add_library(sQeeZ-Lexer-Node SHARED ${SOURCES} ${HEADERS})
+  set_target_properties(sQeeZ-Lexer-Node PROPERTIES PREFIX "" SUFFIX ".node")
+  target_link_libraries(sQeeZ-Lexer-Node 
     ${CMAKE_JS_LIB}
   )
   if(MSVC)
