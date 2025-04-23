@@ -247,20 +247,6 @@ void recognizeCharCodeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   }
 }
 
-void recognizeMatch(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("MATCH") && !lexer.checkKeyword("MATCH_ALL") && !lexer.followedByAlpha("MATCH")) {
-    tokenPtr = std::make_unique<Token>(ShortNotationToken::MATCH, 5, lexer.pos, "MATCH", "ShortNotationToken::MATCH",
-                                       "Match function");
-  }
-}
-
-void recognizeMatchAll(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
-  if (lexer.checkKeyword("MATCH_ALL") && !lexer.followedByAlpha("MATCH_ALL")) {
-    tokenPtr = std::make_unique<Token>(ShortNotationToken::MATCH_ALL, 9, lexer.pos, "MATCH_ALL",
-                                       "ShortNotationToken::MATCH_ALL", "Match all function");
-  }
-}
-
 void recognizePadEnd(Lexer& lexer, std::unique_ptr<Token>& tokenPtr) {
   if (lexer.checkKeyword("PAD_END") && !lexer.followedByAlpha("PAD_END")) {
     tokenPtr = std::make_unique<Token>(ShortNotationToken::PAD_END, 7, lexer.pos, "PAD_END",
@@ -396,8 +382,6 @@ void registerShortNotationRecognizers(std::unordered_map<std::string, TokenRecog
   tokenRecognizers["GET"] = recognizeGet;
   tokenRecognizers["CHAR_AT"] = recognizeCharAt;
   tokenRecognizers["CHAR_CODE_AT"] = recognizeCharCodeAt;
-  tokenRecognizers["MATCH"] = recognizeMatch;
-  tokenRecognizers["MATCH_ALL"] = recognizeMatchAll;
   tokenRecognizers["PAD_END"] = recognizePadEnd;
   tokenRecognizers["PAD_START"] = recognizePadStart;
   tokenRecognizers["REPEAT"] = recognizeRepeat;

@@ -1295,34 +1295,6 @@ TEST(LexerTest, IdentifyCharCodeAt) {
     EXPECT_EQ(tokenPtr->desc, "Char code at function");
 }
 
-TEST(LexerTest, IdentifyMatch) {
-    Lexer lexer("MATCH");
-    std::unique_ptr<Token> tokenPtr;
-    lexer.getNextToken(tokenPtr);
-
-    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
-    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::MATCH);
-    EXPECT_EQ(tokenPtr->size, 5);
-    EXPECT_EQ(tokenPtr->pos, 0);
-    EXPECT_EQ(tokenPtr->value, "MATCH");
-    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::MATCH");
-    EXPECT_EQ(tokenPtr->desc, "Match function");
-}
-
-TEST(LexerTest, IdentifyMatchAll) {
-    Lexer lexer("MATCH_ALL");
-    std::unique_ptr<Token> tokenPtr;
-    lexer.getNextToken(tokenPtr);
-
-    EXPECT_EQ(tokenPtr->tag, Token::TypeTag::SHORT_NOTATION);
-    EXPECT_EQ(tokenPtr->type.shortNotationToken, ShortNotationToken::MATCH_ALL);
-    EXPECT_EQ(tokenPtr->size, 9);
-    EXPECT_EQ(tokenPtr->pos, 0);
-    EXPECT_EQ(tokenPtr->value, "MATCH_ALL");
-    EXPECT_EQ(tokenPtr->plainText, "ShortNotationToken::MATCH_ALL");
-    EXPECT_EQ(tokenPtr->desc, "Match all function");
-}
-
 TEST(LexerTest, IdentifyPadEnd) {
     Lexer lexer("PAD_END");
     std::unique_ptr<Token> tokenPtr;

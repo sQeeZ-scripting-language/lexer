@@ -44,8 +44,6 @@ void recognizeEntries(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeGet(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeCharAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeCharCodeAt(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
-void recognizeMatch(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
-void recognizeMatchAll(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizePadEnd(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizePadStart(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
 void recognizeRepeat(Lexer& lexer, std::unique_ptr<Token>& tokenPtr);
