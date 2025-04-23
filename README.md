@@ -379,8 +379,6 @@ This enum class provides predefined function tokens that represent commonly used
 | `GET` | 3 | GET | Retrieves a value from an object. |
 | `CHAR_AT` | 7 | CHAR_AT | Returns a character at a specific position. |
 | `CHAR_CODE_AT` | 12 | CHAR_CODE_AT | Returns the Unicode code of a character. |
-| `MATCH` | 5 | MATCH | Searches a string using a regex pattern. |
-| `MATCH_ALL` | 9 | MATCH_ALL | Returns all matches of a regex in a string. |
 | `PAD_END` | 7 | PAD_END | Pads a string at the end with characters. |
 | `PAD_START` | 9 | PAD_START | Pads a string at the beginning with characters. |
 | `REPEAT` | 6 | REPEAT | Repeats a string multiple times. |

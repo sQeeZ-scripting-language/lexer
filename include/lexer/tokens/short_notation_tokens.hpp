@@ -41,8 +41,6 @@ enum class ShortNotationToken {
   // String
   CHAR_AT,
   CHAR_CODE_AT,
-  MATCH,
-  MATCH_ALL,
   PAD_END,
   PAD_START,
   REPEAT,
